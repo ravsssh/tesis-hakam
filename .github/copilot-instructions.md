@@ -33,8 +33,9 @@ This is a **financial/economic research thesis project** predicting the Indonesi
 - **Data files**:
   - `dataset/ihsg_daily.csv` (IHSG daily data)
   - `dataset/STI.csv`, `dataset/Coal.csv`, `dataset/Copper.csv`, `dataset/Silver.csv`, `dataset/Tin.csv`, `dataset/Nickel.csv`
-- **Framework**: `darts.models.RandomForestModel` with GridSearch/Optuna tuning
+- **Framework**: `darts.models.RandomForestModel` with Optuna tuning
 - **Benchmark**: XGBoost model for comparison
+- **Critical Fix**: Uses only actual trading days (no forward-filling)
 - **Notebook**: `model-2.ipynb`
 
 ## Key Findings from Model 1
@@ -87,22 +88,42 @@ from optuna.samplers import TPESampler
 
 # 1. Convert pandas to darts TimeSeries with proper frequency
 df_ts = df_clean.set_index('Date')
-df_ts = df_ts.asfreq('ME')  # Month-End for monthly, 'D' for daily
 
+# MODEL 1 (Monthly): Safe to use asfreq
+df_ts = df_ts.asfreq('ME')  # Month-End frequency for monthly data
+
+# MODEL 2 (Daily): DO NOT use asfreq or ffill
+# df_ts = df.set_index('Date')  # Use as-is, no reindexing
+
+# MODEL 1: Monthly macroeconomic data
 target_series = TimeSeries.from_dataframe(
     df_ts,
     value_cols='IHSG',
-    fill_missing_dates=True,
-    freq='ME'  # or 'D' for daily
+    fill_missing_dates=True,  # OK for monthly
+    freq='ME'
 )
 
 covariates = TimeSeries.from_dataframe(
     df_ts,
-    value_cols=['Inflation_YoY', 'M2_YoY', 'USDIDR', 'BI_Rate', 'NPL_Ratio'],  # Model 1
-    # value_cols=['STI', 'Coal', 'Copper', 'Silver', 'Tin', 'Nickel'],  # Model 2
-    fill_missing_dates=True,
+    value_cols=['Inflation_YoY', 'M2_YoY', 'USDIDR', 'BI_Rate', 'NPL_Ratio'],
+    fill_missing_dates=True,  # OK for monthly
     freq='ME'
 )
+
+# MODEL 2: Daily multi-market data (CORRECTED)
+# target_series = TimeSeries.from_dataframe(
+#     df_ts,
+#     value_cols='IHSG',
+#     fill_missing_dates=False,  # Only actual trading days
+#     freq=None  # Infer from data
+# )
+#
+# covariates = TimeSeries.from_dataframe(
+#     df_ts,
+#     value_cols=['STI', 'Coal', 'Copper', 'Silver', 'Tin', 'Nickel'],
+#     fill_missing_dates=False,  # Only actual trading days
+#     freq=None  # Infer from data
+# )
 
 # 2. Scale data (MinMaxScaler for better performance)
 scaler_target = Scaler(scaler=MinMaxScaler())
@@ -450,9 +471,9 @@ train, test = target_scaled.split_after(0.8)
 ```
 
 ### Frequency Settings for TimeSeries
-- **Monthly data**: Use `freq='ME'` (Month-End)
-- **Daily data**: Use `freq='D'`
-- Always set frequency explicitly with `df.asfreq()` before creating TimeSeries
+- **Monthly data**: Use `freq='ME'` (Month-End) with `asfreq('ME')` safe for monthly data
+- **Daily data**: ⚠️ **DO NOT** use `asfreq('B')` + `ffill()` - see critical issue below
+- For daily financial data: Use `freq=None` and `fill_missing_dates=False`
 
 ### 1-Step-Ahead vs Multi-Step Forecasting
 Both models use **1-step-ahead forecasting** with `historical_forecasts`:
@@ -469,6 +490,47 @@ Both models use **1-step-ahead forecasting** with `historical_forecasts`:
 - Extract underlying sklearn model: `final_model.model.estimators_[0]`
 - Reconstruct lagged features manually for SHAP input
 - Aggregate SHAP values across lags to get variable-level importance
+
+### ⚠️ CRITICAL: Forward-Filling Issue in Daily Data (Model 2)
+
+**Problem:** Using `asfreq('B')` + `ffill()` on daily financial data causes **identical predictions** for consecutive days.
+
+**Root Cause:**
+```python
+# ❌ WRONG - Creates artificial data points
+df_ts = df.asfreq('B')  # Adds missing business days (weekends, holidays)
+df_ts = df_ts.ffill()   # Forward fills: all covariates = last known values
+```
+
+**What Happens:**
+- Dec 22 (Fri): Real data → Model predicts based on actual STI, Coal, Copper, etc.
+- Dec 25-29 (Mon-Fri): No trading data → `ffill()` copies Dec 22 values for **all** covariates
+- Model sees **identical input features** → produces **identical predictions** (e.g., all = 7151.29)
+- Results: 50+ consecutive days with same prediction value
+
+**Impact:**
+- Artificially inflated metrics (MAPE appears better than reality)
+- Predictions have no value (just repeating last prediction)
+- Violates fundamental assumption: each prediction should use unique information
+
+**Solution:**
+```python
+# ✅ CORRECT - Use only actual trading days
+df_ts = df.set_index('Date')
+# DO NOT reindex or forward fill
+
+target_series = TimeSeries.from_dataframe(
+    df_ts,
+    value_cols='IHSG',
+    fill_missing_dates=False,  # Only use actual dates
+    freq=None  # Infer from data
+)
+```
+
+**Key Takeaway:** For multi-market daily data (IHSG + STI + commodities), only predict on days where **all markets traded**. This is:
+- More realistic (you can only trade when markets are open)
+- Methodologically sound (no artificial data)
+- Produces meaningful metrics (true forecasting ability)
 
 ## Notebooks Workflow (Model 1 & 2 Standard Pipeline)
 
