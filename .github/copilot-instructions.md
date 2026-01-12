@@ -184,7 +184,6 @@ def objective(trial):
             past_covariates=cov_scaled,
             start=test_target_scaled.start_time(),
             forecast_horizon=1,
-            stride=1,
             retrain=False,
             verbose=False
         )
@@ -221,7 +220,6 @@ predictions_scaled = final_model.historical_forecasts(
     past_covariates=cov_scaled,
     start=test_target_scaled.start_time(),
     forecast_horizon=1,  # 1-step-ahead
-    stride=1,            # Move 1 step each time
     retrain=False,
     verbose=True
 )
@@ -286,7 +284,6 @@ def xgb_objective(trial):
             past_covariates=cov_scaled,
             start=test_target_scaled.start_time(),
             forecast_horizon=1,
-            stride=1,
             retrain=False,
             verbose=False
         )
@@ -479,7 +476,7 @@ train, test = target_scaled.split_after(0.8)
 ### 1-Step-Ahead vs Multi-Step Forecasting
 Both models use **1-step-ahead forecasting** with `historical_forecasts`:
 - `forecast_horizon=1`: Predict next month/day only
-- `stride=1`: Move forward one step at a time
+- `stride`: Omitted (Darts automatically moves to next available data point - critical for irregular time series)
 - `retrain=False`: Use trained model without retraining (faster, realistic deployment)
 
 ### Optuna vs GridSearch
@@ -537,6 +534,50 @@ target_series = TimeSeries.from_dataframe(
 - More realistic (you can only trade when markets are open)
 - Methodologically sound (no artificial data)
 - Produces meaningful metrics (true forecasting ability)
+
+### ⚠️ CRITICAL: stride=1 with Irregular Daily Data (Model 2)
+
+**Problem:** Using `stride=1` with `freq='D'` and irregular trading days causes **"Input y contains NaN" errors**.
+
+**Root Cause:**
+```python
+# ❌ WRONG - stride=1 tries to predict for ALL calendar days
+backtest_pred = model.historical_forecasts(
+    series=target_scaled,        # Has gaps for weekends/holidays
+    past_covariates=cov_scaled,
+    start=test_target_scaled.start_time(),
+    forecast_horizon=1,
+    stride=1,  # ← Moves 1 CALENDAR DAY, not 1 DATA POINT
+    retrain=False
+)
+```
+
+**What Happens:**
+- TimeSeries contains only trading days: [Mon Dec 18, Tue Dec 19, Wed Dec 20, Fri Dec 22, Mon Dec 25]
+- `stride=1` with `freq='D'` moves 1 **calendar day** at a time
+- Tries to predict for Thu Dec 21 (holiday) → **NaN error** (no data exists)
+- Tries to predict for Sat/Sun (weekends) → **NaN error** (no data exists)
+
+**Solution:**
+```python
+# ✅ CORRECT - Let Darts auto-stride to next available data point
+backtest_pred = model.historical_forecasts(
+    series=target_scaled,
+    past_covariates=cov_scaled,
+    start=test_target_scaled.start_time(),
+    forecast_horizon=1,
+    # stride omitted - Darts moves to next available timestamp
+    retrain=False
+)
+```
+
+**Why it works:**
+- Without explicit stride, Darts automatically moves to the next timestamp in the series
+- Naturally skips weekends/holidays
+- No NaN errors
+- Robust across different market holiday schedules
+
+**Key Takeaway:** For irregular time series (trading days), **DO NOT specify stride**. Let Darts handle it automatically.
 
 ## Notebooks Workflow (Model 1 & 2 Standard Pipeline)
 
