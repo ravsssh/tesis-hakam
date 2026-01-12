@@ -114,15 +114,15 @@ covariates = TimeSeries.from_dataframe(
 # target_series = TimeSeries.from_dataframe(
 #     df_ts,
 #     value_cols='IHSG',
-#     fill_missing_dates=False,  # Only actual trading days
-#     freq=None  # Infer from data
+#     fill_missing_dates=False,  # Only actual trading days (no filling gaps)
+#     freq='D'  # Calendar day frequency (handles irregular gaps)
 # )
 #
 # covariates = TimeSeries.from_dataframe(
 #     df_ts,
 #     value_cols=['STI', 'Coal', 'Copper', 'Silver', 'Tin', 'Nickel'],
-#     fill_missing_dates=False,  # Only actual trading days
-#     freq=None  # Infer from data
+#     fill_missing_dates=False,  # Only actual trading days (no filling gaps)
+#     freq='D'  # Calendar day frequency (handles irregular gaps)
 # )
 
 # 2. Scale data (MinMaxScaler for better performance)
@@ -472,8 +472,9 @@ train, test = target_scaled.split_after(0.8)
 
 ### Frequency Settings for TimeSeries
 - **Monthly data**: Use `freq='ME'` (Month-End) with `asfreq('ME')` safe for monthly data
-- **Daily data**: ⚠️ **DO NOT** use `asfreq('B')` + `ffill()` - see critical issue below
-- For daily financial data: Use `freq=None` and `fill_missing_dates=False`
+- **Daily data with irregular gaps**: Use `freq='D'` with `fill_missing_dates=False`
+  - ⚠️ **DO NOT** use `freq=None` - will fail with ValueError on irregular data
+  - ⚠️ **DO NOT** use `asfreq('B')` + `ffill()` - creates identical predictions (see critical issue below)
 
 ### 1-Step-Ahead vs Multi-Step Forecasting
 Both models use **1-step-ahead forecasting** with `historical_forecasts`:
@@ -522,9 +523,14 @@ df_ts = df.set_index('Date')
 target_series = TimeSeries.from_dataframe(
     df_ts,
     value_cols='IHSG',
-    fill_missing_dates=False,  # Only use actual dates
-    freq=None  # Infer from data
+    fill_missing_dates=False,  # Only use actual dates (DON'T fill gaps)
+    freq='D'  # Calendar day frequency (handles irregular gaps)
 )
+
+# NOTE: Use freq='D' not freq=None
+# freq=None fails on irregular data (different market holidays cause ValueError)
+# freq='D' tells darts the intended frequency, but with fill_missing_dates=False
+# it still only uses actual dates without filling gaps
 ```
 
 **Key Takeaway:** For multi-market daily data (IHSG + STI + commodities), only predict on days where **all markets traded**. This is:
