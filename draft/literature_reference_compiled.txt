@@ -1,0 +1,394 @@
+=================================================================
+Sitasi: Zeng, Q., Lu, X., Xu, J., & Lin, Y. (2024). Equation chapter 0 section 1Macro-driven stock market volatility prediction: Insights from a new hybrid machine learning approach. International Review of Financial Analysis, 96. https://doi.org/10.1016/j.irfa.2024.103711
+Key Findings:
+- Membandingkan 26 model untuk memprediksi volatilitas S&P500, dengan menghitung realized volatility. model random forest merupakan model terbaik
+- Menggunakan SHAP untuk interpretasi variabel makro yang mempengaruhi volatilitas s&p 500, dimana terdapat 126 variabel makroekonomi
+- Dengan kemajuan teknologi yang membuat ketersedian data semakin banyak, merevolusi pendekatan investor pada market dengan meningkatkan efisiensi dan memfasilitasi manajemen resiko
+- mempelajari dampak variabel makroekonomi terhadap volatilitas pasar saham memiliki arti penting bagi investor, pembuat kebijakan, dan analis pasar. Hal ini memberikan pemahaman mendalam tentang tren pasar dan risiko potensial, membantu investor membuat keputusan investasi yang lebih bijak. 
+- Pada saat yang sama, hal ini memberikan dasar bagi pembuat kebijakan dalam merumuskan kebijakan makroekonomi yang dapat mempengaruhi pasar saham, sehingga mempromosikan stabilitas pasar dan perkembangan ekonomi yang sehat.
+- penelitian ini menggunakan data bulanan(sama seperti model 1 saya)
+
+=================================================================
+Sitasi: Nti, I. K., Adekoya, A. F., & Weyori, B. A. (2019). Random Forest Based Feature Selection of Macroeconomic Variables for Stock Market Prediction. American Journal of Applied Sciences, 16(7), 200–212. https://doi.org/10.3844/ajassp.2019.200.212
+Key Findings:
+- menggunakan random forest untuk menyeleksi fitur variable makroekonomi untuk memprediksi indeks saham per sektor, rf ini mengidentifikasi makrovariabel apa yang mempengaruhi suatu sektor
+- Penelitian mengatasi keterbatasan metode time-series tradisional seperti ARIMA, ARMA, dan GARCH yang memiliki daya prediksi rendah
+ 
+=================================================================
+Sitasi: Bist, J. P. (2017). Stock Market Development and Economic Growth in Nepal: An ARDL Representation. Journal of Finance and Economics, 5(4), 164–170. https://doi.org/10.12691/jfe-5-4-2
+Key Findings:
+- Menganalisis hubungan empiris antara perkembangan pasar saham dan pertumbuhan ekonomi di Nepal selama periode 22 tahun (1993-2014) menggunakan pendekatan ARDL bounds testing.
+- variable dependennya aalah real gdp per capita dengan independent market capitalization, inflation(cpi), gross domestic investment measured as the log of gross fixed capital formation to GDP. 
+- perkembangan pasar saham memiliki dampak positif signifikan terhadap pertumbuhan ekonomi Nepal dalam jangka panjang maupun jangka pendek, dengan elastisitas jangka panjang sebesar 0.101. Temuan ini mengindikasikan adanya hubungan fundamental antara variabel makroekonomi dan kinerja pasar saham di negara berkembang."
+=================================================================
+Sitasi: Sezer, O. B., Gudelek, M. U., & Ozbayoglu, A. M. (2019). Financial Time Series Forecasting with Deep Learning : A Systematic Literature Review: 2005-2019. http://arxiv.org/abs/1911.13288
+Key Findings:
+- Model tree-based seperti randoom forest menunjukan performa kompetitif untuk financial time series forecasting karena data dengan fitur makroekonomi yang bersifat tabular
+- terdapat gap yang bisa diisi dipenelitian ini, kebanyakan studi berfokus pada developed markets (snp500, Nikkei)
+=================================================================
+Sitasi: Chikwira, C., & Mohammed, J. I. (2023). The Impact of the Stock Market on Liquidity and Economic Growth: Evidence of Volatile Market. Economies, 11(6). https://doi.org/10.3390/economies11060155
+Key Findings:
+- meneliti hubungan antara perkembangan pasar saham, likuiditas, dan pertumbuhan ekonomi di Zimbabwe, sebuah negara yang memiliki karakteristik ekonomi tidak stabil, inflasi tinggi, dan ketidakstabilan politik (emerging market)
+- Terdapat hubungan positif yang signifikan secara statistik (pada level 10%) antara pasar saham dan pertumbuhan ekonomi. Artinya, perkembangan pasar saham berkontribusi pada pertumbuhan ekonomi Zimbabwe meskipun dalam kondisi ekonomi yang sulit
+- Likuiditas pasar saham memiliki signifikansi statistik sebesar 1%, yang menunjukkan bahwa likuiditas sangat berdampak pada ekspansi ekonomi. Ukuran pasar saham (market size) juga mempengaruhi likuiditas secara positif
+- Terdapat kausalitas satu arah (unidirectional) dari pasar saham ke pertumbuhan ekonomi dalam jangka pendek. Artinya, pergerakan pasar saham mempengaruhi pertumbuhan ekonomi, tetapi pertumbuhan ekonomi tidak secara langsung mempengaruhi pasar saham dalam jangka pendek.
+
+- Namun, untuk variabel efisiensi pasar saham, terdapat hubungan dua arah (bidirectional) dengan pertumbuhan ekonomi.
+- Pasar saham yang likuid memungkinkan perusahaan mendapatkan pendanaan ekuitas (saham) yang lebih murah dibandingkan meminjam utang dari bank.
+- Pasar saham di negara berkembang sangat sensitif terhadap isu korupsi, kekerasan politik, dan pemogokan, yang dapat mempengaruhi keputusan investor.
+- Manajemen Risiko Perusahaan: Manajer perusahaan di ekonomi volatil disarankan untuk memantau tren pasar saham dengan cermat dan melakukan diversifikasi aset likuid untuk bertahan dari guncangan pasar
+- variable dependen Adalah GDP dengan menggunakan, SMK stock market size, STl stock market liquidity, STF stock turnover ratio, EXP economic activity
+=================================================================
+Sitasi: Lubis, P. K. D., Manalu, C. L. N., Lubis, A. A., Tambunan, L. M., & Saputra, F. (2024). The Role of the Capital Market in Increasing Economic Growth in Indonesia. Indonesian Journal of Interdisciplinary Research in Science and Technology, 2(5), 557–568. https://doi.org/10.55927/marcopolo.v2i5.9322
+Key Findings:
+- Paper ini menegaskan bahwa pasar modal Indonesia(ihsg, obligasi korporasi, obligasi pemerintah) memiliki hubungan signifikan dengan indikator makroekonomi:
+- fungsi pasar model: Mempertemukan pihak yang memerlukan dana jangka panjang dengan pemilik dana,  Memberikan return bagi investor sesuai instrumen yang dipilih , Meningkatkan alokasi sumber dana secara optimal
+- tren positif pertumbuhan jumlah investor (SID di ksei) peningkatan minat Masyarakat berinvestasi, akses dana jangka Panjang bagi perusahaan
+-dalam tinjauan literaturnya menegaskan bahwa IHSG memiliki hubungan signifikan dengan PDB Indonesia, yang mengindikasikan adanya keterkaitan fundamental antara kinerja pasar saham dan kondisi makroekonomi domestik. Temuan ini memperkuat landasan teoretis untuk menggunakan variabel makroekonomi dalam memprediksi pergerakan IHSG."
+=================================================================
+Sitasi: Marciano, D., Wijaya, L. I., Sugianto, L. L., & Zunairoh, Z. (2025). The effect of behavioral factors on investment decision towards stock market between Indonesia, Japan, and Thailand. Jurnal Siasat Bisnis, 179–193. https://doi.org/10.20885/jsb.vol29.iss2.art4
+Key Findings:
+- menemukan bahwa faktor psikologis seperti overconfidence dan availability bias berpengaruh signifikan terhadap keputusan investasi di Indonesia, Jepang, dan Thailand. Temuan ini mengindikasikan bahwa pergerakan pasar saham tidak sepenuhnya dapat dijelaskan oleh variabel fundamental saja, namun juga dipengaruhi oleh perilaku irasional investor. Hal ini menjadi pertimbangan penting dalam membangun model prediksi indeks saham
+- Pendahuluan atau bagian awal literature review untuk menjelaskan bahwa pasar saham Indonesia dipengaruhi oleh faktor fundamental DAN behavioral, sehingga prediksi menjadi challenging task
+- Justifikasi Penggunaan ML:
+Paper ini secara tidak langsung mendukung penggunaan machine learning untuk prediksi karena: Pasar tidak sepenuhnya efisien (dipengaruhi bias), Pola perilaku investor dapat tercermin dalam data historis, Model ML dapat menangkap pola non-linear yang mungkin muncul dari perilaku irasional
+ 
+=================================================================
+Sitasi: Kung, J. J., Carverhill, A. P., & Mcleod, R. H. (2010). Indonesia’s stock market: Evolving role, growing efficiency. Bulletin of Indonesian Economic Studies, 46(3), 329–346. https://doi.org/10.1080/00074918.2010.522503
+The document discusses the evolution and increasing efficiency of Indonesia's stock market, particularly following a series of reforms and deregulation measures implemented from 1987 onwards.
+Overview of Indonesia's Stock Market Evolution
+The article discusses the transformation of Indonesia's stock market from a period of inactivity to a significant player in the country's financial system, particularly following reforms initiated in the late 1980s. It highlights the growing efficiency and importance of the stock market relative to the banking sector.
+Historical Context of Indonesia's Stock Market
+The Jakarta Stock Exchange (JSX) was re-opened in 1977 after two decades of inactivity.
+Initial growth was limited, with only 24 stocks listed from 1977 to 1984.
+The market was primarily government-driven, with little public participation and low per capita incomes.
+Impact of Economic Reforms on Stock Market
+Economic reforms began in December 1987, known as Pakdes I, aimed at revitalizing the stock market.
+Deregulation measures included lifting prohibitions on foreign ownership of shares and enhancing private sector involvement.
+The stock market's activity surged post-reforms, with the Jakarta Composite Index rising from 80 in 1987 to 637 by 1996.
+Changing Dynamics Between Banks and Stock Market
+The stock market's role grew significantly, surpassing bank loans in total value by 2004.
+The 1997-98 financial crisis highlighted the risks of over-reliance on banks, prompting a shift towards diversifying financial intermediation.
+The government’s deregulation efforts allowed the stock market to play a more substantial role in funding and investment.
+Efficiency of the Stock Market
+The study examines the effectiveness of technical trading rules, such as moving averages and trading range breakouts.
+Results indicate that investors could achieve above-average returns using these strategies, particularly in the earlier sub-period (1988-1996).
+The efficiency of the market improved over time, with a notable decline in the predictability of returns in the later period (1999-2007).
+Methodology for Analyzing Stock Market Performance
+The analysis utilized daily return data from the Jakarta Composite Index, excluding the crisis years of 1997-98.
+Two technical trading strategies were employed to assess their effectiveness in generating returns.
+One-tailed hypothesis tests were conducted to compare mean returns from trading signals against unconditional mean returns.
+Summary of Trading Strategies and Results
+Moving average rules in the 1988-96 period yielded high mean daily returns, averaging 0.00199, significantly above the unconditional mean of 0.00087.
+In contrast, the 1999-2007 period showed diminished returns, with mean daily returns for buys averaging 0.00121, closely aligning with the unconditional mean.
+Trading range breakout rules also demonstrated strong performance in the earlier period but underperformed in the later period, with average returns for buys at 0.00518.
+Conclusion on Stock Market's Role in Economic Development
+The stock market's contribution to Indonesia's economic development has increased dramatically since the late 1980s.
+Policy changes have facilitated private sector participation and foreign investment, enhancing market efficiency.
+The reforms have laid a strong foundation for the stock market, although returns have stabilized closer to average levels in recent years.
+ASEAN Finance Ministers Meetings
+Joint ministerial statements from various ASEAN countries highlight financial cooperation.
+Meetings took place in locations such as Prague, Vientiane, Yangon, and Hanoi between 1999 and 2005.
+Key Financial Literature
+Notable works include Greenspan's lessons from global crises and Levine & Zervos on stock markets and economic growth.
+Other significant studies focus on banking deregulation in Indonesia and the role of non-bank financial institutions.
+Major Reform and Deregulation Measures
+The 1987 Pakdes package allowed stock prices to move according to market forces.
+Key reforms included the establishment of the Indonesian Central Securities Depository in 1997 and the merger of stock exchanges in 2007.
+ 
+=================================================================
+Sitasi: Ledhem, M. A., & Moussaoui, W. (2024). Predicting daily precision improvement of Jakarta Islamic Index in Indonesia’s Islamic stock market using big data mining. Journal of Modelling in Management, 19(3), 765–786. https://doi.org/10.1108/JM2-12-2022-0291
+Literature Review Summary for IHSG Prediction Using Random Forest
+1. Tujuan & Metodologi
+Tujuan: Memprediksi pergerakan harian indeks Jakarta Islamic Index (JKII) di pasar saham syariah Indonesia menggunakan teknik data mining.
+Metodologi: Menggunakan model Random Forest (RF) bersama dengan teknik data mining lainnya (AdaBoost, KNN, ANNs). Data diolah menggunakan Python.
+Data & Periode: Data volatilitas simetris JKII (harga penutupan, harga terendah, harga tertinggi, harga pembukaan) dari database Investing, periode 6 Oktober 2000 hingga 30 Maret 2022.
+2. Variabel yang Diteliti
+Input: Harga penutupan (CP), harga terendah (LP), harga tertinggi (HP), harga pembukaan (OP).
+Output: Harga aktual harian JKII.
+3. Temuan Utama
+Teknik AdaBoost memberikan performa prediksi terbaik dengan nilai error prediksi terendah (MSE: 0.0001196, RMSE: 0.010936, MAE: 0.0024089, R²: 0.999999).
+Random Forest juga menunjukkan performa yang mendekati optimal (MSE: 0.02473, RMSE: 0.157271, MAE: 0.081949, R²: 0.9999995).
+Teknik KNN dan ANNs memiliki performa prediksi yang lebih rendah dibandingkan AdaBoost dan RF.
+4. Keterbatasan & Saran Penelitian Lanjutan
+Keterbatasan: Penelitian hanya menggunakan data volatilitas simetris JKII, belum mempertimbangkan volatilitas asimetris atau variabel lain seperti makroekonomi, komoditas, atau indeks global.
+Saran Penelitian Lanjutan:
+Menggunakan data volatilitas asimetris untuk prediksi.
+Memperluas penelitian ke pasar saham syariah global untuk analisis perbandingan.
+Mengintegrasikan teknik multi-criteria decision-making (MCDM) dengan data mining untuk meningkatkan akurasi keputusan investasi.
+5. Kutipan Penting
+"Islamic stock markets still require modern techniques such as data mining, which can offer extensive knowledge to investors for gaining wise management of portfolios by decreasing trading uncertainty and selecting the most suitable investment decisions."
+"The Random Forest technique delivers high predicting accuracy for predicting the returns in the stock exchange markets."
+=================================================================
+Sitasi: Yang, P., & Hou, X. (2022). Research on Dynamic Characteristics of Stock Market Based on Big Data Analysis. Discrete Dynamics in Nature and Society, 2022. https://doi.org/10.1155/2022/8758976
+Literature Review Summary
+1. Tujuan & Metodologi
+Tujuan: Menganalisis karakteristik dinamis pasar saham menggunakan metode analisis big data untuk memahami efisiensi pasar dan evolusi dinamis sistem keuangan.
+Metodologi: Menggunakan metode recursive graph dan algoritma segmentasi heuristik untuk mendeteksi karakteristik dinamis sebelum terjadinya crash pasar saham.
+Data: Data return harian indeks saham utama dari 10 negara maju dan 6 negara berkembang.
+Periode: 6 Januari 2015 hingga 27 September 2019.
+2. Variabel yang Diteliti
+Makroekonomi: Tidak disebutkan secara spesifik.
+Komoditas: Tidak disebutkan secara spesifik.
+Indeks: Indeks saham utama seperti Dow Jones Industrial Average, Shanghai Composite Index, dan indeks saham dari 16 negara lainnya.
+3. Temuan Utama
+Efektivitas pasar saham bersifat dinamis dan berfluktuasi antara efisiensi relatif dan inefisiensi relatif.
+Pasar saham negara maju cenderung lebih efektif dibandingkan pasar negara berkembang.
+Ketidakstabilan sosial dan krisis keuangan memengaruhi efektivitas pasar saham secara signifikan.
+Recursive entropy dapat digunakan untuk mengukur efektivitas pasar saham secara kuantitatif.
+4. Keterbatasan & Saran Penelitian Lanjutan
+Keterbatasan: Analisis hanya mencakup statistik dasar dari struktur jaringan dinamis tanpa mendalami evolusi struktur komunitas dalam jaringan kompleks selama krisis keuangan.
+Saran: Penelitian lanjutan dapat menggunakan jaringan kompleks multilayer untuk menganalisis hubungan antar pasar keuangan selama krisis, serta mempelajari lebih dalam tentang penyebaran krisis keuangan.
+5. Kutipan Penting
+"Efektivitas pasar saham tidak bersifat absolut dan statis, tetapi relatif dan menunjukkan perubahan dinamis seiring waktu."
+"Recursive entropy dapat secara efektif mengukur efektivitas pasar saham."
+=================================================================
+Sitasi: Patel, M., Jariwala, K., & Chattopadhyay, C. (2024). A Hybrid Relational Approach Toward Stock Price Prediction and Profitability. IEEE Transactions on Artificial Intelligence, 5(11), 5844–5854. https://doi.org/10.1109/TAI.2024.3408129
+Literature Review: Prediksi IHSG dengan Random Forest
+1. Tujuan & Metodologi
+Tujuan: Mengembangkan model prediksi harga saham yang akurat dengan memanfaatkan data pasar, indikator teknikal, dan fitur relasional untuk meningkatkan profitabilitas.
+Metodologi:
+Model: Hybrid RF2P-TCLM (Random Forest Feature Permutation + Temporal Convolutional Linear Model).
+Data: Data historis saham dari sektor berbeda di Amerika, India, dan Korea (2012–2023).
+Periode: Data dari tahun 2012 hingga 2023, dengan 80% data untuk pelatihan dan 20% untuk pengujian.
+2. Variabel yang Diteliti
+Makroekonomi: Tidak disebutkan secara eksplisit dalam penelitian ini.
+Komoditas: Tidak disebutkan secara eksplisit dalam penelitian ini.
+Indeks: Data pasar (harga pembukaan, penutupan, tertinggi, terendah, volume), indikator teknikal (SMA, EMA, RSI, MACD, Bollinger Bands, dll.), dan data relasional (harga penutupan perusahaan sejenis dalam sektor yang sama).
+3. Temuan Utama
+Model RF2P-TCLM menunjukkan performa prediksi yang lebih baik dibandingkan model baseline (MAE, RMSE, MAPE lebih rendah, MDA lebih tinggi).
+Fitur relasional dari perusahaan sejenis dalam sektor yang sama secara signifikan meningkatkan akurasi prediksi.
+Strategi trading berbasis prediksi RF2P-TCLM menghasilkan profit lebih tinggi dibandingkan pendekatan buy-and-hold.
+4. Keterbatasan & Saran Penelitian Lanjutan
+Keterbatasan:
+Model baseline tidak mempertimbangkan hubungan antar saham dalam sektor yang sama.
+PCA sebagai metode optimasi fitur sensitif terhadap outlier.
+Saran:
+Mengintegrasikan lebih banyak variabel makroekonomi dan komoditas untuk meningkatkan akurasi prediksi.
+Mengembangkan metode optimasi fitur yang lebih robust terhadap outlier.
+5. Kutipan Penting
+"The inclusion of relational features substantially improves the performance, and the implementation of a refined trading strategy results in greater financial gains when compared with a passive buy-and-hold approach."
+"The ability of the RF2P-TCLM model to perform efficiently across different stocks with distinct data distributions proves its generalizability."
+=================================================================
+Sitasi: Patsiarikas, M., Papageorgiou, G., & Tjortjis, C. (2025). Using Machine Learning on Macroeconomic, Technical, and Sentiment Indicators for Stock Market Forecasting. Information (Switzerland), 16(7). https://doi.org/10.3390/info16070584
+Literature Review: Prediksi IHSG dengan Random Forest
+1. Tujuan & Metodologi
+Tujuan: Memprediksi harga penutupan harian indeks S&P 500 dengan mengintegrasikan indikator teknikal, makroekonomi, dan sentimen menggunakan berbagai model Machine Learning, termasuk Random Forest (RF).
+Metodologi:
+Data S&P 500 (2008–2016) dengan preprocessing (resampling, lagging, standardisasi, dan feature selection menggunakan RFE).
+Model yang digunakan: Linear Regression (LR), Random Forest (RF), Gradient Boosting (GB), XGBoost, Multi-Layer Perceptron (MLP).
+Evaluasi menggunakan MSE, MAE, dan R².
+2. Variabel yang Diteliti
+Indikator teknikal: RSI, Stochastic Oscillator, Williams %R, EMA, MACD.
+Indikator makroekonomi: US 10-Year Treasury Bond Yield, ISM Manufacturing PMI, Economic Policy Uncertainty Index (EPUI), Business Confidence Index (BCI), Consumer Confidence Index (CEI).
+Indikator sentimen: Sentimen dari Reddit World News (TextBlob dan DistilBERT).
+3. Temuan Utama
+Signifikan:
+Indikator teknikal (terutama EMA dan MACD) memiliki kontribusi terbesar dalam prediksi harga indeks.
+Indikator makroekonomi memiliki pengaruh moderat terhadap prediksi jangka pendek.
+Tidak signifikan:
+Indikator sentimen dari Reddit memiliki kontribusi yang sangat kecil terhadap prediksi.
+4. Keterbatasan & Saran Penelitian Lanjutan
+Keterbatasan:
+Indikator makroekonomi yang digunakan terbatas dan hanya dilag satu hari/bulan, sehingga mungkin tidak mencerminkan dampak jangka panjang.
+Teknik forward-filling untuk data bulanan dapat mengurangi akurasi model.
+Sumber data sentimen dari Reddit kurang relevan untuk memprediksi pasar saham.
+Overfitting masih terjadi pada model RF, GB, dan XGB meskipun sudah dilakukan tuning.
+Saran Penelitian Lanjutan:
+Menambahkan variabel lain seperti data sektor industri atau indikator ekonomi global.
+Menggunakan sumber data sentimen yang lebih relevan, seperti berita keuangan atau media sosial terkait bisnis.
+Mengoptimalkan lagging dan teknik imputasi data untuk meningkatkan akurasi.
+Menggunakan metode seperti PCA atau clustering untuk mengatasi collinearity antar variabel teknikal.
+5. Kutipan Penting
+"The integration of technical, macroeconomic, and sentiment data provides a comprehensive perspective, but also brings out the requirement for rigorous preprocessing and thoughtful choice of modeling strategies."
+"Technical indicators related to momentum and volatility were found to contribute significantly, aligning with the TA theory that supports their ability to capture periods of overreaction and correction in financial markets."
+=================================================================
+Sitasi: Hernita, A., Derajat Sudarmojo, O., Saputra, S., & Alinuddin Kaharu, N. (2025). Fundamental and Applied Management Journal Information Technology Education Journal Short-Term IHSG Closing Price Prediction Using Random Forest. Information Technology Education Journal, 4(3), 402–414.
+Rangkuman Paper tentang IHSG:
+Periode & Frekuensi Data
+Periode: Januari 2015 hingga Mei 2025.
+Frekuensi: Harian (daily closing prices).
+Variabel Independen
+Lagged Prices: lag_1 (harga penutupan hari sebelumnya) dan lag_2 (harga penutupan dua hari sebelumnya).
+Moving Average (MA): MA_7 (rata-rata bergerak 7 hari) dan MA_30 (rata-rata bergerak 30 hari).
+Volatility Measures: volatility_7 (standar deviasi harga penutupan 7 hari) dan volatility_30 (standar deviasi harga penutupan 30 hari).
+Event-Based Feature: is_covid (indikator biner untuk periode pandemi COVID-19).
+Model & Metodologi
+Model: Random Forest Regression (RFR).
+Metodologi:
+Data dikumpulkan dari Yahoo Finance.
+Preprocessing: pembersihan data, penanganan nilai hilang, dan pengaturan format data.
+Feature engineering: pembuatan variabel prediktor seperti lagged prices, moving averages, dan volatilitas.
+Data splitting: 80% untuk pelatihan, 20% untuk pengujian dengan metode time-based split.
+Hyperparameter tuning menggunakan RandomizedSearchCV dengan TimeSeriesSplit cross-validation.
+Evaluasi model menggunakan RMSE, R², dan visualisasi prediksi.
+Hasil Utama
+RMSE: 177.55 pada data pengujian, menunjukkan error prediksi yang kecil.
+R²: 0.71 pada data pengujian, menunjukkan kemampuan prediksi yang kuat.
+Feature Importance: lag_1 (harga penutupan hari sebelumnya) adalah prediktor paling berpengaruh, diikuti oleh lag_2 dan MA_7.
+Prediksi harga penutupan IHSG untuk 23 Mei 2025: 7145.12.
+Keterbatasan
+Tidak menggunakan variabel makroekonomi atau sentimen pasar.
+Dataset terbatas pada harga penutupan harian, sehingga kurang relevan untuk prediksi jangka panjang atau intraday.
+Model RFR tidak secara langsung menangkap dependensi temporal seperti model deep learning (misalnya LSTM).
+Checklist:
+ML (RF/XGBoost)? Ya (Random Forest Regression digunakan).
+SHAP? Tidak.
+Multi-frequency? Tidak.
+Komoditas? Tidak.
+Indeks regional? Tidak.
+=================================================================
+Sitasi: Xu, X. (2024). The impact of the investment expectation gap on households’ risky financial asset investment. Investment Management and Financial Innovations, 21(1), 331–342. https://doi.org/10.21511/imfi.21(1).2024.25
+Tujuan: Meneliti dampak "investment expectation gap" terhadap keputusan investasi rumah tangga pada aset keuangan berisiko.
+Metodologi: Menggunakan data China Household Finance Survey 2019 (CHFS) dengan model Probit dan Tobit untuk analisis regresi.
+Periode: Data tahun 2019, diterbitkan pada 2024.
+Variabel yang Diteliti:
+Makro: Kondisi ekonomi makro, risiko latar belakang (pendapatan, kesehatan, stabilitas ekonomi).
+Komoditas: Aset keuangan berisiko seperti saham, dana, produk keuangan, obligasi non-pemerintah, derivatif, emas, dan mata uang asing.
+Indeks: Gap ekspektasi investasi (selisih antara tingkat pengembalian investasi yang diharapkan dan aktual), tingkat pendidikan, usia, ukuran keluarga, kekayaan, pendapatan, dan tingkat perhatian terhadap informasi keuangan.
+Temuan Utama:
+Gap ekspektasi investasi memiliki dampak negatif signifikan terhadap probabilitas (-11.8%) dan proporsi (-8.2%) investasi rumah tangga pada aset keuangan berisiko.
+Gap ekspektasi investasi menurunkan persepsi profitabilitas saham (-8%), kepuasan alokasi aset (-16.7%), dan kesejahteraan subjektif (-28.9%).
+Gap ekspektasi juga menurunkan tingkat tabungan rumah tangga (-5.5%).
+Keterbatasan & Saran Penelitian Lanjutan:
+Keterbatasan: Fokus hanya pada rumah tangga perkotaan, tidak mencakup rumah tangga pedesaan dengan akses keuangan terbatas.
+Saran: Analisis lebih mendalam tentang faktor penentu ekspektasi investasi rumah tangga, seperti latar belakang sosial-ekonomi, bias kognitif, dan pendidikan keuangan.
+Kutipan Penting:
+"Promoting financial literacy and helping households form rational investment performance goals can encourage diversified asset allocation and mitigate herd behavior among household investors in financial markets."
+"An expanded investment expectation gap significantly restrains household participation in risky financial investments."
+=================================================================
+Sitasi: Aladwani, J. (2024). Oil Volatility Uncertainty: Impact on Fundamental Macroeconomics and the Stock Index. Economies, 12(6). https://doi.org/10.3390/economies12060140
+Literature Review Summary for IHSG Prediction with Random Forest
+1. Tujuan & Metodologi
+Tujuan: Menganalisis dampak volatilitas harga minyak terhadap faktor makroekonomi dan indeks saham di Spanyol selama periode krisis global (1995–2023).
+Metodologi: Menggunakan model GARCH (single-regime) dan MS-GARCH (double-regime) untuk memprediksi volatilitas. Data diperoleh dari FRED dan Yahoo Finance, mencakup 112 observasi kuartalan dari Q2-1995 hingga Q4-2023.
+2. Variabel yang Diteliti
+Makroekonomi: Pertumbuhan ekonomi (GDP), tingkat inflasi, tingkat pengangguran, suku bunga.
+Komoditas: Harga minyak mentah (Crude Oil Price).
+Indeks: Harga saham (IBEX 35).
+3. Temuan Utama
+Signifikan:
+Jangka pendek: Harga minyak memiliki korelasi negatif dengan harga saham dan positif dengan ketidakpastian inflasi.
+Jangka panjang: Harga minyak berkorelasi positif dengan tingkat pengangguran dan inflasi, serta negatif dengan pertumbuhan ekonomi, suku bunga, dan harga saham.
+Tidak signifikan: Tidak ada hubungan signifikan antara harga minyak dan GDP, suku bunga, serta tingkat pengangguran dalam jangka pendek.
+4. Keterbatasan & Saran Penelitian Lanjutan
+Keterbatasan: Ukuran sampel terbatas (112 observasi kuartalan) dan fokus pada satu negara (Spanyol).
+Saran: Perluasan dataset, periode waktu, dan penerapan metode lain seperti transformasi Copula untuk analisis variabel.
+5. Kutipan Penting
+"The instability of crude oil price fluctuations during financial crises, global health crises, and geopolitical conflicts holds substantial practical implications for policymakers and investors, particularly in oil-import-dependent countries like Spain."
+"The double-regime MS-GARCH-type models exhibit a significantly superior performance compared to single-regime GARCH-type models when forecasting volatility over quarterly horizons."
+=================================================================
+Sitasi: Saluza, I., Munarsih, E., Faradillah, & Anggraini, L. D. (2024). PREDICTION INDONESIA COMPOSITE INDEX USING INTEGRATION DECOMPOSITION-NEURAL NETWORK ENSEMBLE DURING VUCA ERA. Barekeng, 18(4), 2721–2736. https://doi.org/10.30598/barekengvol18iss4pp2721-2736
+Literature Review: Prediksi IHSG dengan Random Forest
+Tujuan & Metodologi
+Tujuan: Mengembangkan model prediksi Indeks Harga Saham Gabungan (IHSG) di era VUCA untuk membantu investor dan pelaku bisnis dalam pengambilan keputusan portofolio.
+Metodologi: Mengintegrasikan teknik dekomposisi data (additive dan multiplicative) dengan pendekatan Neural Network Ensemble (NNE).
+Data: Time series IHSG dari 1 Juli 2021 hingga 15 Juli 2022 (253 observasi).
+Variabel yang Diteliti
+Makroekonomi: Tidak disebutkan secara spesifik.
+Komoditas: Tidak disebutkan secara spesifik.
+Indeks: IHSG (Indonesia Composite Index).
+Temuan Utama
+Dekomposisi data menjadi komponen musiman, tren, dan acak efektif mengatasi volatilitas tinggi pada data IHSG.
+Pendekatan NNE dengan kombinasi rata-rata berbobot menghasilkan prediksi yang lebih akurat dibandingkan jaringan neural tunggal (MSE ≤ 3.00e-5, MAE ≤ 0.002).
+Model integrasi dekomposisi dan NNE menunjukkan performa lebih baik dibandingkan metode individual.
+Keterbatasan & Saran Penelitian Lanjutan
+Keterbatasan: Pendekatan yang digunakan masih berbasis linear, sehingga kurang optimal untuk menangkap karakteristik non-linear pada data.
+Saran: Penelitian lanjutan dapat mengintegrasikan pendekatan non-linear untuk meningkatkan akurasi prediksi.
+Kutipan Penting
+"Integrasi teknik dekomposisi dan Neural Network Ensemble dapat mengurangi kesalahan prediksi dan memberikan performa yang lebih baik dibandingkan jaringan neural tunggal."
+"Pendekatan ini dapat memberikan informasi yang berguna bagi investor dan pelaku bisnis dalam menjalankan portofolio di era VUCA."
+=================================================================
+Sitasi: Rahmah, S., Budiarti, R., & Purnaba, I. G. P. (2024). ANALYSIS OF THE DEPENDENCIES COMMODITY PRICES AND STOCK MARKET INDEXES USING COPULA. Barekeng, 18(3), 1563–1572. https://doi.org/10.30598/barekengvol18iss3pp1563-1572
+Literature Review Summary: Predicting IHSG with Random Forest
+1. Tujuan & Metodologi
+Tujuan: Menganalisis hubungan antara harga komoditas (minyak, batu bara, nikel, CPO) dan indeks pasar saham Indonesia (IHSG) menggunakan metode copula.
+Metodologi:
+Data harian dari Bloomberg (29 September 2020 – 29 September 2022).
+Analisis meliputi statistik deskriptif, uji autokorelasi (Ljung-Box), model ARMA untuk data dengan autokorelasi, uji stasioneritas (ADF dan Box-Cox), estimasi distribusi marginal, dan fitting copula (Clayton, Frank, Gumbel).
+2. Variabel yang Diteliti
+Makroekonomi: IHSG (Indeks Harga Saham Gabungan Indonesia).
+Komoditas: Minyak, batu bara, nikel, CPO.
+Indeks: IHSG sebagai indikator utama.
+3. Temuan Utama
+Signifikan: Batu bara dan nikel memiliki hubungan signifikan dengan IHSG.
+Tidak signifikan: Minyak dan CPO menunjukkan hubungan yang lemah atau tidak signifikan dengan IHSG.
+Copula: Clayton copula menunjukkan ketergantungan tail bawah untuk minyak dan CPO, sedangkan Frank copula digunakan untuk batu bara dan nikel.
+4. Keterbatasan & Saran Penelitian Lanjutan
+Keterbatasan:
+Studi hanya menggunakan data dari satu indeks (IHSG) dan periode terbatas (2 tahun).
+Tidak mempertimbangkan variabel makroekonomi lain yang mungkin memengaruhi IHSG.
+Saran:
+Perlu penelitian lebih lanjut dengan periode data yang lebih panjang.
+Kombinasi metode copula dengan algoritma machine learning seperti Random Forest untuk meningkatkan akurasi prediksi.
+5. Kutipan Penting
+"Coal and nickel price returns have a significant dependence with the IHSG, while oil and CPO price returns show a weaker or insignificant dependence."
+"Understanding the link between commodity prices and the stock market is crucial for investors and policymakers to make informed decisions in navigating the complex global economy."
+=================================================================
+Sitasi: Kristjanpoller, W. (2024). A hybrid econometrics and machine learning based modeling of realized volatility of natural gas. Financial Innovation, 10(1). https://doi.org/10.1186/s40854-023-00577-0
+Rangkuman untuk Literature Review Skripsi Prediksi IHSG dengan Random Forest
+Tujuan & Metodologi
+Tujuan: Menentukan variabel utama yang memengaruhi volatilitas harga gas alam dan mengembangkan model prediksi harian, mingguan, dan bulanan.
+Metodologi: Menggunakan model ekonometrik (HAR) dan machine learning (LSTM) untuk memprediksi volatilitas harga gas alam. Data diambil dari www.dukascopy.com dengan frekuensi 5 menit, periode analisis 3 September 2012 - 31 Januari 2022 (977,497 observasi intraday, 2724 observasi harian).
+Variabel yang Diteliti
+Makro: Tidak ada variabel makro karena keterbatasan frekuensi data.
+Komoditas: Harga emas (XAU), harga minyak Brent (BRENT).
+Indeks: S&P 500 (SPX), nilai tukar Euro terhadap USD (EURO).
+Temuan Utama
+EURO adalah variabel paling signifikan dalam menjelaskan volatilitas harga gas alam, terutama pada periode volatilitas rendah.
+Pada periode volatilitas tinggi, kombinasi model HAR dan LSTM memberikan prediksi terbaik.
+Tidak ada variabel yang konsisten menjelaskan volatilitas sepanjang periode analisis.
+Keterbatasan & Saran Penelitian Lanjutan
+Keterbatasan: Tidak ada analisis variabel makro karena keterbatasan frekuensi data.
+Saran: Penelitian lanjutan dapat mencakup analisis pengaruh variabel makro dan momen ekonomi global terhadap volatilitas harga.
+Kutipan Penting
+"EURO adalah variabel yang paling signifikan dalam menjelaskan volatilitas harga gas alam pada periode volatilitas rendah secara linear."
+"Metodologi yang diusulkan memungkinkan analisis pengaruh variabel secara dinamis, memberikan fleksibilitas untuk menganalisis efek pada berbagai frekuensi waktu."
+=================================================================
+Sitasi: Xu, Z., Mohsin, M., Ullah, K., & Ma, X. (2023). Using econometric and machine learning models to forecast crude oil prices: Insights from economic history. Resources Policy, 83. https://doi.org/10.1016/j.resourpol.2023.103614
+Tujuan & Metodologi:
+Tujuan: Membandingkan performa model ekonometrik (ARIMA, GARCH, OLS) dan machine learning (ANN, GINN) untuk prediksi harga minyak mentah WTI.
+Metodologi: Menggunakan data historis dari UCI Machine Learning Repository (18 Desember 2011 - 31 Desember 2018, 1718 baris, 81 kolom). Model ANN dikembangkan dengan optimasi bobot dan bias menggunakan algoritma umum (Generalized Algorithm Improved Neural Network/GINN).
+Variabel yang Diteliti:
+Makroekonomi: EUR/USD exchange rate, US Bond Rate, US Dollar Index Price.
+Komoditas: Harga emas, perak, platinum, palladium, rhodium, Brent Crude Oil Futures, Oil ETF USO, Gold Miners ETF.
+Indeks: S&P500, Dow Jones Index, Eldorado Gold Corporation.
+Temuan Utama:
+Model ANN (terutama GINN) menunjukkan performa prediksi yang lebih baik dibandingkan model ekonometrik.
+Variabel seperti Dow Jones Index, S&P500, harga emas, perak, platinum, dan Oil ETF USO memiliki pengaruh signifikan terhadap harga minyak mentah WTI.
+Model GINN memiliki nilai RMSE dan MAE terendah, menunjukkan akurasi prediksi yang lebih tinggi dibandingkan model lainnya.
+Keterbatasan & Saran Penelitian Lanjutan:
+Keterbatasan: Variabel makroekonomi dan komoditas yang digunakan masih terbatas.
+Saran: Penelitian lanjutan dapat menambahkan variabel makroekonomi dan indikator keuangan lainnya untuk meningkatkan akurasi prediksi.
+Kutipan Penting:
+"Analisis hasil mengungkapkan bahwa performa model yang diusulkan tetap lebih baik dibandingkan semua model yang diuji."
+"Model yang disarankan dalam penelitian ini memiliki potensi untuk meningkatkan akurasi prediksi harga minyak mentah WTI secara signifikan."
+
+=================================================================
+Sitasi: Murti, W. (2017). The Impact of the Global Stock Market and the Foreign Exchange Market on Domestic Financial Market The Impact of the Global Stock Market and the Foreign Exchange Market on Domestic Financial Market 100. In European Research Studies Journal: Vol. XX.
+-performa ihsg akan atract masulnya foreign capital ke indonesia, ini memboosting demand domestic currency
+-aliran modal asing ke asia menyebabkan pasar bergerak dalam arah yang sama seperti indeks regional hang seng, STI dan Nikkei. ini menciptakan band-wagon efek
+=================================================================
+Sitasi: Endri, E., Abidin, Z., Simanjuntak, T. P., & Nurhayati, I. (2020). Indonesian stock market volatility: GARCH model. Montenegrin Journal of Economics, 16(2), 7–17. https://doi.org/10.14254/1800-5845/2020.16-2.1
+Literature Review Summary for IHSG Prediction Using Random Forest
+1. Tujuan & Metodologi
+Tujuan: Menganalisis pengaruh variabel makroekonomi (suku bunga, inflasi, nilai tukar) dan indeks saham global (STI, SSE, N225, DJIA, FTSE100) terhadap pergerakan IHSG.
+Metodologi: Menggunakan model GARCH (1,1) untuk data time series bulanan dari Januari 2012 hingga Desember 2018 (84 bulan).
+2. Variabel yang Diteliti
+Makroekonomi: Suku bunga (BI-rate), inflasi, nilai tukar (FOREX).
+Indeks Global: Straits Times Index (STI), Shanghai Stock Exchange (SSE), Nikkei 225 (N225), Dow Jones Industrial Average (DJIA), Financial Times Stock Exchange 100 (FTSE100).
+3. Temuan Utama
+Makroekonomi:
+Suku bunga dan inflasi berpengaruh negatif signifikan terhadap IHSG.
+Nilai tukar berpengaruh positif signifikan terhadap IHSG.
+Indeks Global:
+STI dan DJIA berpengaruh positif signifikan terhadap IHSG.
+SSE berpengaruh negatif signifikan terhadap IHSG.
+N225 berpengaruh negatif tidak signifikan.
+FTSE100 berpengaruh positif tidak signifikan.
+4. Keterbatasan & Saran Penelitian Lanjutan
+Keterbatasan: Penelitian hanya menggunakan data hingga 2018 dan tidak mempertimbangkan variabel lain seperti komoditas atau sentimen pasar.
+Saran: Kombinasi model GARCH dengan metode machine learning seperti Random Forest untuk meningkatkan akurasi prediksi IHSG.
+5. Kutipan Penting
+"Pergerakan harga saham di bursa Indonesia sangat dipengaruhi oleh perubahan yang terjadi baik pada variabel makroekonomi maupun perubahan bursa saham global."
+"Hasil penelitian ini juga menegaskan banyak penelitian sebelumnya bahwa bursa saham Amerika Serikat secara global memiliki pengaruh yang kuat."
