@@ -392,3 +392,31 @@ Saran: Kombinasi model GARCH dengan metode machine learning seperti Random Fores
 5. Kutipan Penting
 "Pergerakan harga saham di bursa Indonesia sangat dipengaruhi oleh perubahan yang terjadi baik pada variabel makroekonomi maupun perubahan bursa saham global."
 "Hasil penelitian ini juga menegaskan banyak penelitian sebelumnya bahwa bursa saham Amerika Serikat secara global memiliki pengaruh yang kuat."
+
+
+
+=================================================================
+Sitasi: Perencanaan Pembangunan Nasional, K., & Republik Indonesia, B. (2020). Dampak Covid-19 terhadap Pergerakan Nilai Tukar Rupiah dan Indeks Harga Saham Gabungan (IHSG). In The Indonesian Journal of Development Planning: Vol. IV (Issue 2). 
+- Kepanikan akibat Covid-19 juga melanda pasar keuangan Indonesia, dengan indikasi, bahwa selama periode penyebaran Corona Januari-13 April 2020 terjadi capital outflow yang jumlahnya mencapai Rp 159,3 triliun, sebagian besar merupakan surat berharga negara (SBN) Rp143,5 triliun (91%), saham Rp11,8 triliun (7,4%), SBI Rp3,3 triliun (2,1%), dan obligasi korporasi Rp0,6 triliun (0,4%) 3 ). Capital outflow dari investor asing selalu menimbulkan volatilitas yang tinggi baik pada pergerakan kurs Rp/US$ maupun pergerakan indeks saham saat krisis.
+- Tercatat secara YTD, semenjak pandemi berlangsung 2 Maret hingga 16 April 2020, kurs rupiah terhadap US$ terkoreksi (melemah) sebesar -12,4% dan IHSG telah terkoreksi 28,44%. Meskipun volatilitas tersebut masih tergolong lebih baik apabila dibandingkan dengan krisis finansial 2008, dimana saat itu, IHSG terkoreksi hingga 50% dan Rupiah terdepresiasi sebesar 30,9%; apabila wabah Covid 19 tidak diantisipasi secara dini, dapat mengakibatkan kepanikan secara luas dan berkepanjangan, dan timbul snowball effect, dimana serbuan terhadap dollar AS makin lama makin besar, sehingga dampaknya bisa saja lebih buruk dari krisis keuangan tahun 2008.
+=================================================================
+Sitasi: Sugandi, E. A. (2022). Indonesia’s Financial Markets and Monetary Policy Dynamics Amid the COVID-19 Pandemic. Asia-Pacific Financial Markets, 29(3), 411–447. https://doi.org/10.1007/s10690-021-09354-4
+Rangkuman Paper:
+DATA KUANTITATIF:
+Penurunan GDP: Tidak ada data spesifik terkait penurunan GDP Indonesia dalam dokumen ini. Namun, berdasarkan pengetahuan eksternal, IMF memproyeksikan pertumbuhan GDP global tahun 2020 menjadi -4.4% akibat pandemi COVID-19.
+Capital Outflow: Kepemilikan investor asing atas SUN (Surat Utang Negara) turun dari 37.4% di awal tahun 2020 menjadi 27.3% pada akhir September 2020. Hal ini menunjukkan adanya capital outflow selama pandemi.
+Unemployment Rate: Tidak ada data spesifik terkait tingkat pengangguran dalam dokumen ini.
+Market Cap Loss: Nilai total saham di KSEI turun dari IDR 3248 triliun pada akhir Februari 2020 menjadi IDR 2727 triliun pada akhir Maret 2020.
+DAMPAK INVESTOR:
+Kerugian Portofolio: IHSG turun 38% dari awal tahun 2020 hingga titik terendah pada 24 Maret 2020. Penurunan ini lebih kecil dibandingkan krisis keuangan global 2008, di mana IHSG turun 147%.
+Wealth Destruction: Kepemilikan saham oleh investor asing di KSEI turun dari 52.5% pada Januari 2020 menjadi 48.3% pada September 2020, menunjukkan pergeseran kepemilikan ke investor lokal.
+KONTEKS:
+Indonesia/IHSG/Emerging Markets: Fokus utama adalah Indonesia, dengan analisis mendalam tentang IHSG dan pasar keuangan lainnya. Studi ini juga membandingkan dampak COVID-19 pada emerging markets dengan krisis keuangan global 2008.
+Periode Krisis: Pandemi COVID-19 dari Januari hingga September 2020, dengan fokus pada dampak awal pandemi (Maret-April 2020).
+TEMUAN KUNCI:
+IHSG turun 38% dari awal tahun hingga 24 Maret 2020.
+Kepemilikan investor asing atas SUN turun dari 37.4% menjadi 27.3% pada September 2020.
+Nilai total saham di KSEI turun dari IDR 3248 triliun menjadi IDR 2727 triliun pada Maret 2020.
+Bank Indonesia mengurangi BI 7-day Reverse Repo Rate sebesar 100 bps menjadi 4.00% dari Januari hingga September 2020.
+Bank Indonesia menginjeksi likuiditas sebesar IDR 666 triliun hingga akhir September 2020.
+
