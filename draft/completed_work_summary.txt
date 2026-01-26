@@ -1,9 +1,6 @@
 # COMPLETED WORK - CONTEXT SUMMARY
 
-## Pendahuluan Development Progress
-
-
-## Latar Belakang
+## BAB I Latar Belakang
 
 ### Paragraf 1 (COMPLETED)
 Pasar modal merupakan salah satu pilar utama dalam mendorong pertumbuhan ekonomi suatu negara, dengan kontribusi signifikan terhadap pembentukan modal dan alokasi sumber daya yang efisien (Levine & Zervos, 1998). Sebagai sarana pembentukan modal dan akumulasi dana untuk jangka Panjang, pasar modal mendorong partisipasi Masyarakat dalam membiayai Pembangunan nasional melalui mekanisme investasi pada Perusahaan publik melalui perdangan di Bursa Efek Indonesia (cite). Mobilisasi dana dari investor ke sektor produktif ini menjadi katalisator pertumbuhan ekonomi, khususnya di negara berkembang yang mengalami keterbatasan sumber pembiayaan domestic (cite). 
@@ -19,16 +16,17 @@ Figure IHSG 10 Tahun
 ### Paragraf 3 dan 4 (COMPLETED)
 Fluktuasi IHSG memiliki konsekuensi ekonomi yang signifikan bagi stabilitas pasar keuangan dan perekonomian Indonesia. Krisis pasar saham tidak hanya berdampak pada kerugian portofolio investor, tetapi juga memicu efek domino yang mempengaruhi nilai tukar, aliran modal asing, kapitalisasi pasar, dan pertumbuhan ekonomi domestik. Dua kejadian historis memberikan bukti empiris yang kuat yaitu krisis finansial Asia 1997-1998 dan pandemi COVID-19. Krisis finansial 1997-1998 menunjukkan rentannya pasar modal Indonesia terhadap guncangan eksternal, dengan IHSG terkoreksi hingga 50%, rupiah terdepresiasi 30.9%, dan GDP berkontraksi -13.1% pada tahun 1998 salah satu kontraksi terparah dalam sejarah ekonomi Indonesia (Bappenas, 2020). Pandemi COVID-19 menguji resiliensi pasar dengan karakteristik berbeda namun dampak tidak kalah signifikan. Selama Januari-April 2020, kepanikan memicu capital outflow asing sebesar Rp 159.3 triliun, mengakibatkan IHSG terkoreksi 38% hingga 24 Maret 2020 dan rupiah terdepresiasi 12.4% (Bappenas, 2020; Sugandi, 2022).
 Di sisi lain, pemulihan pasar saham menunjukkan dampak positif terhadap partisipasi investasi masyarakat. Momentum bullish sepanjang 2021 memicu fenomena retail investor dengan pertumbuhan Single Investor Identification (SID) sebesar 92.99% year-on-year (KSEI, 2021). Kedua fenomena ekstrem ini menggaris bawahi urgensi pengembangan sistem prediksi IHSG yang akurat sebagai early warning mechanism dan investment timing optimization tool.
-Kemampuan memprediksi pergerakan IHSG secara akurat menjadi kebutuhan strategis bagi berbagai pemangku kepentingan di pasar modal Indonesia. Bagi investor dan manajer portofolio, prediksi yang presisi menjadi fondasi dalam pengambilan keputusan investasi, manajemen risiko, dan optimalisasi alokasi aset (Ledhem & Moussaoui, 2024). Penelitian Xu (2024) menunjukkan bahwa kesenjangan antara ekspektasi return dengan realisasi aktual dapat menurunkan probabilitas partisipasi rumah tangga dalam investasi aset berisiko hingga 11.8%, menggarisbawahi pentingnya akurasi prediksi. Lebih lanjut, forecasting yang akurat memungkinkan pelaku pasar mengantisipasi volatilitas secara proaktif, khususnya dalam menghadapi era VUCA (Volatility, Uncertainty, Complexity, Ambiguity) yang ditandai fluktuasi tinggi dan ketidakpastian ekonomi global (Saluza et al., 2024). Namun, pendekatan prediksi tradisional seperti analisis teknikal dan fundamental menunjukkan keterbatasan dalam menangkap kompleksitas hubungan non-linear antara variabel penentu IHSG (Sezer et al., 2019), memerlukan identifikasi faktor-faktor yang mempengaruhi pergerakan indeks secara komprehensif.
-Pergerakan IHSG dipengaruhi oleh interaksi kompleks antara variabel makroekonomi domestik, harga komoditas global, dan dinamika pasar regional. Penelitian Endri et al. (2020) mengidentifikasi bahwa suku bunga dan inflasi berpengaruh negatif signifikan terhadap IHSG, sementara nilai tukar menunjukkan pengaruh positif signifikan, mengkonfirmasi sensitivitas pasar modal Indonesia terhadap kondisi ekonomi domestik. Sebagai negara pengekspor komoditas utama, Indonesia memiliki eksposur signifikan terhadap fluktuasi harga komoditas global, khususnya batubara, nikel, tembaga, dan timah, dengan penelitian Rahmah et al. (2024) mengonfirmasi bahwa harga batubara dan nikel memiliki hubungan dependensi signifikan dengan IHSG. Di sisi lain, integrasi pasar modal regional ASEAN menciptakan spillover effect dari indeks negara tetangga, dengan Straits Times Index (STI) berpengaruh positif signifikan terhadap IHSG, mengindikasikan co-movement yang didorong oleh aliran modal asing dan sentimen regional (Endri et al., 2020; Murti, 2017). Kompleksitas interaksi multi-variabel ini menuntut pendekatan pemodelan yang mampu menangkap hubungan non-linear dan efek interaksi antar prediktor secara simultan, mendorong adopsi algoritma machine learning dalam prediksi pasar saham.
 
+Kemampuan memprediksi pergerakan IHSG secara akurat menjadi kebutuhan strategis bagi berbagai pemangku kepentingan di pasar modal Indonesia. Bagi investor dan manajer portofolio, prediksi yang presisi menjadi fondasi dalam pengambilan keputusan investasi, manajemen risiko, dan optimalisasi alokasi aset (Ledhem & Moussaoui, 2024). Penelitian Xu (2024) menunjukkan bahwa kesenjangan antara ekspektasi return dengan realisasi aktual dapat menurunkan probabilitas partisipasi rumah tangga dalam investasi aset berisiko hingga 11.8%, menggarisbawahi pentingnya akurasi prediksi. Lebih lanjut, forecasting yang akurat memungkinkan pelaku pasar mengantisipasi volatilitas secara proaktif, khususnya dalam menghadapi era VUCA (Volatility, Uncertainty, Complexity, Ambiguity) yang ditandai fluktuasi tinggi dan ketidakpastian ekonomi global (Saluza et al., 2024). Namun, pendekatan prediksi tradisional seperti analisis teknikal dan fundamental menunjukkan keterbatasan dalam menangkap kompleksitas hubungan non-linear antara variabel penentu IHSG (Sezer et al., 2019), memerlukan identifikasi faktor-faktor yang mempengaruhi pergerakan indeks secara komprehensif.
+
+Pergerakan IHSG dipengaruhi oleh interaksi kompleks antara variabel makroekonomi domestik, harga komoditas global, dan dinamika pasar regional. Penelitian Endri et al. (2020) mengidentifikasi bahwa suku bunga dan inflasi berpengaruh negatif signifikan terhadap IHSG, sementara nilai tukar menunjukkan pengaruh positif signifikan, mengkonfirmasi sensitivitas pasar modal Indonesia terhadap kondisi ekonomi domestik. Sebagai negara pengekspor komoditas utama, Indonesia memiliki eksposur signifikan terhadap fluktuasi harga komoditas global, khususnya batubara, nikel, tembaga, dan timah, dengan penelitian Rahmah et al. (2024) mengonfirmasi bahwa harga batubara dan nikel memiliki hubungan dependensi signifikan dengan IHSG. Di sisi lain, integrasi pasar modal regional ASEAN menciptakan spillover effect dari indeks negara tetangga, dengan Straits Times Index (STI) berpengaruh positif signifikan terhadap IHSG, mengindikasikan co-movement yang didorong oleh aliran modal asing dan sentimen regional (Endri et al., 2020; Murti, 2017). Kompleksitas interaksi multi-variabel ini menuntut pendekatan pemodelan yang mampu menangkap hubungan non-linear dan efek interaksi antar prediktor secara simultan, mendorong adopsi algoritma machine learning dalam prediksi pasar saham.
 
 Figure IHSG dan Comovement
 
 Gambar 1.2 menunjukkan co-movement antara IHSG dengan harga komoditas ekspor utama Indonesia, khususnya batubara dan nikel. Pola pergerakan bersama ini mengkonfirmasi temuan Rahmah et al. (2024) yang menemukan hubungan signifikan antara harga batubara dan nikel dengan IHSG. Fenomena ini mencerminkan struktur ekonomi Indonesia sebagai negara pengekspor komoditas, di mana fluktuasi harga komoditas global berpengaruh langsung terhadap ekspektasi profitabilitas perusahaan tambang yang tercatat di bursa dan sentimen investor secara keseluruhan.
 
 ### Paragraf 5 (COMPLETED)
-Perkembangan teknologi komputasi dan ketersediaan data dalam skala besar telah merevolusi pendekatan prediksi pasar keuangan, menggeser paradigma dari metode ekonometrika tradisional ke algoritma machine learning yang lebih adaptif (Zeng et al., 2024). Metode konvensional seperti ARIMA, VAR, dan GARCH, meskipun memiliki fondasi teoretis yang kuat, menunjukkan keterbatasan dalam menangkap pola non-linear dan hubungan dinamis antar variabel yang kompleks pada data financial time series (Nti et al., 2019). Sebaliknya, algoritma Random Forest telah menunjukkan performa kompetitif untuk prediksi pasar saham karena kemampuannya menangani data tabular dengan fitur makroekonomi yang bersifat heterogen, menangkap hubungan non-linear, serta mengidentifikasi interaction effects antar prediktor tanpa asumsi parametrik yang ketat (Sezer et al., 2019). Penelitian Zeng et al. (2024) mengonfirmasi superioritas Random Forest dalam memprediksi volatilitas S&P 500 dibandingkan 25 model alternatif lainnya, dengan kemampuan menangani 126 variabel makroekonomi secara simultan. Di konteks pasar Indonesia, Ledhem dan Moussaoui (2024) mendemonstrasikan bahwa Random Forest mampu memprediksi Jakarta Islamic Index dengan akurasi tinggi (R² = 0.9999995), meskipun penelitian tersebut hanya menggunakan variabel harga historis tanpa integrasi faktor fundamental. Lebih lanjut, kombinasi Random Forest dengan teknik explainable AI seperti SHAP (Shapley Additive exPlanations) memungkinkan interpretasi kontribusi setiap variabel prediktor terhadap output model, menjembatani gap antara akurasi prediksi dan interpretabilitas ekonomi yang menjadi concern utama dalam aplikasi machine learning untuk keuangan (Zeng et al., 2024; Patel et al., 2024).
+Perkembangan teknologi komputasi dan ketersediaan data dalam skala besar telah merevolusi pendekatan prediksi pasar keuangan, menggeser paradigma dari metode ekonometrika tradisional ke algoritma machine learning yang lebih adaptif (Zeng et al., 2024). Metode konvensional seperti ARIMA, VAR, dan GARCH, meskipun memiliki fondasi teoretis yang kuat, menunjukkan keterbatasan dalam menangkap pola non-linear dan hubungan dinamis antar variabel yang kompleks pada data financial time series (Nti et al., 2019). Sebaliknya, algoritma Random Forest telah menunjukkan performa kompetitif untuk prediksi pasar saham karena kemampuannya menangani data tabular dengan fitur makroekonomi yang bersifat heterogen, menangkap hubungan non-linear, serta mengidentifikasi interaction effects antar prediktor tanpa asumsi parametrik yang ketat (Sezer et al., 2019). Penelitian Zeng et al. (2024) mengonfirmasi superioritas Random Forest dalam memprediksi volatilitas S&P 500 dibandingkan 25 model alternatif lainnya, dengan kemampuan menangani 126 variabel makroekonomi secara simultan. Di konteks pasar Indonesia, Ledhem dan Moussaoui (2024) mendemonstrasikan bahwa Random Forest mampu memprediksi Jakarta Islamic Index dengan akurasi tinggi (R² = 0.9999995), meskipun penelitian tersebut hanya menggunakan variabel harga historis tanpa integrasi faktor fundamental. Lebih lanjut, kombinasi Random Forest dengan teknik explainable AI seperti SHAP (Shapley Additive exPlanations) memungkinkan interpretasi kontribusi setiap variabel prediktor terhadap output model, menjembatani gap antara akurasi prediksi dan interpretabilitas ekonomi yang menjadi concern utama dalam aplikasi machine learning untuk keuangan (Zeng et al., 2024; Patel et al., 2024)
 
 ### Paragraf 6 (COMPLETED)
 Meskipun literatur tentang prediksi indeks saham menggunakan machine learning telah berkembang pesat, terdapat beberapa gap penelitian yang perlu diisi, khususnya dalam konteks pasar modal Indonesia. Pertama, sebagian besar studi eksisting berfokus pada pendekatan single-frequency, baik prediksi bulanan dengan variabel makroekonomi (Endri et al., 2020) atau prediksi harian dengan variabel teknikal dan harga historis (Hernita et al., 2025; Ledhem & Moussaoui, 2024), tanpa mengeksplorasi pendekatan multi-frekuensi yang dapat menangkap dinamika pasar pada time horizon berbeda. Kedua, penerapan explainable AI, khususnya SHAP analysis, dalam penelitian pasar modal Indonesia masih sangat terbatas; mayoritas studi hanya melaporkan feature importance tanpa interpretasi ekonomi mendalam terhadap kontribusi variabel (Hernita et al., 2025; Saluza et al., 2024). Ketiga, integrasi komprehensif antara variabel makroekonomi domestik dan harga komoditas global dalam satu framework prediksi IHSG belum banyak dieksplorasi—studi terdahulu cenderung menggunakan salah satu kategori variabel saja (Endri et al., 2020; Rahmah et al., 2024). Keempat, sebagian besar penelitian global tentang stock market prediction berfokus pada developed markets seperti S&P 500, Nikkei, atau FTSE 100 (Zeng et al., 2024; Patsiarikas et al., 2025), sementara emerging markets seperti Indonesia yang memiliki karakteristik volatilitas tinggi dan sensitivitas terhadap faktor eksternal masih kurang mendapat perhatian (Sezer et al., 2019).
@@ -37,7 +35,6 @@ Penelitian ini berkontribusi mengisi gap tersebut melalui tiga aspek utama. Pert
 
 ### Paragraf 7 (COMPLETED)
 Berdasarkan urgensi prediksi IHSG yang akurat, kompleksitas faktor-faktor yang mempengaruhi pergerakan indeks, serta gap penelitian yang telah diidentifikasi, penelitian ini mengembangkan framework prediksi IHSG menggunakan algoritma Random Forest dengan pendekatan multi-frekuensi yang mengintegrasikan variabel makroekonomi domestik dan variabel pasar global. Pendekatan dual-frequency—Model 1 dengan frekuensi bulanan untuk menangkap dampak struktural variabel makroekonomi dan Model 2 dengan frekuensi harian untuk menangkap dinamika jangka pendek dari komoditas dan sentimen regional—memungkinkan analisis komprehensif terhadap pergerakan IHSG pada time horizon yang berbeda. Penggunaan SHAP analysis sebagai metode interpretasi memberikan transparansi terhadap kontribusi setiap variabel prediktor, menjembatani gap antara akurasi prediksi machine learning dan kebutuhan interpretabilitas ekonomi bagi praktisi pasar modal. Dengan demikian, penelitian ini tidak hanya bertujuan membangun model prediksi yang akurat secara statistik, tetapi juga menghasilkan insights ekonomi yang actionable bagi investor, manajer portofolio, dan pembuat kebijakan dalam memahami drivers utama pergerakan pasar modal Indonesia.
-
 
 ### Research Questions & Objective
 1.2	Perumusan Masalah  
@@ -56,23 +53,171 @@ Tujuan dari penelitian ini adalah:
 3.	Manfaat Metodologis: Memberikan template aplikasi machine learning untuk financial forecasting dengan best practices dalam preprocessing multi-frekuensi data, hyperparameter tuning, evaluasi komprehensif, dan interpretasi hasil menggunakan SHAP analysis.
 
 
-## Model Results Summary
+## BAB II Tinjauan Pustaka
 
-### Model 1 (Monthly - Macroeconomic)
-- Best MAPE: [your score]%
-- Best hyperparameters: [list from gridsearch]
-- Top SHAP features: [top 3-5]
-- RF vs XGBoost: [winner + comparison]
+### 2.1 Pasar Modal dan Indeks Harga Saham Gabungan
+Pasar modal merupakan mekanisme intermediasi keuangan yang mempertemukan pihak yang memiliki surplus dana (investor) dengan pihak yang memerlukan dana untuk kegiatan produktif (emiten) melalui perdagangan instrumen keuangan jangka panjang. (Levine & Zervos, 1998) mendefinisikan pasar modal sebagai institusi yang memfasilitasi tiga fungsi ekonomi krusial: pertama, mobilisasi dan pooling of savings dari berbagai sumber untuk dialokasikan ke investasi produktif; kedua, penyediaan likuiditas yang memungkinkan investor mengonversi aset finansial menjadi kas dengan biaya transaksi rendah; dan ketiga, diversifikasi risiko melalui perdagangan sekuritas dengan karakteristik risk-return yang beragam. Dalam teori keuangan, pasar modal berfungsi mengatasi information asymmetry dan agency problems antara pemilik modal dan pengguna modal, sehingga meningkatkan efisiensi alokasi sumber daya dalam perekonomian.
+Dari perspektif makroekonomi, perkembangan pasar modal berkontribusi terhadap pertumbuhan ekonomi melalui beberapa channels. Pertama, capital accumulation channel, di mana pasar modal menyediakan sumber pembiayaan ekuitas bagi perusahaan untuk investasi dalam aset produktif, mengurangi ketergantungan pada pembiayaan bank yang cenderung lebih mahal dan berisiko konsentrasi (Levine & Zervos, 1998). Kedua, productivity channel, di mana pasar modal meningkatkan efisiensi alokasi kapital dengan mengarahkan dana ke proyek-proyek dengan marginal productivity tertinggi melalui mekanisme price discovery. Ketiga, risk management channel, di mana pasar modal memungkinkan diversifikasi risiko idiosyncratic melalui portfolio investment, mendorong investor untuk membiayai proyek-proyek berisiko tinggi namun berpotensi high return yang esensial untuk inovasi dan technological progress. Bukti empiris dari berbagai negara berkembang mengonfirmasi hubungan positif signifikan antara indikator perkembangan pasar modal (seperti kapitalisasi pasar terhadap GDP, turnover ratio, dan value traded) dengan pertumbuhan ekonomi jangka panjang (Bist, 2017) ; (Chikwira & Mohammed, 2023).
 
-### Model 2 (Daily - Commodities)
-- Best MAPE: [your score]%
-- Best hyperparameters: [list]
-- Top SHAP features: [top 3-5]
-- Issue resolved: Flat predictions after Dec 20, 2023 (solved via interpolation)
+### 2.2 Variabel Makroekonomi dan Komoditas
+#### 2.2.1 Variabel Makroekonomi Domestik
+#### 2.2.2 Harga Komoditas Global
+#### 2.2.3 Indeks Regional (Straits Times Index)
 
-## Key Decisions Made
-1. Data preprocessing: Interpolation (linear, limit=10) instead of forward-fill
-2. Scaling: MinMaxScaler with range (-1, 1)
-3. Validation: 80/20 train/test split + residual diagnostics
-4. Explainability: SHAP TreeExplainer for Random Forest
-5. Baseline: Naive last-value forecast for comparison
+### 2.3 Machine learning Untuk Prediksi Pasar Saham
+#### 2.3.1 Financial Timeseries Forecasting
+Prediksi timeseries merupakan jenis prediksi dalam machine learning yang memprediksi data berkelanjutan atau continuous pada suatu rentang waktu menggunakan data rentang waktu sebelumnya. Prediksi jenis ini merupakan prediksi jenis regression yaitu prediksi dengan permasalahan utama pada angka atau data continuous dengan adanya aturan rentang waktu pada datanya. Prediksi timeseries banyak digunakan untuk prediksi pasar keuangan yang menggeser metode ekonometrika tradisional ke algoritma machine learning yang lebih adaptif (Zeng et al., 2024).
+Metode konvensional seperti ARIMA, VAR, dan GARCH, meskipun memiliki dasar teoretis yang kuat, menunjukkan keterbatasan dalam menangkap pola non-linear dan hubungan dinamis antar variabel yang kompleks pada data financial time series (Nti et al., 2019). Sebaliknya, algoritma berbasis tree ensemble seperti Random Forest dan XGBoost telah menunjukkan performa kompetitif untuk prediksi pasar saham karena kemampuannya menangani data tabular dengan fitur heterogen, menangkap hubungan non-linear, serta mengidentifikasi interaction effects antar prediktor tanpa asumsi parametrik yang ketat (Sezer et al., 2019).
+
+#### 2.3.2 Random Forest Algorithm
+Random Forest merupakan algoritma ensemble learning yang dikembangkan oleh (Breiman, 2001) dengan menggabungkan prediksi dari sejumlah besar decision tree yang dibangun secara independen. Konsep fundamental Random Forest didasarkan pada prinsip bahwa agregasi prediksi dari banyak model yang lemah (weak learners) dapat menghasilkan model yang kuat dengan akurasi tinggi dan generalisasi yang baik.
+Secara formal, Random Forest didefinisikan sebagai kumpulan classifier berbasis pohon keputusan:
+{h(x,Θk),k=1,2,…,K}
+di mana {Θ_k }merupakan vektor random yang diambil secara independen dan identik untuk setiap pohon, dan setiap pohon memberikan satu unit vote untuk kelas yang paling populer pada input x (Breiman, 2001).
+Untuk tugas regresi seperti prediksi IHSG, prediksi akhir Random Forest diperoleh melalui rata-rata prediksi seluruh pohon dalam ensemble:
+y ̂=  1/K ∑_(K=1)^K▒〖h(x,〗 Θk)
+di mana Kadalah jumlah total pohon dalam forest, h(x,Θ_k)adalah prediksi dari pohon ke-k, dan y ̂adalah prediksi akhir model.
+Random Forest menggunakan teknik bagging untuk membangun setiap pohon. Dari dataset training Ddengan Nobservasi, setiap pohon dilatih menggunakan bootstrap sample D_kyang diambil secara random dengan replacement. Proses ini memastikan bahwa setiap pohon melihat subset data yang berbeda, menciptakan diversitas dalam ensemble.
+Keunikan Random Forest terletak pada mekanisme random feature selection pada setiap node split. Alih-alih mengevaluasi seluruh Mfitur untuk menentukan split terbaik, algoritma hanya mempertimbangkan subset Ffitur yang dipilih secara random. Breiman (2001) merekomendasikan F=⌊〖log⁡〗_2 M+1⌋untuk klasifikasi, namun untuk regresi nilai yang lebih besar sering memberikan hasil lebih baik.
+(Breiman, 2001) membuktikan bahwa generalization error Random Forest memiliki upper bound:
+PE^*≤(ρ ˉ(1-s^2))/s^2 
+
+di mana sadalah strength (rata-rata akurasi individual tree) dan ρ ˉadalah rata-rata korelasi antar pohon. Persamaan ini menunjukkan bahwa error dapat diminimalkan dengan meningkatkan strength sambil menjaga korelasi antar pohon tetap rendah—justifikasi teoretis untuk random feature selection. 
+Berdasarkan Strong Law of Large Numbers, (Breiman, 2001) membuktikan bahwa seiring bertambahnya jumlah pohon, generalization error Random Forest konvergen ke nilai limit tertentu. Teorema ini menjelaskan mengapa Random Forest tidak mengalami overfitting meskipun jumlah pohon terus ditambahkan—sebuah keunggulan signifikan dibandingkan single decision tree.
+
+(Tabel Hyperparameter)
+
+(Figure Arsitektur)
+
+#### 2.3.3 XGBoost Algorithm
+XGBoost (Extreme Gradient Boosting) merupakan implementasi scalable dari algoritma gradient tree boosting yang dikembangkan oleh (Chen & Guestrin, 2016). Berbeda dengan Random Forest yang membangun pohon secara independen, XGBoost menggunakan pendekatan sekuensial di mana setiap pohon baru dibangun untuk memperbaiki kesalahan prediksi dari ensemble pohon sebelumnya.
+Untuk dataset D={(x_i,y_i)}_(i=1)^n, model XGBoost menghasilkan prediksi melalui penjumlahan Kfungsi pohon: 
+y ̂_i=∑_(k=1)^K▒f_k (x_i),f_k∈F
+
+di mana Fadalah ruang regression tree dengan struktur qyang memetakan observasi ke leaf nodes dan vektor bobot w pada setiap leaf.
+Keunggulan utama XGBoost terletak pada fungsi objektif yang ter-regularisasi:
+L(ϕ)=∑_(i=1)^n▒〖l(〗 y ̂_i,y_i)+∑_(k=1)^K▒〖Ω(〗 f_k),"di mana" Ω(f)=γT+1/2 λ∥w∥^2
+
+Parameter γmengontrol kompleksitas melalui jumlah leaf nodes T, sedangkan λmenerapkan L2 regularization pada bobot leaf untuk mencegah overfitting.
+Model dilatih secara iteratif menggunakan Taylor expansion orde kedua. Pada iterasi ke-t, fungsi objektif diaproksimasi menjadi: 
+L ̃^((t) )=∑_(i=1)^n▒[g_i f_t (x_i)+1/2 h_i f_t^2 (x_i)] +Ω(f_t)
+
+di mana g_idan h_iadalah gradient dan hessian dari fungsi loss. Penggunaan informasi orde kedua ini memberikan XGBoost konvergensi yang lebih cepat dibandingkan gradient boosting tradisional.
+Untuk menentukan split terbaik, XGBoost menghitung reduction in loss (gain):
+L_split=1/2 [(G_L^2)/(H_L+λ)+(G_R^2)/(H_R+λ)-(G_Lⓜ+G_R )^2 ┤/(H_L+H_R+λ)]-γ
+
+di mana G_L,G_Rdan H_L,H_Radalah jumlah gradient dan hessian pada child node kiri dan kanan. Parameter γberfungsi sebagai minimum gain threshold untuk melakukan split.
+
+(Tabel Hyperparameter)
+
+(Figure Arsitektur)
+
+#### 2.3.4 Metrik Evaluasi Prediksi
+Evaluasi performa model prediksi memerlukan metrik kuantitatif yang dapat mengukur akurasi dan kualitas prediksi secara objektif. Penelitian ini menggunakan empat metrik evaluasi yang umum digunakan dalam literatur financial forecasting.
+Metrik yang digunakan pada penelitian ini adalah mean absolute percentage error (MAPE), root mean squared error (RMSE), mean absolute error (MAE) dam coeffocoemt of determination (r-squared).
+MAPE mengukur rata-rata persentase kesalahan absolut antara nilai prediksi dan nilai aktual, memberikan interpretasi yang intuitif dalam bentuk persentase deviasi:
+MAPE=1/n ∑_(i=1)^n▒〖∣(y_i-y ̂_i)/y_i ∣〗×100%
+
+di mana y_iadalah nilai aktual, y ̂_iadalah nilai prediksi, dan nadalah jumlah observasi. MAPE dipilih sebagai metrik utama karena scale-independent dan mudah diinterpretasi—nilai MAPE 5% berarti rata-rata prediksi menyimpang 5% dari nilai aktual.
+RMSE mengukur akar dari rata-rata kuadrat kesalahan, memberikan bobot lebih besar pada kesalahan yang lebih besar:
+RMSE=√(1/n ∑_(i=1)^n▒( y_i-y ̂_i )^2 )
+
+RMSE memiliki unit yang sama dengan variabel target (poin indeks IHSG), memudahkan interpretasi magnitude kesalahan dalam konteks pergerakan indeks.
+MAE mengukur rata-rata kesalahan absolut tanpa kuadrat, sehingga lebih robust terhadap outlier dibandingkan RMSE:
+MAE=1/n ∑_(i=1)^n▒∣ y_i-y ̂_i∣
+
+Perbandingan MAE dan RMSE memberikan indikasi distribusi kesalahan—jika RMSE jauh lebih besar dari MAE, menandakan adanya kesalahan besar (outlier) pada beberapa prediksi.
+R-Squared mengukur proporsi variansi dalam variabel target yang dapat dijelaskan oleh model:
+R^2=1-(∑_(i=1)^n▒( y_i-y ̂_i )^2)/(∑_(i=1)^n▒( y_i-y ˉ)^2 )=1-(SS_res)/(SS_tot )
+
+di mana y ˉadalah rata-rata nilai aktual, SS_resadalah sum of squared residuals, dan SS_totadalah total sum of squares. Nilai R^2berkisar antara 0 hingga 1, di mana nilai mendekati 1 menunjukkan model mampu menjelaskan sebagian besar variansi data.
+
+#### 2.3.5 SHAP (SHapley Additive exPlanations)
+
+SHAP merupakan metode interpretasi model yang dikembangkan oleh (Lundberg & Lee, 2017) dengan menggabungkan konsep Shapley values dari cooperative game theory dengan additive feature attribution methods. SHAP memberikan penjelasan yang konsisten dan akurat tentang kontribusi setiap fitur terhadap prediksi model.
+SHAP termasuk dalam kelas additive feature attribution methods yang memiliki explanation model berbentuk fungsi linear dari variabel biner:
+g(z^')=ϕ_0+∑_(i=1)^M▒ϕ_i  z_i^'
+
+di mana z^'∈{0,1}^Madalah simplified input vector, Madalah jumlah fitur, ϕ_0adalah base value (prediksi rata-rata), dan ϕ_iadalah attribution value untuk fitur ke-i yang merepresentasikan kontribusi fitur tersebut terhadap prediksi.
+(Lundberg & Lee, 2017) membuktikan bahwa terdapat solusi unik untuk ϕ_iyang memenuhi tiga properti penting: local accuracy, missingness, dan consistency. Solusi tersebut adalah Shapley values: 
+ϕ_i (f,x)=∑_(z^'⊆x^')▒(∣z^'∣!(M-∣z^'∣-1)!)/M! [f_x (z^')-f_x (z^'∖i)]
+
+di mana ∣z^'∣adalah jumlah fitur non-zero dalam z^', f_x (z^')adalah prediksi model dengan fitur subset z^', dan f_x (z^'∖i)adalah prediksi tanpa fitur i. Formula ini menghitung rata-rata tertimbang dari kontribusi marginal fitur iterhadap prediksi di semua kemungkinan kombinasi fitur.
+SHAP values menjelaskan bagaimana prediksi bergerak dari base value E[f(z)](rata-rata prediksi) menuju output aktual f(x): 
+f(x)=ϕ_0+∑_(i=1)^M▒ϕ_i 
+
+Nilai ϕ_i>0menunjukkan fitur imeningkatkan prediksi di atas base value, sedangkan ϕ_i<0menunjukkan fitur tersebut menurunkan prediksi. Magnitude ∣ϕ_i∣menunjukkan besarnya pengaruh fitur terhadap prediksi.
+Untuk model Random Forest dan XGBoost, penelitian ini menggunakan TreeSHAP—algoritma yang dioptimasi untuk menghitung exact SHAP values pada tree-based models dengan kompleksitas O(TLD^2)dibandingkan O(TL2^M)pada metode naif, di mana Tadalah jumlah pohon, Ladalah jumlah leaf maksimum, dan Dadalah kedalaman maksimum pohon.
+Analisis SHAP dalam penelitian ini dilakukan dengan konfigurasi berikut:
+	Background samples: 50 sampel dari data training untuk estimasi base value
+	Method: TreeExplainer (optimized untuk Random Forest)
+	Horizon: 1-step ahead prediction
+	Aggregasi: Mean absolute SHAP value per fitur dan per kategori variabel
+Hasil SHAP analysis divisualisasikan melalui:
+	Summary plot (bar): Menampilkan ranking feature importance berdasarkan mean |SHAP value|
+	Summary plot (dot): Menampilkan distribusi SHAP values dan hubungannya dengan feature values
+	Category importance: Agregasi importance berdasarkan kategori variabel (makroekonomi vs lag IHSG)
+Temporal analysis: Evolusi SHAP values sepanjang periode pengujian
+
+
+### 2.4 Literature Review
+Prediksi indeks saham menggunakan pendekatan machine learning telah menjadi topik penelitian yang berkembang pesat dalam satu dekade terakhir, didorong oleh ketersediaan data dalam skala besar dan kemajuan komputasi. Bagian ini menyajikan tinjauan terhadap studi empiris terdahulu yang relevan dengan penelitian ini, mencakup prediksi indeks saham dengan variabel makroekonomi, prediksi berbasis harga komoditas, dan penerapan algoritma Random Forest dalam konteks pasar keuangan. Tinjauan ini bertujuan mengidentifikasi kesenjangan penelitian yang menjadi dasar kontribusi penelitian ini.
+Penelitian (Endri et al., 2020) menganalisis pengaruh variabel makroekonomi domestik dan indeks saham global terhadap volatilitas IHSG menggunakan model GARCH(1,1). Dengan data bulanan dari Januari 2012 hingga Desember 2018, studi tersebut menemukan bahwa suku bunga (BI Rate) dan inflasi berpengaruh negatif signifikan terhadap IHSG, sementara nilai tukar berpengaruh positif signifikan. Untuk indeks regional, Straits Times Index (STI) dan Dow Jones Industrial Average (DJIA) menunjukkan pengaruh positif signifikan. Temuan ini mengkonfirmasi sensitivitas pasar modal Indonesia terhadap kondisi makroekonomi domestik dan dinamika pasar regional, meskipun penggunaan model GARCH yang bersifat linear membatasi kemampuan menangkap hubungan non-linear antar variabel.
+Dalam konteks pasar maju, Zeng et al. (2024) membandingkan 26 model untuk memprediksi volatilitas S&P 500 menggunakan 126 variabel makroekonomi dengan frekuensi bulanan. Hasil menunjukkan Random Forest sebagai model terbaik dibandingkan alternatif lainnya, dengan kemampuan menangani data berdimensi tinggi dan menangkap hubungan non-linear secara efektif. Studi ini juga menerapkan SHAP analysis untuk menginterpretasi kontribusi variabel makroekonomi terhadap volatilitas pasar, memberikan insights ekonomi yang valuable bagi investor dan policy maker. Temuan bahwa machine learning outperform metode ekonometrika tradisional untuk prediksi pasar saham menjadi justifikasi kuat untuk adopsi pendekatan serupa dalam konteks emerging market seperti Indonesia.[IA1.1]
+Rahmah et al. (2024) menganalisis hubungan antara harga komoditas dan IHSG menggunakan metode Copula dengan data harian dari September 2020 hingga September 2022. Studi menemukan bahwa batubara dan nikel memiliki hubungan dependensi signifikan dengan IHSG, sedangkan minyak dan CPO menunjukkan hubungan yang lebih lemah. Temuan ini mengkonfirmasi posisi Indonesia sebagai negara pengekspor komoditas utama, di mana fluktuasi harga komoditas global secara langsung mempengaruhi ekspektasi profitabilitas perusahaan tambang yang tercatat di bursa. Namun, penelitian tersebut hanya menggunakan metode statistik tradisional tanpa mengeksplorasi kemampuan prediktif machine learning.[IA2.1]
+Ledhem dan Moussaoui (2024) menerapkan teknik data mining termasuk Random Forest untuk memprediksi Jakarta Islamic Index (JKII) dengan data harian dari Oktober 2000 hingga Maret 2022. Model Random Forest menunjukkan performa sangat tinggi dengan R² = 0.9999995 dan RMSE = 0.157271. Namun, penelitian tersebut hanya menggunakan variabel harga historis (harga pembukaan, penutupan, tertinggi, terendah) tanpa integrasi variabel fundamental seperti makroekonomi atau komoditas, serta tidak menerapkan teknik explainable AI untuk interpretasi model.
+Hernita et al. (2025) memprediksi harga penutupan IHSG jangka pendek menggunakan Random Forest Regression dengan data harian Januari 2015 hingga Mei 2025. Variabel prediktor mencakup lagged prices, moving averages, dan volatility measures. Model mencapai R² = 0.71 dengan RMSE = 177.55, di mana lag_1 menjadi prediktor paling berpengaruh. Meskipun menggunakan hyperparameter tuning dengan RandomizedSearchCV, penelitian tidak mengintegrasikan variabel makroekonomi atau komoditas, serta tidak menerapkan SHAP analysis untuk interpretasi kontribusi variabel.[IA3.1]
+Berdasarkan tinjauan studi empiris di atas, terdapat beberapa kesenjangan penelitian yang dapat diidentifikasi. Pertama, sebagian besar studi prediksi IHSG hanya menggunakan satu frekuensi data—baik bulanan untuk variabel makroekonomi (Endri et al., 2020) atau harian untuk variabel teknikal (Hernita et al., 2025; Ledhem & Moussaoui, 2024)—tanpa mengeksplorasi pendekatan dual-frequency yang dapat menangkap dinamika pasar pada time horizon berbeda. Kedua, meskipun Random Forest telah terbukti efektif untuk prediksi indeks saham, penerapan SHAP analysis untuk interpretasi ekonomi di konteks IHSG masih sangat terbatas; hanya Zeng et al. (2024) yang menerapkan pendekatan ini namun pada pasar S&P 500. Ketiga, integrasi komprehensif antara variabel makroekonomi domestik dan harga komoditas global dalam satu framework prediksi IHSG belum dilakukan—Endri et al. (2020) fokus pada makroekonomi sementara Rahmah et al. (2024) fokus pada komoditas. Keempat, benchmark perbandingan algoritma Random Forest dengan XGBoost jarang dilakukan dalam konteks pasar modal Indonesia.
+
+[Tabel gap penelitian]
+
+Tabel 2.1 menyajikan matriks perbandingan yang mengidentifikasi posisi penelitian ini dalam literatur. Dapat diamati bahwa tidak ada studi sebelumnya yang secara simultan menggabungkan: (1) pendekatan dual-frequency dengan frekuensi bulanan dan harian, (2) integrasi variabel makroekonomi domestik dengan harga komoditas global dan indeks regional, (3) penerapan algoritma Random Forest dengan benchmark XGBoost, serta (4) implementasi SHAP analysis untuk interpretasi ekonomi. Kombinasi keempat elemen ini menjadi kontribusi utama penelitian ini dalam mengisi kesenjangan yang teridentifikasi.
+
+## BAB III Metodologi Penelitian
+### 3.1 Kerangka Pikir
+Kerangka berpikir penelitian ini disajikan dalam Gambar 3.1, yang mengilustrasikan alur proses dari pengumpulan data hingga evaluasi hasil prediksi. Penelitian ini mengadopsi metodologi CRISP-DM (Cross-Industry Standard Process for Data Mining), sebuah standar de-facto dalam proyek data mining yang bersifat industry-independent (Schröer et al., 2021), untuk menerapkan machine learning dalam memprediksi IHSG. Melalui pendekatan ini, penelitian bertujuan membangun model prediksi dengan akurasi optimal dan menganalisis kontribusi variabel prediktor secara ekonomi melalui SHAP analysis.
+
+[Figure kerangka pikir]
+
+### 3.2 Business Understanding
+Dilatarbelakangi oleh urgensi prediksi IHSG yang akurat sebagai instrumen pengambilan keputusan investasi dan manajemen risiko, penelitian ini mengembangkan dual-frequency prediction framework menggunakan Random Forest: Model 1 dengan frekuensi bulanan mengintegrasikan lima variabel makroekonomi Indonesia (Inflasi, M2, USDIDR, BI Rate, NPL) dimana data tersebut memang tersedia secara bulanan dan menggunakan nilai penutupan IHSG bulanan, sedangkan Model 2 dengan frekuensi harian mengintegrasikan indeks regional STI dan enam komoditas global (Gold, Coal, Copper, Silver, Tin, Nickel) dimana data tersebut merupakan data harian. Penggunaan SHAP (Shapley Additive exPlanations) analysis memungkinkan interpretasi ekonomi terhadap kontribusi setiap variabel predictor, menjembatani gap antara akurasi prediksi machine learning dan kebutuhan interpretabilitas bagi praktisi pasar modal dan pemangku kebijakan. 
+
+### 3.3 Data Understanding
+Data penelitian terdiri dari dua dataset dengan frekuensi berbeda yang dikumpulkan dari Bloomberg Terminal, Publikasi Bank Indonesia, Badan Pusat Statistik (BPS), dan Otoritas Jasa Keuangan (OJK). 
+•	Model 1 menggunakan data bulanan periode Januari 2015 hingga Januari 2025 dengan total 121 observasi, mencakup IHSG sebagai variabel dependen dan lima variabel independen makroekonomi (Inflasi YoY, M2 YoY, nilai tukar USDIDR, BI Rate, dan NPL Ratio). 
+•	Model 2 menggunakan data harian (business days) periode yang sama dengan total 2.868 observasi, mencakup IHSG sebagai variabel dependen dan tujuh variabel independen pasar (Straits Times Index, serta harga komoditas Gold, Coal, Copper, Silver, Tin, dan Nickel). 
+Exploratory data analysis dilakukan untuk memahami karakteristik distribusi data, mengidentifikasi hubungan antar variable dan visualisasi timeseries 10 tahun untuk melihat pergerakan harga.
+•	Descriptive Statistics, analisis statistic deskriptif untuk memahami karakteristik distribusi setiap variabel menghitung nilai mean, standard deviation, min dan max.
+(equation mean dan standard deviation)
+•	Correlation Analysis, analisis korelasi dengan menggunakan pearson correlation untuk mengukur kekuatan dan arah hubungan linear antara dua variabel.
+(equation pearson correlation)
+•	Timeseries Visualization, membuat grafik garis pergerakan semua variabel dalam rentang waktu 10 tahun
+•	Missing Values Analysis, menlihat nilai yang hilang dari rentang waktu 10 tahun
+
+### 3.4 Data Preparation
+
+Tahap preparasi data dimulai dengan konversi tipe data ke format TimeSeries menggunakan library Darts untuk memfasilitasi time series forecasting workflow. Untuk handling missing values, Model 1 tidak memerlukan treatment khusus karena tidak ditemukan nilai yang hilang, sedangkan Model 2 menerapkan forward fill (ffill) method untuk mengisi missing values pada data komoditas yang tidak diperdagangkan pada business days tertentu. Dataset kemudian dibagi menggunakan time-based split dengan proporsi 80% untuk training set dan 20% untuk testing set. Feature scaling dilakukan menggunakan MinMaxScaler dengan range (-1, 1) 
+(min max equation)
+
+yang diterapkan setelah train-test split untuk menghindari data leakage, di mana scaler di-fit pada training set dan ditransformasi pada training maupun testing set. Tahap akhir adalah pembuatan lagged features untuk covariates dan variabel target IHSG melalui hyperparameter tuning, memungkinkan model mempelajari pola temporal dan autoregressive dependencies dari historical data
+
+
+### 3.5 Modelling
+
+[Belom ada paragraf]
+
+Tabel
+Aspek	Model 1 (Monthly)	Model 2 (Daily)
+Frekuensi	Bulanan	Harian
+Target	IHSG closing price	IHSG closing price
+Variabel Input	Inflasi, M2, USDIDR, BI Rate, NPL	STI, Gold, Coal, Copper, Silver, Tin, Nickel
+Algoritma	Random Forest, XGBoost	Random Forest
+Periode Data	Jan 2015 - Jan 2025 (121 obs)	Jan 2015 - Jan 2025 (business days)
+Evaluasi	MAPE, RMSE, MAE, R², Directional Accuracy	MAPE, RMSE, MAE, R², Directional Accuracy
+Interpretasi	SHAP Analysis	SHAP Analysis
+
+#### 3.5.1 Random Forest
+#### 3.5.2 XGBoost
+### 3.6 Evaluation
+#### 3.6.1 Metrik Evaluasi Performa Model
+#### 3.6.2 SHAP (SHapley Additive exPlanations)

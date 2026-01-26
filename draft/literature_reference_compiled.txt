@@ -420,3 +420,62 @@ Nilai total saham di KSEI turun dari IDR 3248 triliun menjadi IDR 2727 triliun p
 Bank Indonesia mengurangi BI 7-day Reverse Repo Rate sebesar 100 bps menjadi 4.00% dari Januari hingga September 2020.
 Bank Indonesia menginjeksi likuiditas sebesar IDR 666 triliun hingga akhir September 2020.
 
+=================================================================
+Sitasi: Schröer, C., Kruse, F., & Gómez, J. M. (2021). A Systematic Literature Review on Applying CRISP-DM Process Model. Procedia Computer Science, 181, 526-534. https://doi.org/10.1016/j.procs.2021.01.199
+
+Key Findings:
+- CRISP-DM (Cross-Industry Standard Process for Data Mining) adalah metodologi yang paling banyak digunakan untuk proyek data mining dan machine learning, meskipun telah berusia lebih dari 20 tahun
+- CRISP-DM terdiri dari 6 fase: Business Understanding, Data Understanding, Data Preparation, Modeling, Evaluation, dan Deployment
+- Metodologi ini bersifat domain-independent dan tidak terikat pada teknologi tertentu, sehingga dapat diterapkan pada berbagai jenis proyek analitik data
+- Systematic literature review mengidentifikasi bahwa fase Deployment sering kali tidak dilakukan atau tidak dilaporkan dalam penelitian akademis—hanya sedikit studi yang mengimplementasikan model ke lingkungan produksi
+- Penelitian menemukan bahwa mayoritas studi menggunakan CRISP-DM untuk fase Business Understanding, Data Understanding, Data Preparation, Modeling, dan Evaluation, namun fase Deployment sering diabaikan
+- Terdapat heterogenitas teknologi yang digunakan: untuk storage (MS Access, MySQL, SQL Server); untuk data preparation (Xcyt, Matlab, RapidMiner, WEKA, R); untuk modeling (WEKA adalah yang paling populer karena open-source dan terus diupdate)
+- Keterbatasan CRISP-DM: tidak secara memadai mencakup deployment model ke lingkungan produksi, di mana performa model harus terus dimonitor dan dikontrol (tidak mencakup seluruh lifecycle machine learning)
+- Penelitian menyarankan bahwa CRISP-DM perlu diperkuat dengan pendekatan modern seperti automasi deployment dan ekstraksi layanan (services) untuk mengurangi time-to-science/time-to-research
+
+Relevansi untuk Penelitian IHSG:
+- CRISP-DM menyediakan framework terstruktur yang cocok untuk penelitian prediksi IHSG, mulai dari pemahaman business problem (prediksi indeks saham), data understanding (eksplorasi variabel makro dan komoditas), data preparation (handling missing values, feature engineering), modeling (Random Forest, XGBoost), hingga evaluation (MAPE, RMSE, MAE, R²)
+- Fase Business Understanding dalam konteks penelitian ini mencakup identifikasi kebutuhan prediksi IHSG yang akurat untuk investor dan policy maker
+- Fase Data Understanding dan Data Preparation sangat relevan untuk menangani data multi-frekuensi (bulanan untuk makro, harian untuk komoditas) dan preprocessing seperti interpolasi untuk missing values
+- Fase Modeling mencakup implementasi Random Forest dan XGBoost dengan hyperparameter tuning menggunakan GridSearchCV
+- Fase Evaluation mencakup perhitungan metrik performa dan SHAP analysis untuk interpretabilitas
+- Meskipun fase Deployment tidak menjadi fokus utama dalam penelitian akademis (sesuai temuan paper), penelitian ini tetap mengikuti best practice CRISP-DM untuk fase 1-5 yang lebih relevan untuk konteks skripsi
+
+Kutipan Penting:
+"CRISP-DM is an organizational process model and not restricted to any technology. Therefore, several technologies can support the process."
+
+"It is worth noting that the deployment phase is missing in the majority of the studies... CRISP-DM does not adequately cover the deployment of the analysis in the productive environment, where model performance must be continuously monitored and controlled."
+
+"WEKA is a popular tool in data mining since it is a free software licensed under the GNU General Public License. Furthermore, it is still maintained (last version was released in the end of 2019) and is developed by a research institution, the university of Waikato."
+=================================================================
+
+Ini adalah semua daftar pustaka yang saya gunakan:
+Aladwani, J. (2024). Oil Volatility Uncertainty: Impact on Fundamental Macroeconomics and the Stock Index. Economies, 12(6). https://doi.org/10.3390/economies12060140
+Alpaydin, E. (2020). Introduction to Machine Learning. Mit Press.
+Bimenyimana, J. C., Mei-Sheng, D., & Jallow, M. L. (2025). IS THE STOCK MARKET A “BAROMETER” OF THE ECONOMY? BASED ON SOUTH AFRICA COMPREHENSIVE ANALYSIS. ECONOMICS - Innovative and Economics Research Journal, 13(3), 409–427. https://doi.org/10.2478/eoik-2025-0072
+Bist, J. P. (2017). Stock Market Development and Economic Growth in Nepal: An ARDL Representation. Journal of Finance and Economics, 5(4), 164–170. https://doi.org/10.12691/jfe-5-4-2
+Breiman, L. (2001). Random Forests (Vol. 45).
+Chen, T., & Guestrin, C. (2016). XGBoost: A scalable tree boosting system. Proceedings of the ACM SIGKDD International Conference on Knowledge Discovery and Data Mining, 13-17-August-2016, 785–794. https://doi.org/10.1145/2939672.2939785
+Chikwira, C., & Mohammed, J. I. (2023). The Impact of the Stock Market on Liquidity and Economic Growth: Evidence of Volatile Market. Economies, 11(6). https://doi.org/10.3390/economies11060155
+Endri, E., Abidin, Z., Simanjuntak, T. P., & Nurhayati, I. (2020). Indonesian stock market volatility: GARCH model. Montenegrin Journal of Economics, 16(2), 7–17. https://doi.org/10.14254/1800-5845/2020.16-2.1
+Gronwald, M. (2019). Is Bitcoin a Commodity? On price jumps, demand shocks, and certainty of supply. Journal of International Money and Finance, 97, 86–92. https://doi.org/10.1016/j.jimonfin.2019.06.006
+Hanif, R., Mustafa, S., Iqbal, S., & Piracha, S. (2023). A Study of Time Series Forecasting Enrollments Using Fuzzy Interval Partitioning Method. Journal of Computational and Cognitive Engineering, 2(2), 143–149. https://doi.org/10.47852/bonviewJCCE2202159
+Hernita, A., Derajat Sudarmojo, O., Saputra, S., & Alinuddin Kaharu, N. (2025). Fundamental and Applied Management Journal Information Technology Education Journal Short-Term IHSG Closing Price Prediction Using Random Forest. Information Technology Education Journal, 4(3), 402–414.
+Ledhem, M. A., & Moussaoui, W. (2024). Predicting daily precision improvement of Jakarta Islamic Index in Indonesia’s Islamic stock market using big data mining. Journal of Modelling in Management, 19(3), 765–786. https://doi.org/10.1108/JM2-12-2022-0291
+Levine, R., & Zervos, S. (1998). Stock Markets, Banks, and Economic Growth. In The American Economic Review (Vol. 88, Number 3).
+Lundberg, S., & Lee, S.-I. (2017). A Unified Approach to Interpreting Model Predictions. http://arxiv.org/abs/1705.07874
+Mehtab, S., & Sen, J. (n.d.). A Time Series Analysis-Based Stock Price Prediction Using Machine Learning and Deep Learning Models.
+Murti, W. (2017). The Impact of the Global Stock Market and the Foreign Exchange Market on Domestic Financial Market The Impact of the Global Stock Market and the Foreign Exchange Market on Domestic Financial Market 100. In European Research Studies Journal: XX.
+Nti, I. K., Adekoya, A. F., & Weyori, B. A. (2019). Random Forest Based Feature Selection of Macroeconomic Variables for Stock Market Prediction. American Journal of Applied Sciences, 16(7), 200–212. https://doi.org/10.3844/ajassp.2019.200.212
+Patel, M., Jariwala, K., & Chattopadhyay, C. (2024). A Hybrid Relational Approach Toward Stock Price Prediction and Profitability. IEEE Transactions on Artificial Intelligence, 5(11), 5844–5854. https://doi.org/10.1109/TAI.2024.3408129
+Patsiarikas, M., Papageorgiou, G., & Tjortjis, C. (2025). Using Machine Learning on Macroeconomic, Technical, and Sentiment Indicators for Stock Market Forecasting. Information (Switzerland), 16(7). https://doi.org/10.3390/info16070584
+Perencanaan Pembangunan Nasional, K., & Republik Indonesia, B. (2020). Dampak Covid-19 terhadap Pergerakan Nilai Tukar Rupiah dan Indeks Harga Saham Gabungan (IHSG). In The Indonesian Journal of Development Planning: IV (Number 2). https://covid19.go.id/peta-sebaran,
+Rahmah, S., Budiarti, R., & Purnaba, I. G. P. (2024). ANALYSIS OF THE DEPENDENCIES COMMODITY PRICES AND STOCK MARKET INDEXES USING COPULA. BAREKENG: Jurnal Ilmu Matematika Dan Terapan, 18(3), 1563–1572. https://doi.org/10.30598/barekengvol18iss3pp1563-1572
+Saluza, I., Munarsih, E., Faradillah, & Anggraini, L. D. (2024). PREDICTION INDONESIA COMPOSITE INDEX USING INTEGRATION DECOMPOSITION-NEURAL NETWORK ENSEMBLE DURING VUCA ERA. Barekeng, 18(4), 2721–2736. https://doi.org/10.30598/barekengvol18iss4pp2721-2736
+Schröer, C., Kruse, F., & Gómez, J. M. (2021). A systematic literature review on applying CRISP-DM process model. Procedia Computer Science, 181, 526–534. https://doi.org/10.1016/j.procs.2021.01.199
+Sezer, O. B., Gudelek, M. U., & Ozbayoglu, A. M. (2019). Financial Time Series Forecasting with Deep Learning : A Systematic Literature Review: 2005-2019. http://arxiv.org/abs/1911.13288
+Sugandi, E. A. (2022). Indonesia’s Financial Markets and Monetary Policy Dynamics Amid the COVID-19 Pandemic. Asia-Pacific Financial Markets, 29(3), 411–447. https://doi.org/10.1007/s10690-021-09354-4
+Xu, Z., Mohsin, M., Ullah, K., & Ma, X. (2023a). Using econometric and machine learning models to forecast crude oil prices: Insights from economic history. Resources Policy, 83. https://doi.org/10.1016/j.resourpol.2023.103614
+Xu, Z., Mohsin, M., Ullah, K., & Ma, X. (2023b). Using econometric and machine learning models to forecast crude oil prices: Insights from economic history. Resources Policy, 83. https://doi.org/10.1016/j.resourpol.2023.103614
+Xu, Z., Mohsin, M., Ullah, K., & Ma, X. (2023c). Using econometric and machine learning models to forecast crude oil prices: Insights from economic history. Resources Policy, 83. https://doi.org/10.1016/j.resourpol.2023.103614
+Zeng, Q., Lu, X., Xu, J., & Lin, Y. (2024). Equation chapter 0 section 1Macro-driven stock market volatility prediction: Insights from a new hybrid machine learning approach. International Review of Financial Analysis, 96. https://doi.org/10.1016/j.irfa.2024.103711

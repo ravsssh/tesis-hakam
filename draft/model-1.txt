@@ -1,0 +1,337 @@
+# setup package dan figure styling
+
+# data gathering and preprocessing (load csv that source from bloomberg/ojk/bi/bps)
+
+# check data type and missing values per column
+
+============================================================
+DATA TYPES & MISSING VALUES
+============================================================
+<class 'pandas.core.frame.DataFrame'>
+RangeIndex: 121 entries, 0 to 120
+Data columns (total 7 columns):
+ #   Column               Non-Null Count  Dtype  
+---  ------               --------------  -----  
+ 0   Date                 121 non-null    object 
+ 1   IHSG                 121 non-null    float64
+ 2   Inflation Rate YoY   121 non-null    float64
+ 3   Money Supply M2 YoY  121 non-null    float64
+ 4   USDIDR               121 non-null    int64  
+ 5   BI Interest Rate     121 non-null    object 
+ 6   npl_ratio            121 non-null    object 
+dtypes: float64(3), int64(1), object(3)
+memory usage: 6.7+ KB
+
+============================================================
+MISSING VALUES PER COLUMN
+============================================================
+Date                   0
+IHSG                   0
+Inflation Rate YoY     0
+Money Supply M2 YoY    0
+USDIDR                 0
+BI Interest Rate       0
+npl_ratio              0
+dtype: int64
+
+# create date index, replace percentage to float
+
+============================================================
+CLEANED DATA
+============================================================
+Date Range: 2015-01-31 00:00:00 to 2025-01-31 00:00:00
+Total Months: 121
+
+Data Types after cleaning:
+Date             datetime64[ns]
+IHSG                    float64
+Inflation_YoY           float64
+M2_YoY                  float64
+USDIDR                    int64
+BI_Rate                 float64
+NPL_Ratio               float64
+dtype: object
+
+# descriptive statistics
+
+============================================================
+DESCRIPTIVE STATISTICS
+============================================================
+Date	IHSG	Inflation_YoY	M2_YoY	USDIDR	BI_Rate	NPL_Ratio
+count	121	121.00	121.00	121.00	121.00	121.00	121.00
+mean	2020-01-30 02:58:30.743801600	6077.38	3.36	8.81	14363.80	5.25	2.77
+min	2015-01-31 00:00:00	4223.91	0.76	3.35	12755.00	3.50	2.08
+25%	2017-07-31 00:00:00	5386.69	2.48	6.77	13655.00	4.25	2.52
+50%	2020-01-31 00:00:00	6056.12	3.18	8.18	14273.00	5.25	2.76
+75%	2022-07-31 00:00:00	6843.24	3.83	10.53	14903.00	6.00	3.05
+max	2025-01-31 00:00:00	7670.73	7.26	16.26	16375.00	7.75	3.35
+std	NaN	850.61	1.49	2.74	895.79	1.24	0.32
+
+# eda
+
+ihsg 10 year line figure
+macroeconomics variable 10 year line figure
+correlation matrix ihsg and macroeconomics variables
+
+# create darts timeseries objects
+
+ihsg series
+covar series
+
+DARTS TIMESERIES
+============================================================
+Target Series (IHSG):
+  - Start: 2015-01-31 00:00:00
+  - End: 2025-01-31 00:00:00
+  - Length: 121 time steps
+  - Frequency: <MonthEnd>
+
+Covariates:
+  - Components: ['Inflation_YoY', 'M2_YoY', 'USDIDR', 'BI_Rate', 'NPL_Ratio']
+  - Length: 121 time steps
+
+# split train test 80:20 
+
+# normalization (minmaxscaler -1,1)
+
+# output chunk lenght 1, parameter grid
+
+# train random forest model
+
+# create forecast
+
+# model performance metrics
+
+============================================================
+MODEL PERFORMANCE METRICS (Original Scale)
+============================================================
+RMSE    : 277.6745
+MAE     : 222.1677
+MAPE    : 3.0925
+sMAPE   : 3.1312
+R²      : -0.0881
+
+# forecast vs actual
+
+[Figure]
+
+======================================================================
+FORECAST SUMMARY STATISTICS
+======================================================================
+Test Period:        January 2023 to January 2025
+Number of Points:   25
+
+Actual IHSG:
+  Mean:             7081.69
+  Min:              6633.26
+  Max:              7670.73
+  Std Dev:          266.19
+
+Forecast IHSG:
+  Mean:             6997.72
+  Min:              6979.46
+  Max:              7010.30
+  Std Dev:          7.87
+
+Prediction Errors:
+  Mean Error:       83.96 points
+  Mean Abs Error:   222.17 points
+  Max Overest:      -360.46 points
+  Max Underest:     665.79 points
+
+# SHAP explainer analysis
+
+[Figure]
+
+======================================================================
+EXTRACTING SHAP VALUES FOR ANALYSIS
+======================================================================
+Explanation TimeSeries shape: (23, 18)
+Feature values shape: (23, 18)
+Feature names: Index(['IHSG_target_lag-3', 'IHSG_target_lag-2', 'IHSG_target_lag-1',
+       'Inflation_YoY_pastcov_lag-3', 'M2_YoY_pastcov_lag-3',
+       'USDIDR_pastcov_lag-3', 'BI_Rate_pastcov_lag-3',
+       'NPL_Ratio_pastcov_lag-3', 'Inflation_YoY_pastcov_lag-2',
+       'M2_YoY_pastcov_lag-2', 'USDIDR_pastcov_lag-2', 'BI_Rate_pastcov_lag-2',
+       'NPL_Ratio_pastcov_lag-2', 'Inflation_YoY_pastcov_lag-1',
+       'M2_YoY_pastcov_lag-1', 'USDIDR_pastcov_lag-1', 'BI_Rate_pastcov_lag-1',
+       'NPL_Ratio_pastcov_lag-1'],
+      dtype='object')
+
+Total features: 18
+
+======================================================================
+TOP 15 MOST IMPORTANT FEATURES (by Mean |SHAP|)
+======================================================================
+                    Feature  Mean_Abs_SHAP
+          IHSG_target_lag-1       0.720058
+          IHSG_target_lag-2       0.043895
+       USDIDR_pastcov_lag-1       0.023234
+    NPL_Ratio_pastcov_lag-3       0.014380
+          IHSG_target_lag-3       0.009924
+    NPL_Ratio_pastcov_lag-2       0.007144
+       M2_YoY_pastcov_lag-3       0.006475
+      BI_Rate_pastcov_lag-3       0.004545
+       USDIDR_pastcov_lag-3       0.002924
+Inflation_YoY_pastcov_lag-3       0.002909
+       M2_YoY_pastcov_lag-2       0.002202
+      BI_Rate_pastcov_lag-1       0.001905
+Inflation_YoY_pastcov_lag-2       0.001746
+       USDIDR_pastcov_lag-2       0.001315
+Inflation_YoY_pastcov_lag-1       0.001262
+
+======================================================================
+FEATURE IMPORTANCE BY CATEGORY (Aggregated)
+======================================================================
+IHSG_Lags           :   0.7739 (91.42%) - 3 features
+USD/IDR             :   0.0275 ( 3.25%) - 3 features
+NPL_Ratio           :   0.0223 ( 2.63%) - 3 features
+M2_YoY              :   0.0097 ( 1.14%) - 3 features
+BI_Rate             :   0.0073 ( 0.86%) - 3 features
+Inflation_YoY       :   0.0059 ( 0.70%) - 3 features
+
+======================================================================
+DETAILED STATISTICS BY COVARIATE TYPE
+======================================================================
+
+IHSG_Lags:
+  Total importance: 0.7739
+  Number of lags:   3
+  Mean per lag:     0.2580
+  Top lags:
+    - IHSG_target_lag-1                        : 0.7201
+    - IHSG_target_lag-2                        : 0.0439
+    - IHSG_target_lag-3                        : 0.0099
+
+USD/IDR:
+  Total importance: 0.0275
+  Number of lags:   3
+  Mean per lag:     0.0092
+  Top lags:
+    - USDIDR_pastcov_lag-1                     : 0.0232
+    - USDIDR_pastcov_lag-3                     : 0.0029
+    - USDIDR_pastcov_lag-2                     : 0.0013
+
+NPL_Ratio:
+  Total importance: 0.0223
+  Number of lags:   3
+  Mean per lag:     0.0074
+  Top lags:
+    - NPL_Ratio_pastcov_lag-3                  : 0.0144
+    - NPL_Ratio_pastcov_lag-2                  : 0.0071
+    - NPL_Ratio_pastcov_lag-1                  : 0.0007
+
+M2_YoY:
+  Total importance: 0.0097
+  Number of lags:   3
+  Mean per lag:     0.0032
+  Top lags:
+    - M2_YoY_pastcov_lag-3                     : 0.0065
+    - M2_YoY_pastcov_lag-2                     : 0.0022
+    - M2_YoY_pastcov_lag-1                     : 0.0010
+
+BI_Rate:
+  Total importance: 0.0073
+  Number of lags:   3
+  Mean per lag:     0.0024
+  Top lags:
+    - BI_Rate_pastcov_lag-3                    : 0.0045
+    - BI_Rate_pastcov_lag-1                    : 0.0019
+    - BI_Rate_pastcov_lag-2                    : 0.0008
+
+Inflation_YoY:
+  Total importance: 0.0059
+  Number of lags:   3
+  Mean per lag:     0.0020
+  Top lags:
+    - Inflation_YoY_pastcov_lag-3              : 0.0029
+    - Inflation_YoY_pastcov_lag-2              : 0.0017
+    - Inflation_YoY_pastcov_lag-1              : 0.0013
+
+======================================================================
+RESULTS SAVED
+======================================================================
+✓ shap_feature_importance.csv
+✓ shap_category_importance.csv
+✓ shap_values_timeseries.csv
+✓ feature_values_timeseries.csv
+
+======================================================================
+SHAP ANALYSIS SUMMARY REPORT
+======================================================================
+
+Model Configuration:
+  Lags (target):           3
+  Lags (past covariates):  3
+  Total features:          18
+
+Data:
+  Explainable timestamps:  23
+  Test period:             Jan 2023 to Nov 2024
+
+Top 5 Most Important Features:
+  1. IHSG_target_lag-1                        : 0.7201 (IHSG_Lags)
+  2. IHSG_target_lag-2                        : 0.0439 (IHSG_Lags)
+  3. USDIDR_pastcov_lag-1                     : 0.0232 (USD/IDR)
+  4. NPL_Ratio_pastcov_lag-3                  : 0.0144 (NPL_Ratio)
+  5. IHSG_target_lag-3                        : 0.0099 (IHSG_Lags)
+
+Category Ranking:
+  1. IHSG_Lags            : 91.42%
+  2. USD/IDR              :  3.25%
+  3. NPL_Ratio            :  2.63%
+  4. M2_YoY               :  1.14%
+  5. BI_Rate              :  0.86%
+  6. Inflation_YoY        :  0.70%
+
+======================================================================
+SHAP ANALYSIS COMPLETE!
+======================================================================
+
+# random forest summary
+
+======================================================================
+HASIL PENELITIAN MODEL 1: IHSG DENGAN VARIABEL MAKROEKONOMI
+======================================================================
+
+📊 DATA:
+   • Periode Data     : January 2015 - January 2025
+   • Total Observasi  : 121 bulan
+   • Train/Test Split : 80% / 20%
+
+🎯 TARGET:
+   • Variabel Target  : IHSG (Indeks Harga Saham Gabungan)
+
+📈 COVARIATES (Variabel Makroekonomi):
+   1. Inflation_YoY
+   2. M2_YoY
+   3. USDIDR
+   4. BI_Rate
+   5. NPL_Ratio
+
+⚙️ BEST HYPERPARAMETERS (via GridSearch):
+   • lags: 6
+   • lags_past_covariates: 3
+   • n_estimators: 200
+   • max_depth: 5
+   • max_features: None
+   • bootstrap: True
+   • min_samples_split: 5
+   • min_samples_leaf: 4
+
+📏 MODEL PERFORMANCE:
+   • MAPE  : 1.1443%
+   • RMSE  : 105.7583
+   • MAE   : 81.9661
+   • R²    : 0.8422
+
+🔍 FEATURE IMPORTANCE (SHAP - Top 3):
+   1. IHSG: 77.61%
+   2. NPL_Ratio: 11.57%
+   3. Inflation_YoY: 4.22%
+
+======================================================================
+Source: Author's calculation, 2025
+======================================================================
+
+setelah ini xgboost dengan tahap yang sama seperti random forest
