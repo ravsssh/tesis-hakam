@@ -449,7 +449,548 @@ Kutipan Penting:
 "WEKA is a popular tool in data mining since it is a free software licensed under the GNU General Public License. Furthermore, it is still maintained (last version was released in the end of 2019) and is developed by a research institution, the university of Waikato."
 =================================================================
 
-Ini adalah semua daftar pustaka yang saya gunakan:
+=================================================================
+Sitasi:Tsay, Ruey S. "Analysis of financial time series." John Eiley and Sons (2005).
+
+Financial timeseries berfokus pada teori dan praktik penilaian aset seiring berjalannya waktu. Ini adalah disiplin yang sangat empiris, tetapi seperti bidang ilmiah lainnya, teori membentuk dasar untuk membuat kesimpulan. Namun, terdapat satu fitur kunci yang membedakan analisis deret waktu keuangan dari analisis deret waktu lainnya. Baik teori keuangan maupun deret waktunya mengandung unsur ketidakpastian.
+Misalnya, terdapat berbagai definisi volatilitas aset, dan untuk deret pengembalian saham, volatilitas tidak dapat diamati secara langsung. Akibat ketidakpastian tambahan ini, teori dan metode statistik memainkan peran penting dalam analisis deret waktu keuangan.
+
+=================================================================
+
+
+=================================================================
+Sitasi: Principles of Economics Ninth Edition N. Gregory Mankiw
+
+Chapter 1-2
+Rangkuman Chapter 1-2: Inflasi, Suku Bunga, Nilai Tukar, Money Supply, dan Sistem Perbankan
+
+1. Inflasi
+(1) Definisi Teoretis:
+Inflasi adalah peningkatan umum dalam tingkat harga barang dan jasa di suatu ekonomi. ​ Inflasi biasanya terjadi ketika jumlah uang yang beredar meningkat secara signifikan, sehingga nilai uang menurun. ​
+(2) Mekanisme Dampak ke Asset Prices/Pasar Keuangan:
+
+Inflasi yang tinggi dapat mengurangi daya beli konsumen, sehingga menekan pendapatan perusahaan dan harga saham.
+Inflasi yang tinggi sering kali mendorong bank sentral untuk menaikkan suku bunga guna mengendalikan kenaikan harga. Suku bunga yang lebih tinggi dapat menekan harga aset karena meningkatkan biaya pinjaman dan mengurangi daya tarik investasi di pasar saham.
+Inflasi yang terkendali dapat mendukung pertumbuhan ekonomi, yang pada gilirannya dapat meningkatkan kepercayaan investor dan harga saham.
+
+(3) Kutipan Penting:
+"Inflation is caused primarily by too much growth in the money supply." ​ (Chapter 2, Key Concepts)
+
+2. Suku Bunga
+(1) Definisi Teoretis:
+Suku bunga adalah biaya yang dikenakan atas penggunaan uang yang dipinjam, biasanya dinyatakan sebagai persentase dari jumlah pinjaman. Suku bunga ditentukan oleh bank sentral dan memengaruhi tingkat pengeluaran, investasi, dan tabungan dalam ekonomi.
+(2) Mekanisme Dampak ke Asset Prices/Pasar Keuangan:
+
+Kenaikan suku bunga biasanya menyebabkan penurunan harga saham karena meningkatkan biaya pinjaman bagi perusahaan dan mengurangi daya tarik investasi di pasar saham.
+Suku bunga yang lebih tinggi juga dapat mendorong investor untuk beralih ke instrumen investasi berbasis bunga, seperti obligasi, yang lebih menarik dibandingkan saham.
+Suku bunga yang rendah dapat meningkatkan likuiditas di pasar keuangan, mendorong investasi, dan meningkatkan harga saham.
+
+(3) Kutipan Penting:
+"Policymakers can exploit the short-run trade-off between inflation and unemployment using various policy instruments, including changing the amount of money printed and adjusting interest rates." ​ (Chapter 1, Principle 10)
+
+3. Nilai Tukar
+(1) Definisi Teoretis:
+Nilai tukar adalah harga relatif antara mata uang dua negara. Nilai tukar dapat bersifat tetap (fixed exchange rate) atau mengambang (floating exchange rate), tergantung pada kebijakan moneter negara tersebut.
+(2) Mekanisme Dampak ke Asset Prices/Pasar Keuangan:
+
+Perubahan nilai tukar memengaruhi daya saing ekspor dan impor suatu negara, yang dapat berdampak pada pendapatan perusahaan yang terdaftar di bursa saham.
+Depresiasi nilai tukar dapat meningkatkan daya saing ekspor, tetapi juga meningkatkan biaya impor, yang dapat memengaruhi inflasi dan profitabilitas perusahaan.
+Apresiasi nilai tukar dapat menekan daya saing ekspor, tetapi mengurangi biaya impor, yang dapat menguntungkan perusahaan yang bergantung pada bahan baku impor.
+
+(3) Kutipan Penting:
+"Flexible and floating exchange rates offer an effective international monetary arrangement." ​ (Chapter 2, Propositions about Which Most Economists Agree) ​
+
+4. Money Supply (Jumlah Uang Beredar)
+(1) Definisi Teoretis:
+Money supply adalah total jumlah uang yang beredar dalam suatu ekonomi, termasuk uang tunai dan simpanan di bank. Pertumbuhan jumlah uang beredar yang berlebihan dapat menyebabkan inflasi. ​
+(2) Mekanisme Dampak ke Asset Prices/Pasar Keuangan:
+
+Peningkatan money supply dapat mendorong kenaikan harga aset, termasuk saham, karena lebih banyak uang tersedia untuk investasi.
+Namun, jika pertumbuhan money supply terlalu tinggi, inflasi dapat meningkat, yang berpotensi menekan harga saham karena ketidakpastian ekonomi.
+Kebijakan moneter yang mengendalikan money supply, seperti pengetatan moneter, dapat menurunkan likuiditas di pasar keuangan dan menekan harga saham.
+
+(3) Kutipan Penting:
+"What causes inflation? ​ In almost all cases of large or persistent inflation, the culprit is growth in the quantity of money." ​ (Chapter 1, Principle 9) ​
+
+5. Sistem Perbankan
+(1) Definisi Teoretis:
+Sistem perbankan adalah jaringan institusi keuangan yang menyediakan layanan seperti penyimpanan uang, pemberian kredit, dan pengelolaan pembayaran. Bank sentral memainkan peran penting dalam mengatur sistem perbankan dan kebijakan moneter.
+(2) Mekanisme Dampak ke Asset Prices/Pasar Keuangan:
+
+Sistem perbankan yang stabil memberikan kepercayaan kepada investor, yang dapat mendorong investasi di pasar saham.
+Ketidakstabilan dalam sistem perbankan dapat menyebabkan penurunan kepercayaan investor, yang berpotensi memicu penurunan harga saham.
+Kebijakan bank sentral, seperti pengaturan suku bunga dan money supply, secara langsung memengaruhi likuiditas dan dinamika pasar keuangan.
+
+(3) Kutipan Penting:
+"Market economies need institutions to enforce property rights so individuals can own and control scarce resources. ​ . . . We all rely on government-provided police and courts to enforce our rights over the things we produce—and the invisible hand counts on our ability to enforce those rights." ​ (Chapter 2, Principle 7)
+
+Hubungan Variabel Makro dengan Stock Market
+
+Inflasi: Inflasi yang tinggi dapat menekan harga saham karena mengurangi daya beli konsumen dan meningkatkan biaya operasional perusahaan.
+Suku Bunga: Kenaikan suku bunga dapat menurunkan harga saham karena meningkatkan biaya pinjaman dan mengurangi daya tarik investasi di pasar saham.
+Nilai Tukar: Perubahan nilai tukar memengaruhi daya saing ekspor dan impor, yang berdampak pada profitabilitas perusahaan dan harga saham.
+Money Supply: Pertumbuhan jumlah uang beredar yang terkendali dapat meningkatkan likuiditas di pasar saham, tetapi pertumbuhan yang berlebihan dapat menyebabkan inflasi dan ketidakpastian ekonomi. ​
+Sistem Perbankan: Stabilitas sistem perbankan penting untuk menjaga kepercayaan investor dan mendukung pertumbuhan pasar saham.
+
+Chapter 23-24
+Rangkuman Chapter 23-24: Inflasi, Suku Bunga, Nilai Tukar, Money Supply, dan Sistem Perbankan
+
+1. Inflasi
+Definisi Teoretis
+Inflasi adalah kenaikan umum dan terus-menerus dalam tingkat harga barang dan jasa di suatu perekonomian. ​ Inflasi diukur menggunakan indeks harga, seperti Consumer Price Index (CPI) atau GDP Deflator. ​ Inflasi mengurangi daya beli uang, sehingga setiap unit mata uang dapat membeli lebih sedikit barang dan jasa. ​
+Mekanisme Dampak ke Asset Prices/Pasar Keuangan
+
+Saham: Inflasi yang tinggi dapat mengurangi daya beli konsumen, sehingga menekan pendapatan perusahaan. Namun, perusahaan yang dapat menaikkan harga produknya untuk mengimbangi inflasi mungkin tetap menghasilkan keuntungan.
+Obligasi: Inflasi yang tinggi biasanya menyebabkan kenaikan suku bunga, yang menurunkan harga obligasi karena hubungan terbalik antara suku bunga dan harga obligasi.
+Komoditas: Inflasi sering kali meningkatkan harga komoditas seperti emas, minyak, dan bahan mentah lainnya karena dianggap sebagai aset lindung nilai terhadap inflasi.
+
+Kutipan Penting
+
+"Economists use the term inflation to describe a situation in which the economy’s overall price level is rising." ​ (Chapter 24, Section 24-1a)
+"The GDP deflator measures the current level of prices relative to the level of prices in the base year." ​ (Chapter 24, Section 24-1c)
+
+
+2. Suku Bunga
+Definisi Teoretis
+Suku bunga adalah biaya yang harus dibayar oleh peminjam kepada pemberi pinjaman atas penggunaan uang dalam periode tertentu. ​ Suku bunga nominal adalah tingkat bunga yang dilaporkan tanpa koreksi inflasi, sedangkan suku bunga riil adalah tingkat bunga yang telah dikoreksi untuk inflasi. ​
+Mekanisme Dampak ke Asset Prices/Pasar Keuangan
+
+Saham: Kenaikan suku bunga dapat menurunkan valuasi saham karena meningkatkan biaya pinjaman dan mengurangi daya beli konsumen. Namun, sektor keuangan seperti perbankan dapat diuntungkan dari suku bunga yang lebih tinggi. ​
+Obligasi: Suku bunga yang lebih tinggi menyebabkan harga obligasi turun karena investor lebih memilih instrumen dengan imbal hasil lebih tinggi.
+Nilai Tukar: Suku bunga yang lebih tinggi dapat menarik investasi asing, sehingga meningkatkan permintaan terhadap mata uang domestik dan memperkuat nilai tukar.
+
+Kutipan Penting
+
+"The nominal interest rate tells you how fast the number of dollars in your bank account rises over time, while the real interest rate tells you how fast the purchasing power of your bank account rises over time." ​ (Chapter 24, Section 24-2c)
+
+
+3. Nilai Tukar
+Definisi Teoretis
+Nilai tukar adalah harga relatif antara mata uang dua negara, yang menunjukkan berapa banyak satu unit mata uang suatu negara dapat ditukar dengan mata uang negara lain.
+Mekanisme Dampak ke Asset Prices/Pasar Keuangan
+
+Saham: Perubahan nilai tukar dapat memengaruhi perusahaan yang bergantung pada ekspor atau impor. Mata uang yang kuat dapat membuat ekspor lebih mahal, sedangkan mata uang yang lemah dapat meningkatkan daya saing ekspor.
+Obligasi: Nilai tukar yang kuat dapat menarik investor asing untuk membeli obligasi domestik, meningkatkan permintaan dan harga obligasi.
+Komoditas: Nilai tukar yang lemah sering kali meningkatkan harga komoditas karena komoditas biasanya dihargai dalam mata uang global seperti dolar AS.
+
+Kutipan Penting
+
+"Net exports equal the foreign purchases of domestically produced goods (exports) minus the domestic purchases of foreign goods (imports)." ​ (Chapter 23, Section 23-3d)
+
+
+4. Money Supply
+Definisi Teoretis
+Money supply adalah total jumlah uang yang beredar dalam perekonomian, termasuk uang tunai dan simpanan di bank. Money supply sering dikaitkan dengan kebijakan moneter yang dilakukan oleh bank sentral untuk mengontrol inflasi dan pertumbuhan ekonomi.
+Mekanisme Dampak ke Asset Prices/Pasar Keuangan
+
+Saham: Peningkatan money supply dapat mendorong likuiditas di pasar keuangan, meningkatkan harga saham. Namun, jika money supply berlebihan, inflasi dapat meningkat dan menekan pasar saham.
+Obligasi: Money supply yang meningkat dapat menurunkan suku bunga, sehingga harga obligasi naik.
+Nilai Tukar: Peningkatan money supply dapat melemahkan nilai tukar karena peningkatan jumlah uang yang beredar dapat menurunkan nilai relatif mata uang.
+
+Kutipan Penting
+
+"Much of macroeconomics aims to explain the long-run growth and short-run fluctuations in real GDP." ​ (Chapter 23, Section 23-6)
+
+
+5. Sistem Perbankan
+Definisi Teoretis
+Sistem perbankan adalah jaringan institusi keuangan yang berfungsi untuk menerima simpanan, memberikan pinjaman, dan menyediakan layanan keuangan lainnya. Bank sentral memainkan peran penting dalam mengatur sistem perbankan dan kebijakan moneter.
+Mekanisme Dampak ke Asset Prices/Pasar Keuangan
+
+Saham: Kebijakan bank sentral, seperti penurunan suku bunga, dapat meningkatkan likuiditas dan mendorong kenaikan harga saham.
+Obligasi: Kebijakan moneter yang ekspansif dapat menurunkan suku bunga, meningkatkan harga obligasi.
+Nilai Tukar: Kebijakan bank sentral yang memengaruhi suku bunga dapat berdampak langsung pada nilai tukar mata uang.
+
+Kutipan Penting
+
+"Quantifying the behavior of the economy with statistics such as GDP is, therefore, the first step to developing a science of macroeconomics." ​ (Chapter 23, Section 23-6)
+
+
+Hubungan Variabel Makro dengan Stock Market
+
+Inflasi: Inflasi yang tinggi dapat menekan margin keuntungan perusahaan, sehingga menurunkan harga saham. Namun, sektor tertentu seperti energi dan komoditas dapat diuntungkan.
+Suku Bunga: Kenaikan suku bunga biasanya berdampak negatif pada pasar saham karena meningkatkan biaya modal dan mengurangi daya beli konsumen.
+Nilai Tukar: Perubahan nilai tukar memengaruhi perusahaan multinasional yang bergantung pada perdagangan internasional, sehingga memengaruhi harga saham mereka.
+Money Supply: Kebijakan moneter yang ekspansif dapat meningkatkan likuiditas di pasar keuangan, mendorong kenaikan harga saham.
+Sistem Perbankan: Stabilitas sistem perbankan dan kebijakan bank sentral sangat memengaruhi sent
+
+Chapter 25-27
+Chapter 25: Production and Growth ​
+1. Inflation
+
+Definition: Inflation is the rate at which the general level of prices for goods and services rises, eroding purchasing power over time. ​
+Impact on Asset Prices/Financial Markets: Inflation affects the real return on investments. ​ Higher inflation reduces the purchasing power of future cash flows, leading to lower present values of assets. ​ It can also lead to higher interest rates, which increase borrowing costs and reduce investment, potentially lowering stock prices. ​
+Key Quote: "The level of real GDP is a good gauge of economic prosperity, and the growth of real GDP is a good gauge of economic progress." ​
+
+2. Interest Rates
+
+Definition: Interest rates represent the cost of borrowing money or the return on savings, typically expressed as a percentage. ​
+Impact on Asset Prices/Financial Markets: Higher interest rates increase borrowing costs, reducing investment and economic growth. ​ They also lower the present value of future cash flows, which can lead to lower stock prices. ​ Conversely, lower interest rates can stimulate investment and increase stock prices. ​
+Key Quote: "The adjustment of the interest rate to the equilibrium level occurs for the usual reasons. ​ If the interest rate were lower than the equilibrium level, the quantity of loanable funds supplied would be less than the quantity of loanable funds demanded." ​
+
+
+Chapter 26: Saving, Investment, and the Financial System ​
+3. Money Supply
+
+Definition: The money supply refers to the total amount of monetary assets available in an economy at a specific time.
+Impact on Asset Prices/Financial Markets: An increase in the money supply can lower interest rates, making borrowing cheaper and encouraging investment. This can lead to higher stock prices as companies expand and grow. ​ Conversely, a decrease in the money supply can lead to higher interest rates, reducing investment and potentially lowering stock prices.
+Key Quote: "When financial markets bring the supply and demand for loanable funds into balance, they help allocate the economy’s scarce resources to their most efficient uses." ​
+
+4. Exchange Rates
+
+Definition: Exchange rates are the value of one currency expressed in terms of another currency.
+Impact on Asset Prices/Financial Markets: Exchange rate fluctuations can affect the profitability of companies engaged in international trade. A weaker domestic currency can make exports cheaper and boost revenue for exporters, potentially increasing their stock prices. Conversely, a stronger domestic currency can reduce export competitiveness and lower stock prices.
+Key Quote: "International trade makes Japan’s success possible. ​ Japan imports many of the natural resources it needs, such as oil, and exports its manufactured goods to economies rich in natural resources." ​
+
+
+Chapter 27: The Basic Tools of Finance
+5. Banking System
+
+Definition: The banking system consists of financial institutions that accept deposits and provide loans, facilitating the flow of funds between savers and borrowers. ​
+Impact on Asset Prices/Financial Markets: A well-functioning banking system supports economic growth by efficiently allocating resources to productive investments. ​ This can lead to higher corporate profits and stock prices. ​ Conversely, banking crises can lead to credit crunches, reducing investment and causing stock market declines. ​
+Key Quote: "The financial system’s job is to coordinate all this borrowing and lending activity." ​
+
+6. Stock Market
+
+Definition: The stock market is a financial market where shares of publicly traded companies are bought and sold.
+Impact on Asset Prices/Financial Markets: Stock prices are influenced by macroeconomic variables such as inflation, interest rates, and economic growth. Higher interest rates can reduce stock prices by lowering the present value of future cash flows, while economic growth can increase stock prices by boosting corporate profitability.
+Key Quote: "The stock market exhibits informational efficiency: It reflects all available information about the value of an asset." ​
+
+
+Summary of Relevant Theories for Understanding Macroeconomic Variables and the Stock Market
+
+Inflation and Stock Market: Inflation reduces the real value of future cash flows, impacting stock prices negatively. However, moderate inflation can signal economic growth, which may support stock prices.
+Interest Rates and Stock Market: Higher interest rates increase borrowing costs and reduce investment, leading to lower stock prices. ​ Lower interest rates have the opposite effect.
+Money Supply and Stock Market: An increase in money supply can lower interest rates, stimulate investment, and boost stock prices.
+Exchange Rates and Stock Market: Exchange rate fluctuations affect the profitability of exporters and importers, influencing stock prices.
+Efficient Markets Hypothesis: Stock prices reflect all publicly available information, making it difficult to consistently outperform the market. ​
+
+Chapter 31-32
+Chapter 31-32 Summary: Inflation, Interest Rates, Exchange Rates, Money Supply, and Banking System
+1. Inflation
+
+Definition: Inflation is the rate at which the general level of prices for goods and services rises, eroding purchasing power over time.
+Impact on Asset Prices/Financial Markets:
+
+High inflation often leads to higher interest rates as central banks tighten monetary policy to control price levels. This can negatively impact stock prices due to higher borrowing costs and reduced corporate profits. ​
+Inflation can also erode the real value of fixed-income investments like bonds, as the purchasing power of future cash flows decreases.
+Moderate inflation can be positive for stocks, as it may signal economic growth.
+
+
+Key Quote: "Countries with relatively high inflation should have depreciating currencies, and countries with relatively low inflation should have appreciating currencies." ​
+
+2. Interest Rates
+
+Definition: The cost of borrowing money, typically expressed as an annual percentage of the loan amount.
+Impact on Asset Prices/Financial Markets:
+
+Higher interest rates increase the cost of borrowing, which can reduce corporate investment and consumer spending, negatively impacting stock prices. ​
+Lower interest rates make borrowing cheaper, encouraging investment and consumption, which can boost stock prices.
+Interest rates also influence bond prices inversely; when rates rise, bond prices fall, and vice versa.
+
+
+Key Quote: "A higher real interest rate means a higher return to saving, which encourages people to save and raises the quantity of loanable funds supplied." ​
+
+3. Exchange Rates
+
+Definition: The price of one currency in terms of another, expressed as nominal exchange rates (currency-to-currency) or real exchange rates (goods-to-goods). ​
+Impact on Asset Prices/Financial Markets:
+
+Currency appreciation makes domestic goods more expensive abroad, reducing exports and potentially hurting companies reliant on international sales. ​
+Currency depreciation makes domestic goods cheaper abroad, boosting exports and benefiting export-oriented companies. ​
+Exchange rate fluctuations can impact multinational companies' earnings when converting foreign revenue into domestic currency. ​
+
+
+Key Quote: "A depreciation in the real exchange rate means that domestic goods have become cheaper relative to foreign goods, encouraging exports and reducing imports." ​
+
+4. Money Supply
+
+Definition: The total amount of money available in an economy, including cash, coins, and balances held in bank accounts.
+Impact on Asset Prices/Financial Markets:
+
+An increase in money supply typically lowers interest rates, encouraging borrowing and investment, which can boost stock prices.
+Excessive money supply growth can lead to inflation, which may negatively impact financial markets. ​
+A decrease in money supply can lead to higher interest rates, reducing investment and stock market performance. ​
+
+
+Key Quote: "When a central bank prints large quantities of money, that money loses value both in terms of the goods and services it can buy and in terms of the amount of other currencies it can buy." ​
+
+5. Banking System
+
+Definition: The network of financial institutions that provide services such as accepting deposits, lending money, and facilitating payments.
+Impact on Asset Prices/Financial Markets:
+
+A stable banking system supports economic growth, which positively impacts stock markets.
+Banking crises or instability can lead to capital flight, higher interest rates, and currency depreciation, negatively affecting financial markets. ​
+Banks play a crucial role in the transmission of monetary policy, influencing liquidity and credit availability in the economy.
+
+
+Key Quote: "Political instability can lead to capital flight, which tends to increase interest rates and cause the currency to depreciate." ​
+
+Relevance to Stock Market
+Understanding these macroeconomic variables is crucial for analyzing stock market movements:
+
+Inflation: High inflation can lead to reduced corporate earnings and lower stock valuations, while moderate inflation may indicate healthy economic growth.
+Interest Rates: Stock prices are sensitive to interest rate changes, as they affect corporate borrowing costs and investor preferences for equities versus bonds.
+Exchange Rates: Multinational companies are directly impacted by exchange rate fluctuations, which affect their competitiveness and profitability.
+Money Supply: Expansionary monetary policy can boost stock markets by increasing liquidity and lowering interest rates, while contractionary policy can have the opposite effect.
+Banking System: Stability in the banking system ensures smooth financial operations, while instability can lead to market volatility and reduced investor confidence.
+
+These variables are interconnected, and their dynamics collectively shape the performance of financial markets, including the stock market. ​
+
+Chapter 33-35
+Chapter 33-35 Summary: Inflation, Interest Rates, Exchange Rates, Money Supply, and Banking System
+
+Inflation
+
+
+Definition: Inflation is the rate at which the general level of prices for goods and services rises, eroding purchasing power. It is often measured by indices like the Consumer Price Index (CPI) or GDP deflator.
+
+
+Impact on Asset Prices/Financial Markets:
+
+Stock Market: Moderate inflation can boost stock prices as it often signals economic growth. However, high inflation can hurt stocks by increasing costs for companies and reducing consumer purchasing power.
+Bonds: Inflation erodes the real value of fixed-income payments, leading to lower bond prices and higher yields.
+Real Estate: Inflation can increase property values as replacement costs rise, but higher interest rates can dampen demand for mortgages.
+Commodities: Inflation often boosts commodity prices, as they are seen as a hedge against inflation.
+
+
+
+Key Quote: "Inflation confers no benefit on society, but it imposes several real costs, including shoeleather costs, menu costs, and arbitrary redistributions of wealth." (Chapter 36)
+
+
+
+Interest Rates
+
+
+Definition: Interest rates represent the cost of borrowing money or the return on savings. They are influenced by central bank policies and the supply and demand for money. ​
+
+
+Impact on Asset Prices/Financial Markets:
+
+Stock Market: Lower interest rates reduce borrowing costs, encouraging investment and boosting stock prices. Higher rates can have the opposite effect, reducing corporate profits and stock valuations.
+Bonds: Interest rates and bond prices are inversely related. When rates rise, bond prices fall, and vice versa.
+Real Estate: Lower interest rates make borrowing cheaper, increasing demand for housing and driving up property prices.
+Currency Markets: Higher interest rates attract foreign investment, increasing demand for the domestic currency and strengthening its value.
+
+
+
+Key Quote: "The interest rate adjusts to balance the supply and demand for money. A lower interest rate reduces the cost of borrowing, encouraging investment spending and increasing aggregate demand." (Chapter 34)
+
+
+
+Exchange Rates
+
+
+Definition: Exchange rates measure the value of one currency relative to another. They are influenced by interest rates, inflation, trade balances, and capital flows.
+
+
+Impact on Asset Prices/Financial Markets:
+
+Stock Market: A weaker domestic currency can boost exports, benefiting companies with international sales. Conversely, a stronger currency can hurt export-driven companies.
+Bonds: Exchange rate fluctuations can affect foreign investment in domestic bonds, as investors seek higher returns in stronger currencies.
+Commodities: A weaker currency often increases the price of imported goods, including commodities, while a stronger currency has the opposite effect.
+
+
+
+Key Quote: "A lower price level reduces interest rates, causing the domestic currency to depreciate in foreign exchange markets. This depreciation stimulates net exports and increases the quantity of goods and services demanded." ​ (Chapter 34)
+
+
+
+Money Supply
+
+
+Definition: The money supply refers to the total amount of money available in an economy, including cash, coins, and balances held in checking and savings accounts. It is controlled by the central bank through tools like open-market operations, reserve requirements, and interest rates.
+
+
+Impact on Asset Prices/Financial Markets:
+
+Stock Market: An increase in the money supply lowers interest rates, encouraging investment and boosting stock prices. ​ A decrease in the money supply has the opposite effect. ​
+Bonds: Expanding the money supply lowers interest rates, increasing bond prices. ​ Contracting the money supply raises rates, reducing bond prices. ​
+Currency Markets: An increase in the money supply can weaken the domestic currency, while a decrease can strengthen it. ​
+
+
+
+Key Quote: "When the Fed increases the money supply, it lowers the interest rate and increases the quantity of goods and services demanded for any given price level, shifting the aggregate-demand curve to the right." ​ (Chapter 34) ​
+
+
+
+Banking System
+
+
+Definition: The banking system facilitates the flow of funds between savers and borrowers, playing a crucial role in the creation of money through fractional-reserve banking.
+
+
+Impact on Asset Prices/Financial Markets:
+
+Stock Market: A healthy banking system supports economic growth, which can boost corporate earnings and stock prices. Banking crises can lead to reduced credit availability, hurting businesses and stock markets. ​
+Bonds: Banking stability affects interest rates and credit spreads, influencing bond prices and yields.
+Currency Markets: A stable banking system supports confidence in the domestic currency, while instability can lead to capital flight and currency depreciation.
+
+
+
+Key Quote: "The banking system plays a crucial role in the process of money creation. ​ Problems in the banking system can lead to a contraction in the money supply, reducing aggregate demand and causing economic downturns." ​ (Chapter 34) ​
+
+
+
+Conclusion
+Understanding the interplay between inflation, interest rates, exchange rates, money supply, and the banking system is crucial for analyzing their impact on asset prices and financial markets. These variables are interconnected, and changes in one often ripple through the economy, influencing stock prices, bond yields, currency values, and overall economic stability.
+
+
+Temuan penting dari buku principles of Economics oleh Mankiw tentang Stock Market:
+Chapter 25-27: Stock Market - Theoretical Summary
+Definition of Stock Market
+The stock market is a financial market where shares of publicly traded companies are bought and sold. ​ It serves as a platform for companies to raise capital and for investors to buy ownership stakes in businesses.
+
+Key Theories Related to Stock Market ​
+1. Efficient Markets Hypothesis (EMH) ​
+
+Definition: The EMH posits that stock prices reflect all publicly available information about the value of an asset. ​ As a result, stocks are always fairly valued, and it is impossible to consistently outperform the market through stock selection or market timing. ​
+Implications:
+
+Stock prices follow a random walk, meaning changes in stock prices are unpredictable and driven by new information. ​
+Actively managed funds often fail to outperform index funds, which passively track the market. ​
+
+
+Key Quote: "According to the efficient markets hypothesis, financial markets process available information rationally, so a stock price always equals the best estimate of the value of the underlying business." ​
+
+
+2. Fundamental Analysis
+
+Definition: Fundamental analysis involves studying a company’s financial statements, market conditions, and future prospects to determine its intrinsic value. ​
+Implications:
+
+Investors use fundamental analysis to identify undervalued stocks (price < value) and overvalued stocks (price > value). ​
+The value of a stock is determined by the present value of expected future cash flows, including dividends and the final sale price. ​
+
+
+Key Quote: "The value of a stock to a stockholder is what she gets out of owning it, which includes the present value of the stream of dividend payments and the final sale price." ​
+
+
+3. Risk and Return Trade-Off ​
+
+Definition: Investors face a trade-off between risk and return. ​ Riskier assets, such as stocks, tend to offer higher average returns to compensate for the uncertainty. ​
+Implications:
+
+Stocks are riskier than bonds but historically offer higher average returns. ​
+Diversification reduces firm-specific risk (risk tied to individual companies) but cannot eliminate market risk (risk tied to overall economic conditions). ​
+
+
+Key Quote: "When people increase the percentage of their savings that they have invested in stocks, they increase the average return they can expect to earn, but they also increase the risks they face." ​
+
+
+4. Stock Valuation
+
+Definition: The value of a stock is the present value of expected future cash flows, including dividends and the final sale price. ​
+Implications:
+
+Stock prices are influenced by factors such as company profitability, competition, customer loyalty, government regulations, and economic conditions. ​
+Speculative bubbles can occur when stock prices rise above their fundamental value due to irrational investor behavior. ​
+
+
+Key Quote: "Whenever the price of an asset rises above what appears to be its fundamental value, the market is said to be experiencing a speculative bubble." ​
+
+
+Conclusion
+The stock market is a critical component of the financial system, linking savers and investors. ​ Theories such as the Efficient Markets Hypothesis, Fundamental Analysis, and the Risk-Return Trade-Off provide foundational insights into how stock prices are determined and how investors can approach stock market decisions. While the efficient markets hypothesis suggests that beating the market is nearly impossible, diversification and understanding risk can help investors make informed decisions. ​
+
+
+Temuan penting dari buku Principles of Economics oleh Mankiw tentang Commodity:
+-Economist George Stigler once wrote that, according
+to consumer theory, “if consumers do not buy less
+of a commodity when their incomes rise, they will
+surely buy less when the price of the commodity
+rises.” Explain this statement using the concepts of
+income and substitution effects.
+
+-When money takes the form of a commodity with intrinsic value, it is called
+commodity
+money. The term intrinsic value means that the item would have
+value even if it were not used as money. One example of commodity money is
+gold. Gold has intrinsic value because it is used in industry and in the making
+of jewelry. Although today we no longer use gold as money, historically gold
+was a common
+form of money because it is relatively easy to carry, measure,
+and verify for impurities.
+When an economy uses gold as money (or uses paper
+money that is convertible into gold on demand), it is said to be operating under
+a gold standard.
+Another example of commodity money is cigarettes. In prisoner-of-war camps
+during World War II, prisoners traded goods and services with one another using
+cigarettes as the store of value, unit of account, and medium of exchange. Similarly,
+as the Soviet Union was breaking up in the late 1980s, cigarettes started replacing
+
+-Commodity money, such as gold, is money that has
+intrinsic value: It would be valued even if it were not
+used as money. Fiat money, such as paper dollars, is
+money without intrinsic value: It would be worthless
+if it were not used as money.
+
+-8. The Federal Reserve in 2008 faced a decrease in
+aggregate demand caused by the housing and
+financial crises and a decrease in short-run aggregate
+supply caused by rising commodity prices.
+a. Starting from a long-run equilibrium, illustrate
+the effects of these two changes using both an
+aggregate-supply/aggregate-demand diagram
+and a Phillips-curve diagram. On both diagrams,
+label the initial long-run equilibrium as point A
+and the resulting short-run equilibrium as point B.
+For each of the following variables, state
+whether it rises or falls or whether the impact
+is ambiguous: output, unemployment, the price
+level, the inflation rate.
+b. Suppose the Fed responds quickly to these
+shocks and adjusts monetary policy to keep
+unemployment and output at their natural rates.
+What action would it take? On the same set of
+graphs from part a, show the results. Label the
+new equilibrium as point C.
+c. Why might the Fed choose not to pursue the
+course of action described in part b?
+
+=================================================================
+Sitasi:
+Tinjauan Pustaka: Harga Komoditas dan Pasar Saham
+(1) Sitasi Lengkap
+Creti, Anna, Joëts, Marc, Mignon, Valérie. On the links between stock and commodity markets’ volatility. ​ 2012. HAL Id: hal-04141042. https://hal.science/hal-04141042v1.
+
+(2) Konsep Financialization of Commodity Markets ​
+Financialization of commodity markets mengacu pada fenomena di mana harga komoditas tidak hanya ditentukan oleh penawaran dan permintaan utama, tetapi juga oleh faktor keuangan dan perilaku investor di pasar derivatif. ​ Proses ini semakin terlihat setelah krisis keuangan 2007-2008, di mana nilai nominal kontrak berjangka komoditas meningkat secara signifikan, mencerminkan peran spekulasi yang lebih besar dalam menentukan harga komoditas. ​
+
+(3) Hubungan Komoditas-Stock Market (Time-Varying Correlation) ​
+Hubungan antara pasar komoditas dan saham bersifat dinamis dan sangat volatil, terutama setelah krisis keuangan 2007-2008. ​ Korelasi antara pengembalian harga komoditas dan saham meningkat selama periode bullish di pasar saham, tetapi menurun atau bahkan menjadi negatif selama periode bearish. ​ Fenomena ini menunjukkan adanya substitusi antara kelas aset selama periode stres keuangan.
+
+(4) Perbedaan Precious Metals vs Industrial Metals
+
+Precious Metals: Logam mulia seperti emas menunjukkan korelasi negatif dengan pengembalian saham, terutama selama periode penurunan harga saham. Emas berfungsi sebagai safe-haven, memberikan perlindungan terhadap risiko pasar saham. ​
+Industrial Metals: Logam industri seperti tembaga dan seng menunjukkan korelasi positif dengan pasar saham, terutama selama periode bullish, mencerminkan hubungan erat dengan permintaan industri global. ​
+
+
+(5) Safe-Haven Role of Gold ​
+Emas berperan sebagai safe-haven, yang berarti bahwa selama periode penurunan harga saham, investor cenderung beralih ke emas sebagai instrumen perlindungan risiko. ​ Korelasi antara pengembalian emas dan saham cenderung negatif, terutama selama krisis keuangan. ​
+
+(6) Temuan Empiris Utama
+
+Korelasi antara pengembalian harga komoditas dan saham bersifat dinamis dan sangat volatil, terutama setelah krisis keuangan 2007-2008. ​
+Krisis keuangan 2007-2008 memperkuat hubungan antara pasar komoditas dan saham, mencerminkan financialization of commodity markets. ​
+Komoditas tidak dapat dianggap sebagai kelas aset yang homogen karena dipengaruhi oleh faktor makroekonomi umum dan determinan pasar spesifik.
+Fenomena spekulasi terlihat pada minyak, kopi, dan kakao, dengan korelasi yang meningkat selama harga saham naik dan menurun selama pasar saham bearish. ​
+Emas menunjukkan peran sebagai safe-haven dengan korelasi negatif terhadap pengembalian saham, terutama selama periode penurunan harga saham. ​
+
+
+(7) Kutipan Penting
+
+"The 2007-2008 financial crisis has played a key role, emphasizing the links between commodity and stock markets, and highlighting the financialization of commodity markets." ​
+"Raw materials cannot be aggregated in a homogeneous asset class: they are certainly influenced by common macroeconomic factors but also by their own market determinants." ​
+"The safe-haven role of gold is evidenced, as its correlations with stock returns are mostly negative and diminish in times of declining stock prices." ​
+
+
+Fokus pada Mekanisme Transmisi Komoditas ke Equity Markets ​
+Krisis keuangan 2007-2008 mengubah hubungan antara pasar komoditas dan saham, dengan korelasi yang meningkat selama periode bullish dan menurun selama periode bearish. ​ Fenomena ini menunjukkan bahwa komoditas dapat berfungsi sebagai substitusi atau pelengkap dalam portofolio investasi, tergantung pada kondisi pasar. ​ Financialization of commodity markets juga memperkuat hubungan ini, dengan spekulasi yang memengaruhi volatilitas harga komoditas dan saham. ​
+=================================================================
+
+Ini adalah daftar pustaka lain yang saya gunakan(jika ada miss pada rangkuman di atas):
 Aladwani, J. (2024). Oil Volatility Uncertainty: Impact on Fundamental Macroeconomics and the Stock Index. Economies, 12(6). https://doi.org/10.3390/economies12060140
 Alpaydin, E. (2020). Introduction to Machine Learning. Mit Press.
 Bimenyimana, J. C., Mei-Sheng, D., & Jallow, M. L. (2025). IS THE STOCK MARKET A “BAROMETER” OF THE ECONOMY? BASED ON SOUTH AFRICA COMPREHENSIVE ANALYSIS. ECONOMICS - Innovative and Economics Research Journal, 13(3), 409–427. https://doi.org/10.2478/eoik-2025-0072

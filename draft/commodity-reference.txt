@@ -1,0 +1,45 @@
+1. A graph‑based CNN‑LSTM stock price prediction algorithm with leading indicators 
+Jimmy Ming‑Tai Wu1 · Zhongcui Li1 · Norbert Herencsar2 · Bay Vo3 · Jerry Chun‑Wei Lin4
+
+In today’s society, investment wealth management has become a mainstream of the contemporary era. Investment wealth
+management refers to the use of funds by investors to arrange funds reasonably, for example, savings, bank financial products,
+bonds, stocks, commodity spots, real estate, gold, art, and many others. Wealth management tools manage and assign
+families, individuals, enterprises, and institutions to achieve the purpose of increasing and maintaining value to accelerate
+asset growth. Among them, in investment and financial management, people’s favorite product of investment often stocks,
+because the stock market has great advantages and charm, especially compared with other investment methods. More and
+more scholars have developed methods of prediction from multiple angles for the stock market. According to the feature
+of financial time series and the task of price prediction, this article proposes a new framework structure to achieve a more
+accurate prediction of the stock price, which combines Convolution Neural Network (CNN) and Long–Short-Term Memory
+Neural Network (LSTM). This new method is aptly named stock sequence array convolutional LSTM (SACLSTM). It constructs
+a sequence array of historical data and its leading indicators (options and futures), and uses the array as the input
+image of the CNN framework, and extracts certain feature vectors through the convolutional layer and the layer of pooling,
+and as the input vector of LSTM, and takes ten stocks in U.S.A and Taiwan as the experimental data. Compared with previous
+methods, the prediction performance of the proposed algorithm in this article leads to better results when compared directly.
+
+2. Dynamic linkagesamongoilprice, goldprice, exchange rate, and stock market in India
+Anshul Jain n, P.C.Biswal
+
+Governmentsimposetaxesandleviestomanagetheeffectofgoldandcrudeoilimportsontheexchange
+rate.Theseinreturnhaverelationswiththeeconomyofthecountry,bestreflected inthestockmarket
+index.Thisstudyaimstoexploretherelationbetweenglobalpricesofgold,crudeoil,theUSD–INR
+exchangerate,andthestockmarketinIndia.Thedynamiccontemporaneouslinkageshavebeenana-
+lyzed usingDCC-GARCH(standard,exponentialandthreshold)modelsandtheleadlaglinkageshave
+been examinedusingsymmetricandasymmetricNonLinearCausalitytests.Empiricalanalysesindicate
+fall ingoldpricesandcrudeoilpricescausefallinthevalueoftheIndianRupeeandthebenchmarkstock
+indexi.e.Sensex.The findings ofthisstudyalsosupporttheemergenceofgoldasaninvestmentasset
+class amongtheinvestors.Moreimportantly,thisstudyhighlightstheneedfordynamicpolicymakingin
+India tocontainexchangerate fluctuations andstockmarketvolatilityusinggoldpriceandoilpriceas
+instruments.
+
+3. On the links between stock and commodity markets’ volatility
+Anna Creti,MarcJoëts,ValérieMignon
+
+This paperinvestigatesthelinksbetweenpricereturnsfor25commoditiesandstocks
+overtheperiodfromJanuary2001toNovember2011,bypayingaparticularattention
+to energyrawmaterials.Relyingonthedynamicconditionalcorrelation(DCC)GARCH
+methodology,weshowthatthecorrelationsbetweencommodityandstockmarketsevolve
+through timeandarehighlyvolatile,particularlysincethe2007-2008financialcrisis.The
+latterhasplayedakeyrole,emphasizingthelinksbetweencommodityandstockmarkets,
+and underliningthefinancializationofcommoditymarkets.Attheidiosyncraticlevel,a
+speculationphenomenonishighlightedforoil,coffeeandcocoa,whilethesafe-havenrole
+of goldisevidenced.
