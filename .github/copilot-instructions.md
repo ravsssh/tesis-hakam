@@ -17,15 +17,34 @@ This is a **financial/economic research thesis project** predicting the Indonesi
 - **Target**: IHSG monthly closing price
 - **Covariates**: Inflation_YoY, M2_YoY, USDIDR, BI_Rate, NPL_Ratio
 - **Data file**: `dataset/model1.csv` (monthly, January 2015 - January 2025, 121 observations)
-- **Framework**: `darts.models.RandomForestModel` with Optuna hyperparameter tuning
+- **Framework**: `darts.models.RandomForestModel` with GridSearch hyperparameter tuning (random sampling 200 trials)
 - **Benchmark**: XGBoost model for comparison
-- **Performance**: MAPE 2.44%, RMSE 234.10, MAE 175.94, R² 0.23
-- **Best Hyperparameters**:
+- **Forecasting Method**: Direct n-step ahead prediction using `model.predict(n=len(test))`
+- **Scaler**: MinMaxScaler with feature_range=(-1, 1)
+- **Performance (Random Forest)**:
+  - MAPE: 3.09%
+  - RMSE: 277.67 points
+  - MAE: 222.17 points
+  - sMAPE: 3.13%
+  - R²: -0.0881
+  - Directional Accuracy: 58.33%
+- **Performance (XGBoost Benchmark)**:
+  - MAPE: 3.42%
+  - RMSE: 310.95 points
+  - MAE: 248.30 points
+  - sMAPE: 3.51%
+  - R²: -0.3645
+  - Directional Accuracy: 45.83%
+- **Best Hyperparameters (Random Forest)**:
+  - lags: 3, lags_past_covariates: 3
+  - n_estimators: 100, max_depth: 5
+  - max_features: None, bootstrap: True
+  - min_samples_split: 2, min_samples_leaf: 2
+- **Best Hyperparameters (XGBoost)**:
   - lags: 6, lags_past_covariates: 1
-  - n_estimators: 100, max_depth: 7
-  - min_samples_split: 10, min_samples_leaf: 4
-  - Scaler: MinMaxScaler
-- **Notebook**: `model-1.ipynb`
+  - n_estimators: 200, max_depth: 3
+  - learning_rate: 0.1, subsample: 1.0, colsample_bytree: 0.8
+- **Notebook**: `model1-baru.ipynb`
 
 ### Model 2: IHSG with Regional Index & Commodity Prices (Daily)
 - **Target**: IHSG daily closing price
@@ -40,32 +59,67 @@ This is a **financial/economic research thesis project** predicting the Indonesi
 
 ## Key Findings from Model 1
 
-### Model Performance
-- **Random Forest outperforms XGBoost** (4/4 metrics):
-  - Random Forest: MAPE 2.44%, RMSE 234.10, MAE 175.94, R² 0.23
-  - XGBoost: MAPE 2.45%, RMSE 239.86, MAE 177.43, R² 0.19
+### Model Performance Comparison
+- **Random Forest outperforms XGBoost** (6/6 metrics):
+  | Metric | Random Forest | XGBoost | Winner |
+  |--------|--------------|---------|--------|
+  | MAPE (%) | 3.09 | 3.42 | RF |
+  | RMSE (points) | 277.67 | 310.95 | RF |
+  | MAE (points) | 222.17 | 248.30 | RF |
+  | sMAPE (%) | 3.13 | 3.51 | RF |
+  | R² | -0.0881 | -0.3645 | RF |
+  | Directional Acc (%) | 58.33 | 45.83 | RF |
+
+### Correlation Analysis (IHSG vs Covariates)
+| Variable | Correlation | Strength | Direction |
+|----------|-------------|----------|-----------|
+| USDIDR | +0.6227 | Moderate | Positive |
+| NPL_Ratio | -0.4360 | Moderate | Negative |
+| M2_YoY | -0.3763 | Weak | Negative |
+| Inflation_YoY | -0.2740 | Weak | Negative |
+| BI_Rate | -0.2353 | Weak | Negative |
+
+**Key Insight**: USD/IDR exchange rate shows the strongest positive correlation with IHSG, while NPL Ratio shows moderate negative correlation.
 
 ### Feature Importance (SHAP Analysis)
-Top contributors to IHSG prediction:
-1. **IHSG historical lags**: 82.16% (autoregressive component dominant)
-2. **NPL Ratio**: 9.08% (credit quality indicator)
-3. **Inflation YoY**: 3.76%
-4. **USDIDR**: 2.30%
-5. **BI Rate**: 1.41%
-6. **M2 YoY**: 1.28%
+Top contributors to IHSG prediction (aggregated by category):
+1. **IHSG historical lags**: 77.4% (autoregressive component dominant)
+2. **USDIDR**: 2.7% (exchange rate)
+3. **NPL_Ratio**: 2.2% (credit quality indicator)
+4. **M2_YoY**: 1.0% (money supply)
+5. **BI_Rate**: 0.7% (interest rate)
+6. **Inflation_YoY**: 0.6%
 
-**Key Insight**: Past IHSG values are the strongest predictor (autoregressive behavior), but NPL Ratio shows significant importance among macroeconomic factors, suggesting credit quality is a key leading indicator for stock market performance.
+**Top Individual Features (SHAP)**:
+1. IHSG_target_lag-1: Highest impact (~0.72 mean |SHAP value|)
+2. IHSG_target_lag-2: Second highest (~0.05)
+3. USDIDR_pastcov_lag-1: Third highest (~0.03)
+4. NPL_Ratio_pastcov_lag-3: Fourth highest (~0.02)
+
+**Key Insight**: Past IHSG values (especially 1-month lag) are the strongest predictor, showing strong autoregressive behavior. Among macroeconomic factors, USDIDR and NPL_Ratio are most influential.
+
+### Forecast Characteristics
+- **Test Period**: January 2023 - January 2025 (25 observations)
+- **Actual IHSG Range**: 6,633 - 7,671 (Mean: 7,082)
+- **Forecast IHSG Range**: 6,979 - 7,010 (Mean: 6,998)
+- **Forecast Std Dev**: 7.87 points (very stable predictions)
+- **Mean Prediction Error**: 83.96 points (underestimation bias)
+- **Max Overestimation**: -360.46 points
+- **Max Underestimation**: 665.79 points
+
+**Observation**: The model produces stable but relatively flat predictions, failing to capture extreme movements (especially the Oct 2024 peak at 7,671).
 
 ### Hyperparameter Tuning Results
-- **Method**: Optuna (TPE sampler) with 100 trials (~1% of search space)
-- **Best configuration**:
-  - Short target lag (6 months) + minimal covariate lag (1 month)
-  - Moderate ensemble (100 estimators) with deeper trees (max_depth=7)
-  - No bootstrap, larger min_samples for regularization
-- **Validation MAPE**: 5.94% (tuning phase) → **Test MAPE**: 2.44% (final evaluation)
+- **Method**: Darts GridSearch with random sampling (200 trials out of 31,104 combinations)
+- **Best RF configuration**:
+  - Short lags (3 months for both target and covariates)
+  - Moderate ensemble (100 estimators) with depth=5
+  - Default sklearn settings (bootstrap=True, min_samples_split=2)
+- **Validation MAPE**: 15.93% (tuning phase) → **Test MAPE**: 3.09% (final evaluation)
 
 ## Directory Structure
-- `model-1.ipynb` - Model 1: IHSG with macroeconomic variables (monthly)
+- `model1-baru.ipynb` - Model 1: IHSG with macroeconomic variables (monthly) - **Current Version**
+- `model-1.ipynb` - Model 1: IHSG with macroeconomic variables (legacy version)
 - `model-2.ipynb` - Model 2: IHSG with regional index & commodity prices (daily)
 - `dataset/model1.csv` - Monthly IHSG + macroeconomic data (Model 1)
 - `dataset/ihsg_daily.csv` - Daily IHSG data (Model 2)
@@ -126,8 +180,8 @@ covariates = TimeSeries.from_dataframe(
 # )
 
 # 2. Scale data (MinMaxScaler for better performance)
-scaler_target = Scaler(scaler=MinMaxScaler())
-scaler_cov = Scaler(scaler=MinMaxScaler())
+scaler_target = Scaler(scaler=MinMaxScaler(feature_range=(-1, 1)))
+scaler_cov = Scaler(scaler=MinMaxScaler(feature_range=(-1, 1)))
 
 # Train/test split (80/20)
 TRAIN_RATIO = 0.8
@@ -144,88 +198,60 @@ test_target_scaled = scaler_target.transform(test_target)
 train_cov_scaled = scaler_cov.fit_transform(train_cov)
 test_cov_scaled = scaler_cov.transform(test_cov)
 
-# Full scaled series for backtesting
-target_scaled = scaler_target.transform(target_series)
-cov_scaled = scaler_cov.transform(covariates)
+# Full scaled covariates for prediction (append train + test)
+cov_full_scaled = train_cov_scaled.append(test_cov_scaled)
 
-# 3. Hyperparameter Tuning with Optuna (100 trials)
-OUTPUT_CHUNK_LENGTH = 1  # 1-step-ahead forecast
+# 3. Hyperparameter Tuning with GridSearch (200 random samples)
+param_grid = {
+    'lags': [1, 3, 6, 12],
+    'lags_past_covariates': [1, 3, 6, 12],       
+    'n_estimators': [50, 100, 200],           
+    'max_depth': [3, 5, 7, None],
+    'max_features': [None, 'sqrt', 'log2'],
+    'bootstrap': [True, False],
+    'min_samples_split': [2, 5, 10],
+    'min_samples_leaf': [1, 2, 4],        
+}
 
-def objective(trial):
-    lags = trial.suggest_categorical('lags', [1, 3, 6, 12])
-    lags_past_covariates = trial.suggest_categorical('lags_past_covariates', [1, 3, 6, 12])
-    n_estimators = trial.suggest_categorical('n_estimators', [50, 100, 200])
-    max_depth = trial.suggest_categorical('max_depth', [3, 5, 7, None])
-    max_features = trial.suggest_categorical('max_features', ['sqrt', 'log2', None])
-    min_samples_split = trial.suggest_categorical('min_samples_split', [2, 5, 10])
-    min_samples_leaf = trial.suggest_categorical('min_samples_leaf', [1, 2, 4])
-    bootstrap = trial.suggest_categorical('bootstrap', [True, False])
-
-    try:
-        model = RandomForestModel(
-            lags=lags,
-            lags_past_covariates=lags_past_covariates,
-            output_chunk_length=OUTPUT_CHUNK_LENGTH,
-            n_estimators=n_estimators,
-            max_depth=max_depth,
-            multi_models=True,
-            random_state=42,
-            max_features=max_features,
-            min_samples_split=min_samples_split,
-            min_samples_leaf=min_samples_leaf,
-            bootstrap=bootstrap,
-            n_jobs=-1
-        )
-        model.fit(train_target_scaled, past_covariates=cov_scaled)
-
-        # Use historical_forecasts for 1-step-ahead predictions
-        backtest_pred = model.historical_forecasts(
-            series=target_scaled,
-            past_covariates=cov_scaled,
-            start=test_target_scaled.start_time(),
-            forecast_horizon=1,
-            retrain=False,
-            verbose=False
-        )
-
-        mape_score = mape(test_target_scaled, backtest_pred)
-        return mape_score
-    except:
-        return float('inf')
-
-study = optuna.create_study(direction='minimize', sampler=TPESampler(seed=42))
-study.optimize(objective, n_trials=100, show_progress_bar=True)
+best_model, best_params, best_score = RandomForestModel.gridsearch(
+    parameters=param_grid,
+    series=train_target_scaled,
+    past_covariates=cov_full_scaled,
+    val_series=test_target_scaled,
+    metric=mape,
+    verbose=True,
+    n_jobs=-1,
+    n_random_samples=200  # Random sampling from 31,104 combinations
+)
 
 # 4. Train final model with best parameters
-best_params = study.best_trial.params
 final_model = RandomForestModel(
     lags=best_params['lags'],
     lags_past_covariates=best_params['lags_past_covariates'],
-    output_chunk_length=OUTPUT_CHUNK_LENGTH,
     n_estimators=best_params['n_estimators'],
     max_depth=best_params['max_depth'],
-    multi_models=True,
+    max_features=best_params['max_features'],
+    bootstrap=best_params['bootstrap'],
+    min_samples_split=best_params['min_samples_split'],
+    min_samples_leaf=best_params['min_samples_leaf'],
     random_state=42,
-    max_features=best_params.get('max_features'),
-    min_samples_split=best_params.get('min_samples_split', 2),
-    min_samples_leaf=best_params.get('min_samples_leaf', 1),
-    bootstrap=best_params.get('bootstrap', True),
     n_jobs=-1
 )
-final_model.fit(train_target_scaled, past_covariates=cov_scaled)
 
-# 5. Generate 1-step-ahead predictions using historical_forecasts
-predictions_scaled = final_model.historical_forecasts(
-    series=target_scaled,
-    past_covariates=cov_scaled,
-    start=test_target_scaled.start_time(),
-    forecast_horizon=1,  # 1-step-ahead
-    retrain=False,
+final_model.fit(
+    series=train_target_scaled,
+    past_covariates=cov_full_scaled,
     verbose=True
 )
 
+# 5. Generate multi-step ahead predictions using predict()
+forecast_scaled = final_model.predict(
+    n=len(test_target_scaled),  # Predict n steps ahead
+    past_covariates=cov_full_scaled
+)
+
 # Inverse transform to original scale
-predictions = scaler_target.inverse_transform(predictions_scaled)
+forecast = scaler_target.inverse_transform(forecast_scaled)
 test_actual = scaler_target.inverse_transform(test_target_scaled)
 ```
 
@@ -254,46 +280,45 @@ Both Model 1 and Model 2 include XGBoost as a benchmark:
 ```python
 from darts.models import XGBModel
 
-# XGBoost with Optuna tuning (similar structure to RandomForest)
-def xgb_objective(trial):
-    lags = trial.suggest_categorical('lags', [1, 3, 6, 12])
-    lags_past_covariates = trial.suggest_categorical('lags_past_covariates', [1, 3, 6, 12])
-    n_estimators = trial.suggest_categorical('n_estimators', [50, 100, 200, 300])
-    max_depth = trial.suggest_categorical('max_depth', [3, 5, 7, 10])
-    learning_rate = trial.suggest_categorical('learning_rate', [0.01, 0.05, 0.1, 0.2])
-    subsample = trial.suggest_categorical('subsample', [0.6, 0.8, 1.0])
-    colsample_bytree = trial.suggest_categorical('colsample_bytree', [0.6, 0.8, 1.0])
+# XGBoost with GridSearch tuning (similar structure to RandomForest)
+param_grid_xgb = {
+    'lags': [1, 3, 6, 12],
+    'lags_past_covariates': [1, 3, 6, 12],       
+    'n_estimators': [50, 100, 200],           
+    'max_depth': [3, 5, 7, None],
+    'learning_rate': [0.01, 0.05, 0.1],
+    'subsample': [0.6, 0.8, 1.0],
+    'colsample_bytree': [0.6, 0.8, 1.0],
+}
 
-    try:
-        model = XGBModel(
-            lags=lags,
-            lags_past_covariates=lags_past_covariates,
-            output_chunk_length=OUTPUT_CHUNK_LENGTH,
-            n_estimators=n_estimators,
-            max_depth=max_depth,
-            learning_rate=learning_rate,
-            subsample=subsample,
-            colsample_bytree=colsample_bytree,
-            random_state=42,
-            verbosity=0
-        )
-        model.fit(train_target_scaled, past_covariates=cov_scaled)
+best_model_xgb, best_params_xgb, best_score_xgb = XGBModel.gridsearch(
+    parameters=param_grid_xgb,
+    series=train_target_scaled,
+    past_covariates=cov_full_scaled,
+    val_series=test_target_scaled,
+    metric=mape,
+    verbose=True,
+    n_jobs=-1,
+    n_random_samples=200
+)
 
-        backtest_pred = model.historical_forecasts(
-            series=target_scaled,
-            past_covariates=cov_scaled,
-            start=test_target_scaled.start_time(),
-            forecast_horizon=1,
-            retrain=False,
-            verbose=False
-        )
+# Train final XGBoost model
+xgb_model = XGBModel(
+    lags=best_params_xgb['lags'],
+    lags_past_covariates=best_params_xgb['lags_past_covariates'],
+    n_estimators=best_params_xgb['n_estimators'],
+    max_depth=best_params_xgb['max_depth'],
+    learning_rate=best_params_xgb['learning_rate'],
+    subsample=best_params_xgb['subsample'],
+    colsample_bytree=best_params_xgb['colsample_bytree'],
+    random_state=42,
+    verbosity=0
+)
 
-        return mape(test_target_scaled, backtest_pred)
-    except:
-        return float('inf')
+xgb_model.fit(train_target_scaled, past_covariates=cov_full_scaled)
 
-xgb_study = optuna.create_study(direction='minimize', sampler=TPESampler(seed=42))
-xgb_study.optimize(xgb_objective, n_trials=100)
+# Predict
+xgb_forecast = xgb_model.predict(n=len(test_target_scaled), past_covariates=cov_full_scaled)
 ```
 
 ### SHAP Feature Importance Analysis
@@ -623,6 +648,30 @@ import matplotlib.pyplot as plt, seaborn as sns
 ### 7. Train Final Model
 - Use best parameters from Optuna
 - Fit on training data with past covariates
+
+### 8. Generate 1-Step-Ahead Predictions
+- Use `historical_forecasts()` with `forecast_horizon=1`
+- Inverse transform to original scale
+
+### 9. Model Evaluation
+- Calculate MAPE, RMSE, MAE, R²
+- Visualize actual vs predicted
+- Analyze prediction errors
+
+### 10. Feature Importance (SHAP)
+- Reconstruct lagged features
+- Train standalone sklearn RandomForest
+- Generate SHAP values and plots
+
+### 11. Benchmark with XGBoost
+- Same Optuna tuning process
+- Compare performance metrics (MAPE, RMSE, MAE, R²)
+- Visualization: RF vs XGB comparison
+
+### 12. Results Summary
+- Print final metrics and best hyperparameters
+- Save predictions to CSV
+- Export publication-quality plots (300 DPI)
 
 ### 8. Generate 1-Step-Ahead Predictions
 - Use `historical_forecasts()` with `forecast_horizon=1`
