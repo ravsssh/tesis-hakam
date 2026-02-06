@@ -1,0 +1,24 @@
+{
+  "model_type": "RandomForest",
+  "frequency": "Monthly",
+  "total_features": 17,
+  "lags_target": 12,
+  "lags_covariates": 1,
+  "shap_timestamps": 14,
+  "date_range": "2023-01 to 2024-02",
+  "top_5_features": [
+    "IHSG_target_lag-1",
+    "IHSG_target_lag-2",
+    "IHSG_target_lag-3",
+    "IHSG_target_lag-4",
+    "IHSG_target_lag-5"
+  ],
+  "category_ranking": {
+    "IHSG_Lags": 97.3,
+    "BI_Rate": 1.03,
+    "M2_YoY": 0.75,
+    "USD/IDR": 0.43,
+    "NPL_Ratio": 0.31,
+    "Inflation_YoY": 0.18
+  }
+}

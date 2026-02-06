@@ -1,0 +1,10 @@
+{
+  "lags": 12,
+  "lags_past_covariates": 1,
+  "n_estimators": 100,
+  "max_depth": 3,
+  "max_features": "log2",
+  "min_samples_split": 4,
+  "min_samples_leaf": 2,
+  "bootstrap": true
+}

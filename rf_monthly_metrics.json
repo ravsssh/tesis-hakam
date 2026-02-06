@@ -1,0 +1,15 @@
+{
+  "model": "RandomForest",
+  "frequency": "Monthly",
+  "horizon": 1,
+  "train_size": 96,
+  "test_size": 25,
+  "best_lags": 12,
+  "best_lags_past_covariates": 1,
+  "MAE": 243.7263905206773,
+  "RMSE": 307.4619960371625,
+  "MAPE": 3.377201168222518,
+  "MSE": 94532.87900715614,
+  "R2": -0.33411511252237447,
+  "Directional_Accuracy": 62.5
+}
