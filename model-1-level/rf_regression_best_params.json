@@ -1,0 +1,12 @@
+{
+  "lags": 12,
+  "lags_past_covariates": 1,
+  "n_estimators": 100,
+  "max_depth": 3,
+  "max_features": "None",
+  "min_samples_split": 10,
+  "min_samples_leaf": 4,
+  "bootstrap": false,
+  "criterion": "friedman_mse",
+  "output_chunk_length": 1
+}

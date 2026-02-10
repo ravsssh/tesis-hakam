@@ -1,9 +1,0 @@
-{
-  "lags": 6,
-  "lags_past_covariates": 1,
-  "n_estimators": 300,
-  "max_depth": 3,
-  "learning_rate": 0.1,
-  "subsample": 1.0,
-  "colsample_bytree": 1.0
-}

@@ -1,0 +1,17 @@
+Feature,Mean_Abs_SHAP,Category
+IHSG_lag-1,0.37254369647428204,IHSG_Lags
+NPL_Ratio_lag-1,0.022772004662265543,NPL_Ratio
+IHSG_lag-6,0.0017405709160567553,IHSG_Lags
+IHSG_lag-3,0.0,IHSG_Lags
+IHSG_lag-4,0.0,IHSG_Lags
+IHSG_lag-5,0.0,IHSG_Lags
+IHSG_lag-7,0.0,IHSG_Lags
+IHSG_lag-2,0.0,IHSG_Lags
+IHSG_lag-8,0.0,IHSG_Lags
+IHSG_lag-9,0.0,IHSG_Lags
+IHSG_lag-11,0.0,IHSG_Lags
+IHSG_lag-10,0.0,IHSG_Lags
+IHSG_lag-12,0.0,IHSG_Lags
+M2_YoY_lag-1,0.0,M2_YoY
+USDIDR_lag-1,0.0,USDIDR
+BI_Rate_lag-1,0.0,BI_Rate
