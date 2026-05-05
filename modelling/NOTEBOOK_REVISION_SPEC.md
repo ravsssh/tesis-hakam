@@ -1,30 +1,31 @@
 # NOTEBOOK REVISION SPEC — For Claude Code (VSCode)
 # Prediksi IHSG: Multi-Model Tree-Based Ensemble Framework
 
-> **Purpose:** Instruksi coding untuk merevisi notebook eksperimen IHSG dari single-model (RF only, 21 experiments, 12 covariates) ke multi-model (4 models, ~160 experiments, 15 covariates). Dokumen ini adalah satu-satunya referensi yang dibutuhkan Claude Code.
-
-> **Last updated:** Mar 2026 — added WTI Oil, US Treasury 10Y, GDP as new covariates.
+> **Purpose:** Instruksi coding untuk jupyter notebook eksperimen prediksi timeseries IHSG menggunakan variabel macroeconomics, commoddity price dan regional index dengan menggunakan tree-based ensemble (extra tree, xgboost, random forest dan lightgbm) dengan hyperparameter tuning menggunakan optuna
 
 ---
 
 ## CONTEXT: APA YANG SUDAH ADA DI NOTEBOOK
 
-### Current Pipeline (JANGAN DIUBAH kecuali disebutkan)
+### Current Pipeline (Jika ada tahap yang miss atau missinterpretasi kasih tahu)
 1. **Data loading** — CSV dari GitHub, merge macro (monthly) + daily via `merge_asof`
 2. **ADF test** — semua variabel non-stationary → transformasi
 3. **Transformasi:**
-   - LEVEL_VARS → `diff(log(x))`: M2, USDIDR, Coal, Copper, Nickel, Silver, Tin, Gold, STI, **WTI, GDP**
-   - RATE_VARS → `diff(x)`: BI_Rate, CPI, NPL_Ratio, **US_Treasury_10Y**
+   - LEVEL_VARS → `diff(log(x))`: M2, USDIDR, Coal, Copper, Nickel, Silver, Tin, Gold, STI, WTI, GDP
+   - RATE_VARS → `diff(x)`: BI_Rate, CPI, NPL_Ratio, US_Treasury_10Y
    - Target IHSG → `diff(log(x))`
 4. **Scaling** — MinMaxScaler fit on train only, transform on full data
 5. **Darts TimeSeries** conversion — target + past_covariates
-6. **Expanding Window CV** — 5-fold, train starts at 40%, test ~15% per fold
+6. **Train/Test Split** — temporal split, train 80% awal, test 20% akhir
 7. **Model** — `RandomForestModel` from Darts
-8. **Metrics** — MAPE, RMSE, MAE, R², DA (mean ± std across folds)
+8. **Metrics** — MAPE, RMSE, MAE, R², DA (single evaluation on test set)
 9. **SHAP** — feature importance from RF
 10. **Visualization** — prediction plots, residuals, covariate comparison
 
 ### Current Experiment Loop Structure (approximate)
+> **Catatan:** Loop di bawah ini adalah struktur dari studi awal (RF only, 7 covariate sets, W30/W60/W120).
+> Revisi ini **mengganti** struktur tersebut dengan two-phase design di bawah. Window W60 tidak digunakan di revision — hanya W30 dan W120.
+
 ```python
 COVARIATE_SETS = {
     'None': [],
@@ -35,15 +36,17 @@ COVARIATE_SETS = {
     'Commodity_Regional': ['Coal', 'Copper', 'Nickel', 'Silver', 'Tin', 'Gold', 'STI'],
     'Full': ['BI_Rate', 'CPI', 'M2', 'NPL_Ratio', 'USDIDR', 'Coal', 'Copper', 'Nickel', 'Silver', 'Tin', 'Gold', 'STI'],
 }
-WINDOWS = [30, 60, 120]
+WINDOWS = [30, 60, 120]  # NOTE: revision hanya pakai [30, 120]
 HORIZON = 1
 
 for cov_name, cov_vars in COVARIATE_SETS.items():
     for window in WINDOWS:
-        # build model, run 5-fold expanding CV, collect metrics
+        # build model, fit on train set, evaluate on test set
 ```
 
-### Current Model Instantiation
+### Machine learning model used
+
+**Darts model classes to use:**
 ```python
 from darts.models import RandomForestModel
 
@@ -60,13 +63,6 @@ model = RandomForestModel(
 )
 ```
 
----
-
-## WHAT NEEDS TO CHANGE
-
-### Change 1: ADD 3 NEW MODELS (Extra Trees, XGBoost, LightGBM)
-
-**Darts model classes to use:**
 ```python
 from darts.models import RandomForestModel, XGBModel, LightGBMModel, SKLearnModel
 from sklearn.ensemble import ExtraTreesRegressor
@@ -217,17 +213,8 @@ GROUP_COVARIATES = {
 }
 ```
 
-### Change 3: REDUCE WINDOWS FROM 3 TO 2
 
-```python
-# OLD:
-WINDOWS = [30, 60, 120]
-
-# NEW:
-WINDOWS = [30, 120]
-```
-
-### Change 4: ADD OPTUNA HYPERPARAMETER TUNING (Separate Notebook/Section)
+### OPTUNA HYPERPARAMETER TUNING (Separate Notebook/Section)
 
 **Create a NEW notebook or section: `01_hyperparameter_tuning.ipynb`**
 
@@ -317,9 +304,12 @@ def create_objective(model_name, target_ts, window=120):
                 **params,
             )
         
-        # Run 5-fold expanding window CV (reuse existing CV function)
-        mape_scores = run_expanding_cv(model, target_ts, n_folds=5)
-        return np.mean(mape_scores)  # minimize mean MAPE
+        # Fit on train set, evaluate on test set
+        train_ts, test_ts = target_ts[:int(len(target_ts) * 0.8)], target_ts[int(len(target_ts) * 0.8):]
+        model.fit(train_ts)
+        pred = model.predict(len(test_ts))
+        from darts.metrics import mape as mape_metric
+        return mape_metric(test_ts, pred)  # minimize MAPE
     
     return objective
 
@@ -377,30 +367,29 @@ for model_name, model_cfg in MODEL_CONFIGS.items():
                 has_covariates=(len(cov_vars) > 0),
             )
             
-            # Run 5-fold expanding CV
-            fold_metrics = run_expanding_cv(
-                model=model,
-                target_ts=target_ts,
-                covariate_ts=covariate_ts[cov_vars] if cov_vars else None,
-                n_folds=5,
-                window=window,
-            )
+            # Temporal train/test split (80/20)
+            split_idx = int(len(target_ts) * 0.8)
+            train_ts = target_ts[:split_idx]
+            test_ts  = target_ts[split_idx:]
+            
+            cov_ts = covariate_ts[cov_vars] if cov_vars else None
+            train_cov = cov_ts[:split_idx] if cov_ts is not None else None
+            
+            model.fit(train_ts, past_covariates=train_cov)
+            pred = model.predict(len(test_ts), past_covariates=cov_ts)
+            
+            metrics = calculate_metrics(test_ts, pred)
             
             # Collect results
             results.append({
                 'Model': model_name,
                 'Covariates': cov_name,
                 'Window': window,
-                'MAPE_mean': np.mean(fold_metrics['mape']),
-                'MAPE_std': np.std(fold_metrics['mape']),
-                'RMSE_mean': np.mean(fold_metrics['rmse']),
-                'RMSE_std': np.std(fold_metrics['rmse']),
-                'MAE_mean': np.mean(fold_metrics['mae']),
-                'MAE_std': np.std(fold_metrics['mae']),
-                'R2_mean': np.mean(fold_metrics['r2']),
-                'R2_std': np.std(fold_metrics['r2']),
-                'DA_mean': np.mean(fold_metrics['da']),
-                'DA_std': np.std(fold_metrics['da']),
+                'MAPE': metrics['mape'],
+                'RMSE': metrics['rmse'],
+                'MAE': metrics['mae'],
+                'R2': metrics['r2'],
+                'DA': metrics['da'],
             })
 
 df_results = pd.DataFrame(results)
@@ -409,12 +398,21 @@ df_results.to_csv('phase1_screening_results.csv', index=False)
 
 ### Change 6: ADD SCREENING ANALYSIS (after Phase 1)
 
+> **Catatan:** `phase1_screening_results.csv` yang sudah ada memiliki kolom `MAPE_mean` (format lama dengan k-fold).
+> Fungsi di bawah membaca kolom tersebut. Jika di masa depan format CSV di-update ke kolom `MAPE` (tanpa k-fold),
+> ganti semua `MAPE_mean` di bawah menjadi `MAPE`.
+
 ```python
 def analyze_screening(df_results, threshold_pct=0.3):
     """
     Identify covariates that improve MAPE by >= threshold_pct% 
     relative to baseline (None), for each model × window combo.
+    
+    Membaca kolom 'MAPE_mean' dari phase1_screening_results.csv (format existing).
     """
+    # Normalisasi kolom: support kedua format (MAPE_mean dari k-fold, atau MAPE dari simple split)
+    mape_col = 'MAPE_mean' if 'MAPE_mean' in df_results.columns else 'MAPE'
+    
     screening = []
     
     for model_name in df_results['Model'].unique():
@@ -422,20 +420,20 @@ def analyze_screening(df_results, threshold_pct=0.3):
             mask = (df_results['Model'] == model_name) & (df_results['Window'] == window)
             subset = df_results[mask]
             
-            baseline_mape = subset[subset['Covariates'] == 'None']['MAPE_mean'].values[0]
+            baseline_mape = subset[subset['Covariates'] == 'None'][mape_col].values[0]
             
             for _, row in subset.iterrows():
                 if row['Covariates'] == 'None':
                     continue
                 
-                improvement = (baseline_mape - row['MAPE_mean']) / baseline_mape * 100
+                improvement = (baseline_mape - row[mape_col]) / baseline_mape * 100
                 passed = improvement >= threshold_pct
                 
                 screening.append({
                     'Model': model_name,
                     'Window': window,
                     'Covariate': row['Covariates'],
-                    'MAPE': row['MAPE_mean'],
+                    'MAPE': row[mape_col],
                     'Baseline_MAPE': baseline_mape,
                     'Improvement_pct': improvement,
                     'Passed': passed,
@@ -497,22 +495,46 @@ def get_shap_values(model, X_test):
 
 ---
 
+## IMPLEMENTATION STATUS
+
+Status per notebook dan file output per tanggal revisi spec ini:
+
+| Notebook | Status | Keterangan |
+|----------|--------|------------|
+| `00_data_preprocessing.ipynb` | ✅ DONE | Data load, merge, ADF, transformasi, scaling selesai |
+| `01_hyperparameter_tuning.ipynb` | ⚠️ EXISTS | File ada, perlu cek apakah Optuna sudah di-run atau masih template |
+| `02_phase1_screening.ipynb` | ✅ DONE | 128 eksperimen (4 model × 16 covariate × 2 window) selesai |
+| `03_screening_analysis.ipynb` | ❌ TODO | Analisis Phase 1 → design Phase 2 groups |
+| `04_phase2_groups.ipynb` | ❌ TODO | Group experiments dari survivors Phase 1 |
+| `05_shap_analysis.ipynb` | ❌ TODO | SHAP multi-model (4 model) |
+| `06_visualization.ipynb` | ❌ TODO | Multi-model comparison plots |
+
+| File Output | Status | Keterangan |
+|-------------|--------|------------|
+| `phase1_screening_results.csv` | ✅ DONE | 128 baris, semua 4 model |
+| `phase1_screening_analysis.csv` | ✅ DONE | 120 baris (4 model × 15 covariate × 2 window) |
+| `optuna_tuning_results.joblib` | ⚠️ CEK | Perlu verifikasi apakah sudah ada |
+| `phase2_group_results.csv` | ❌ TODO | Menunggu Phase 2 |
+| `shap_feature_importance_*.csv` | ❌ TODO | Menunggu SHAP analysis |
+
+---
+
 ## NOTEBOOK STRUCTURE RECOMMENDATION
 
 Split into separate notebooks for manageability:
 
 ```
 notebooks/
-├── 00_data_preprocessing.ipynb          # Data load, merge, ADF, transform, scale (REUSE existing)
-├── 01_hyperparameter_tuning.ipynb       # NEW: Optuna tuning (4 models)
-├── 02_phase1_screening.ipynb            # NEW: 104 single covariate experiments
-├── 03_screening_analysis.ipynb          # NEW: Analyze Phase 1, determine significant covariates
-├── 04_phase2_groups.ipynb               # NEW: Group experiments from Phase 1 survivors
-├── 05_shap_analysis.ipynb               # REVISE: Extend to all 4 models
-├── 06_visualization.ipynb               # REVISE: Multi-model comparison plots
+├── 00_data_preprocessing.ipynb          # Data load, merge, ADF, transform, scale (DONE ✅)
+├── 01_hyperparameter_tuning.ipynb       # Optuna tuning 4 models (CEK ⚠️)
+├── 02_phase1_screening.ipynb            # 128 single covariate experiments (DONE ✅)
+├── 03_screening_analysis.ipynb          # TODO: Analyze Phase 1, design Phase 2 groups
+├── 04_phase2_groups.ipynb               # TODO: Group experiments from Phase 1 survivors
+├── 05_shap_analysis.ipynb               # TODO: SHAP extended to all 4 models
+├── 06_visualization.ipynb               # TODO: Multi-model comparison plots
 └── utils/
     ├── models.py                        # build_model() function for all 4 models
-    ├── evaluation.py                    # run_expanding_cv(), calculate_metrics()
+    ├── evaluation.py                    # evaluate_model(), calculate_metrics()
     └── screening.py                     # analyze_screening()
 ```
 
@@ -564,24 +586,31 @@ def build_model(model_name, params, window, horizon=1, has_covariates=True):
 - `SKLearnModel` does NOT accept `n_jobs` directly — it must be passed to the underlying sklearn model (`ExtraTreesRegressor(n_jobs=-1, ...)`)
 - Same applies to `random_state`: pass to the underlying sklearn model when using `SKLearnModel`
 
-### `run_expanding_cv()` — REUSE existing, ensure it returns per-fold metrics
+### `calculate_metrics()` — helper untuk hitung semua metrik dari prediksi Darts
 ```python
-def run_expanding_cv(model, target_ts, covariate_ts=None, n_folds=5, window=120):
+import numpy as np
+from darts.metrics import mape, rmse, mae, r2_score
+
+def calculate_metrics(actual_ts, pred_ts):
     """
-    Run expanding window cross-validation.
+    Hitung semua metrik dari dua Darts TimeSeries.
     
-    THIS FUNCTION SHOULD ALREADY EXIST in the current notebook.
-    Ensure it returns a dict of lists:
-    {
-        'mape': [fold1, fold2, ...],
-        'rmse': [fold1, fold2, ...],
-        'mae': [fold1, fold2, ...],
-        'r2': [fold1, fold2, ...],
-        'da': [fold1, fold2, ...],
-    }
+    Returns:
+        dict: {'mape': float, 'rmse': float, 'mae': float, 'r2': float, 'da': float}
     """
-    # ... existing implementation ...
-    pass
+    actual = actual_ts.values().flatten()
+    pred   = pred_ts.values().flatten()
+    
+    # Directional Accuracy: sign(pred) == sign(actual) untuk log-return target
+    da = np.mean(np.sign(pred) == np.sign(actual)) * 100
+    
+    return {
+        'mape': mape(actual_ts, pred_ts),
+        'rmse': rmse(actual_ts, pred_ts),
+        'mae':  mae(actual_ts, pred_ts),
+        'r2':   r2_score(actual_ts, pred_ts),
+        'da':   da,
+    }
 ```
 
 ---
@@ -589,7 +618,7 @@ def run_expanding_cv(model, target_ts, covariate_ts=None, n_folds=5, window=120)
 ## CRITICAL CONSTRAINTS
 
 1. **DO NOT change data preprocessing** — ADF, transformasi, scaling pipeline sudah benar
-2. **DO NOT change expanding window CV structure** — 5-fold, same fold boundaries
+2. **Evaluasi: temporal 80/20 split** — train = 80% awal, test = 20% akhir, tidak ada k-fold
 3. **Hyperparameters are PLACEHOLDERS** — notebook harus bisa swap in Optuna results easily
 4. **Random state = 42 everywhere** — untuk reprodusibilitas
 5. **Save ALL results to CSV/joblib** — setiap phase harus punya output file
@@ -605,7 +634,7 @@ def run_expanding_cv(model, target_ts, covariate_ts=None, n_folds=5, window=120)
 |-------|------|---------|
 | Phase 0 | `optuna_tuning_results.joblib` | Best params per model + study objects |
 | Phase 0 | `optuna_tuning_summary.csv` | Summary table of best params |
-| Phase 1 | `phase1_screening_results.csv` | 104 rows, all metrics per experiment |
+| Phase 1 | `phase1_screening_results.csv` | 128 rows (4 model × 16 covariate × 2 window), kolom: MAPE, RMSE, MAE, R2, DA |
 | Phase 1 | `phase1_screening_analysis.csv` | Screening pass/fail per covariate |
 | Phase 2 | `phase2_group_results.csv` | ~32 rows, group experiment results |
 | Final | `all_experiment_results.csv` | Combined Phase 1 + Phase 2 |
@@ -716,6 +745,41 @@ Total:      4 × ~4 × 2 = ~32
 
 ---
 
+## NEXT STEPS (Phase 2 ke Atas)
+
+Urutan pengerjaan yang tersisa setelah Phase 1 selesai:
+
+1. **Verifikasi Optuna** (`01_hyperparameter_tuning.ipynb`)
+   - Cek apakah `optuna_tuning_results.joblib` sudah ada di folder
+   - Kalau belum: jalankan Optuna tuning dulu (100 trials × 4 model = 400 trials, ~berjam-jam)
+   - Kalau sudah: load saja dan lanjut ke Phase 2
+
+2. **Design Phase 2 Groups** (`03_screening_analysis.ipynb`)
+   - Load `phase1_screening_analysis.csv` yang sudah ada
+   - Identifikasi covariate yang konsisten "Passed=True" di mayoritas model×window combo
+   - Susun `GROUP_COVARIATES` dict (Sig_Macro, Sig_Commodity, Sig_All, dst.)
+   - Threshold 0.3% improvement di MAPE relatif terhadap baseline
+
+3. **Phase 2 Group Experiments** (`04_phase2_groups.ipynb`)
+   - ~32 eksperimen: 4 model × ~4 grup × 2 window
+   - Gunakan Optuna-tuned hyperparameters dari step 1
+   - Save ke `phase2_group_results.csv`
+   - Identifikasi best config (model + covariate group + window) untuk SHAP analysis
+
+4. **SHAP Analysis** (`05_shap_analysis.ipynb`)
+   - Gunakan best config dari Phase 2 sebagai model utama
+   - Jalankan SHAP pada data test set (20% akhir) — lihat Methodological Notes
+   - Plot: summary plot, beeswarm, bar chart per model
+   - Save ke `shap_feature_importance_[model]_[timestamp].csv`
+
+5. **Visualization Komparatif** (`06_visualization.ipynb`)
+   - Heatmap MAPE per model × covariate group
+   - Bar chart ranking model (mean MAPE ± std across best configs)
+   - SHAP comparison antar model
+   - Directional accuracy comparison
+
+---
+
 ## DATA LOADING NOTES (NEW VARIABLES)
 
 3 new variables harus di-merge ke dataset existing:
@@ -738,3 +802,98 @@ Total:      4 × ~4 × 2 = ~32
 # - Ini lebih stale dari macro lain (monthly ~22 days)
 # - Jangan kaget kalau GDP gagal screening
 ```
+
+---
+
+## METHODOLOGICAL NOTES & SARAN
+
+Catatan metodologis berikut untuk memperkuat kaidah penelitian. Bukan keharusan semua diimplementasi,
+tapi minimal yang bertanda **[PENTING]** perlu dibahas di tesis (methodology atau limitations section).
+
+### a) Naive Benchmark **[PENTING]**
+
+Tanpa naive benchmark, klaim "MAPE 0.66%" tidak punya konteks yang kuat. Reviewer tesis hampir pasti akan menanyakan ini.
+
+```python
+# Naive model 1: Random Walk — prediksi besok = hari ini (log-return = 0)
+# Untuk log-differenced target, ini berarti prediksi = 0 (no change)
+naive_mape = mean(abs(actual_log_returns)) / mean(abs(actual_log_returns)) * 100  # = 100% jika prediksi selalu 0
+
+# Naive model 2: Mean historical return
+# prediksi = mean(training log-returns)
+
+# Cara mudah via Darts:
+from darts.models import NaiveMean, NaiveSeasonal
+naive_model = NaiveMean()  # predicts the training mean
+```
+
+Jika model RF/XGB/dll mengalahkan naive model dengan signifikan → bukti bahwa model benar-benar "belajar" sesuatu.
+Jika tidak → perlu diskusi di limitations.
+
+### b) GDP Publication Lag **[PENTING — berdampak pada validitas]**
+
+GDP Indonesia dirilis BPS **~2 bulan setelah akhir kuartal**:
+- Q1 (Jan–Mar) → rilis ~Mei
+- Q2 (Apr–Jun) → rilis ~Agustus
+- dst.
+
+Jika `merge_asof` menggunakan tanggal kuartal (misal Jan 1, Apr 1) tanpa di-offset, model akan melihat GDP Q1 sejak Januari — padahal data itu baru tersedia di Mei. Ini adalah **look-ahead bias**.
+
+**Saran implementasi:**
+```python
+# Offset GDP 60 hari ke depan sebelum merge
+gdp_df['Date'] = gdp_df['Date'] + pd.DateOffset(days=60)
+# Kemudian merge_asof seperti biasa
+```
+
+Kalau GDP tetap gagal screening setelah di-offset → metodologi semakin valid dan hasilnya lebih credible.
+Kalau tidak sempat implementasi → wajib dicantumkan sebagai limitasi di tesis.
+
+### c) SHAP Harus Dihitung pada Data Test (Out-of-Sample)
+
+SHAP dari training data = "apa yang dipelajari model dari data historis".
+SHAP dari test data = "apa yang digunakan model untuk prediksi aktual".
+
+Untuk explainability yang valid dalam konteks prediksi:
+
+```python
+# Jangan:
+shap_values = explainer.shap_values(X_train)  # bias ke training patterns
+
+# Lakukan:
+# Hitung SHAP pada X_test (20% akhir data)
+shap_values = explainer.shap_values(X_test)
+```
+
+Ini memastikan SHAP values konsisten dengan performa model yang dilaporkan.
+
+### d) Uji Statistik untuk Perbandingan Model **[DISARANKAN]**
+
+Range MAPE antar model di Phase 1 kemungkinan < 0.01 percentage point. Perbedaan sekecil itu
+**tidak bisa diklaim signifikan tanpa uji statistik**.
+
+**Diebold-Mariano Test** cocok untuk membandingkan forecast accuracy dua model dari error time series:
+```python
+# pip install arch
+from arch.tests.utility import diebold_mariano
+
+# e1 = per-timestep forecast errors model A (pada test set)
+# e2 = per-timestep forecast errors model B (pada test set)
+e1 = actual_values - pred_model_a
+e2 = actual_values - pred_model_b
+dm_stat, dm_pvalue = diebold_mariano(e1, e2, power=2)  # power=2 → MSE-based
+```
+
+### e) Metrik Utama: MAE vs MAPE
+
+MAPE sudah valid di sini karena dihitung pada level IHSG (bukan log-return). Namun untuk tesis:
+- **MAPE**: lebih intuitive untuk pembaca umum ("error rata-rata 0.66%")
+- **MAE**: lebih robust terhadap outlier, satuannya jelas (poin IHSG)
+- **DA (Directional Accuracy)**: metrik paling relevan untuk investor — apakah prediksi arah naik/turun benar?
+
+**Rekomendasi**: Gunakan MAPE sebagai primary ranking metric (seperti sekarang), tapi highlight DA
+lebih prominently di tesis karena itulah yang paling actionable untuk keputusan investasi.
+
+Catatan DA saat ini (50–54%) = sedikit di atas random guess (50%). Ini **bukan kelemahan yang perlu disembunyikan** —
+justru ini menunjukkan bahwa model mampu mengestimasi magnitude (R²=0.97, MAPE rendah) tapi pasar sebagian
+besar mengikuti random walk untuk arah pergerakan harian.

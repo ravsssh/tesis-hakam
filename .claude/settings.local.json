@@ -2,7 +2,21 @@
   "permissions": {
     "allow": [
       "Bash(python -c \":*)",
-      "Bash(python:*)"
+      "Bash(python:*)",
+      "Bash(python3 -c \"import pandas as pd; df = pd.read_csv\\('/Users/hakam/Documents/Jobseeker/Project/tesis-hakam/modelling/phase1_screening_results.csv'\\); print\\('Models:', df['Model'].unique\\(\\).tolist\\(\\)\\); print\\('Windows:', df['Window'].unique\\(\\).tolist\\(\\)\\); print\\('Covariates:', df['Covariates'].unique\\(\\).tolist\\(\\)\\); print\\('Shape:', df.shape\\)\")",
+      "Bash(/Users/hakam/anaconda3/envs/ravsss/bin/python -)",
+      "Bash(/Users/hakam/anaconda3/envs/ravsss/bin/jupyter kernelspec *)",
+      "Bash(/Users/hakam/anaconda3/bin/jupyter kernelspec *)",
+      "Bash(python3 -c \"import json; nb=json.load\\(open\\('/Users/hakam/Documents/Jobseeker/Project/tesis-hakam/modelling/02_phase1_screening.ipynb'\\)\\); print\\(json.dumps\\(nb['metadata']['kernelspec'], indent=2\\)\\)\")",
+      "Bash(/Users/hakam/anaconda3/envs/ravsss/bin/jupyter nbconvert *)",
+      "Bash(/Users/hakam/anaconda3/envs/ravsss/bin/pip show *)",
+      "Bash(/Users/hakam/anaconda3/envs/ravsss/bin/python -c \"import transformers; print\\('transformers works'\\)\")",
+      "Bash(grep -v \"^--$\")",
+      "Bash(/Users/hakam/anaconda3/envs/ravsss/bin/python -c \"import shap; print\\('shap:', shap.__version__\\)\")",
+      "Bash(awk -F',' 'NR==1 || $1==\"RandomForest\"')",
+      "Bash(/Users/hakam/anaconda3/envs/ravsss/bin/python -c \"import docx; print\\('python-docx OK'\\)\")",
+      "Bash(/Users/hakam/anaconda3/bin/python -c \"import docx; print\\('python-docx in base'\\)\")",
+      "Bash(/Users/hakam/anaconda3/envs/ravsss/bin/pip install *)"
     ]
   }
 }

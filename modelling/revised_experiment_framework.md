@@ -5,23 +5,9 @@
 **Status:** Post-bimbingan revision — incorporating advisor feedback
 
 ---
+## 1. MODEL ARCHITECTURE
 
-## 1. PERUBAHAN UTAMA DARI VERSI SEBELUMNYA
-
-| Aspek | Sebelumnya | Sekarang |
-|-------|-----------|----------|
-| Algoritma | Random Forest saja | 4 model: RF, Extra Trees, XGBoost, LightGBM |
-| Covariate testing | 7 predefined groups | Phase 1: 15 single → Phase 2: bottom-up groups |
-| Total covariates | 12 | 15 (added: WTI, US Treasury 10Y, GDP) |
-| Hyperparameter tuning | GridSearch (36 kombinasi) | Optuna + Bayesian Optimization (TPE) |
-| Window scenarios | 3 (W30, W60, W120) | 2 (W30, W120) |
-| Judul | "...Menggunakan Random Forest..." | "...Menggunakan Ensemble Learning Berbasis Pohon Keputusan..." |
-
----
-
-## 2. MODEL ARCHITECTURE
-
-### 2.1 Empat Model Tree-Based Ensemble
+### 1.1 Empat Model Tree-Based Ensemble
 
 | Model | Kategori | Library | Referensi Utama |
 |-------|----------|---------|-----------------|
@@ -30,23 +16,20 @@
 | **XGBoost** | Boosting | xgboost / Darts | Chen & Guestrin (2016) |
 | **LightGBM** | Boosting | lightgbm / Darts | Ke et al. (2017) |
 
-### 2.2 Justifikasi Pemilihan Model
+### 1.2 Justifikasi Pemilihan Model
 
 **Bagging vs Boosting comparison:**
 - **Bagging** (RF, Extra Trees): Membangun pohon secara paralel & independen, mengurangi variance melalui averaging. Extra Trees menambahkan randomisasi pada threshold split.
 - **Boosting** (XGBoost, LightGBM): Membangun pohon secara sekuensial, setiap pohon memperbaiki error pohon sebelumnya. Mengurangi bias secara iteratif.
 
 **Mengapa keempat model ini:**
-1. RF: Baseline ensemble yang sudah terbukti robust (Breiman, 2001)
-2. Extra Trees: Varian bagging dengan randomisasi lebih ekstrem — kontras langsung dengan RF
-3. XGBoost: State-of-the-art boosting, regularized (Chen & Guestrin, 2016)
-4. LightGBM: Boosting dengan leaf-wise growth, efisien untuk dataset besar (Ke et al., 2017)
+Uji coba dan membandingkan bagaimana berbagai machine learning berbasis pohon keputusan bekerja untuk prediksi timeseries ihsg
 
 ---
 
-## 3. EXPERIMENT DESIGN
+## 2. EXPERIMENT DESIGN
 
-### 3.1 Variables (UPDATED — added 3 new covariates)
+### 2.1 Variables (UPDATED — added 3 new covariates)
 
 **Target:** IHSG daily closing price (log-differenced)
 
@@ -58,36 +41,27 @@
 | 3 | M2 | Macro | Monthly → daily | Log-difference |
 | 4 | NPL_Ratio | Macro | Monthly → daily | First difference |
 | 5 | USDIDR | Macro | Daily | Log-difference |
-| 6 | **GDP** ⭐ | Macro | **Quarterly → daily** | Log-difference |
-| 7 | **US_Treasury_10Y** ⭐ | Macro (global) | Daily | First difference |
+| 6 | GDP | Macro | Quarterly → daily | Log-difference |
+| 7 | US_Treasury_10Y | Macro (global) | Daily | First difference |
 | 8 | Coal | Commodity | Daily | Log-difference |
 | 9 | Copper | Commodity | Daily | Log-difference |
 | 10 | Nickel | Commodity | Daily | Log-difference |
 | 11 | Silver | Commodity | Daily | Log-difference |
 | 12 | Tin | Commodity | Daily | Log-difference |
 | 13 | Gold | Commodity | Daily | Log-difference |
-| 14 | **WTI_Oil** ⭐ | Commodity (energy) | Daily | Log-difference |
+| 14 | WTI_Oil | Commodity (energy) | Daily | Log-difference |
 | 15 | STI | Regional | Daily | Log-difference |
 
-⭐ = Variabel baru (ditambahkan Mar 2026)
 
-**Notes on new variables:**
-- **GDP**: Quarterly data (BPS), forward-filled to daily (~63 trading days per value). Expect higher staleness than monthly macro vars. Transformasi log-difference karena GDP adalah price-level variable. Forward-fill direction: backward (sama seperti macro lain).
-- **US_Treasury_10Y**: Daily yield data (Bloomberg). Treated as rate variable → first difference. Categorized under Macro (representing global capital flow / risk-free rate proxy for emerging markets like Indonesia).
-- **WTI_Oil**: Daily crude oil price (Bloomberg). Pilih WTI over Brent karena lebih likuid sebagai global benchmark. Categorized under Commodity.
 
-**Source:** Semua 3 variabel baru diambil dari Bloomberg Terminal (sama dengan dataset existing).
-
-### 3.2 Window Scenarios (revised: 2 windows)
+### 2.2 Window Scenarios
 
 | Scenario | Window (Lookback) | Horizon | Keterangan |
 |----------|-------------------|---------|------------|
 | W30_H1 | 30 hari | 1 hari | Short-term momentum |
-| W120_H1 | 120 hari | 1 hari | Long-term, siklus makro |
+| W120_H1 | 120 hari | 39 hari | Long-term, siklus makro |
 
-**Alasan drop W60:** Hasil eksperimen sebelumnya menunjukkan W60 berada di antara W30 dan W120 tanpa memberikan insight tambahan. Dua titik ekstrem (30 vs 120) sudah cukup menangkap perbedaan short vs long-term.
-
-### 3.3 Two-Phase Experiment Design
+### 2.3 Two-Phase Experiment Design
 
 ```
 PHASE 0: Hyperparameter Tuning (Optuna + TPE)
@@ -395,3 +369,119 @@ study.optimize(objective, n_trials=100)
    - Con: Doesn't mention specific variable categories
 
 **Recommendation:** Option 1 or 3 — discuss with advisor.
+
+
+### Current Model Instantiation
+```python
+from darts.models import RandomForestModel
+
+model = RandomForestModel(
+    lags=window,
+    lags_past_covariates=window if cov_vars else None,
+    output_chunk_length=HORIZON,
+    n_estimators=500,
+    max_depth=5,
+    max_features='sqrt',
+    max_samples=0.7,
+    random_state=42,
+    n_jobs=-1,
+)
+```
+### Change 1: ADD 3 NEW MODELS (Extra Trees, XGBoost, LightGBM)
+
+**Darts model classes to use:**
+```python
+from darts.models import RandomForestModel, XGBModel, LightGBMModel, SKLearnModel
+from sklearn.ensemble import ExtraTreesRegressor
+```
+
+**Important — Extra Trees in Darts:**
+Darts does NOT have a dedicated `ExtraTreesModel` class. Extra Trees is used via the generic `SKLearnModel` wrapper, which can wrap any scikit-learn-like regression model. Pattern:
+
+```python
+from darts.models import SKLearnModel
+from sklearn.ensemble import ExtraTreesRegressor
+
+et_model = SKLearnModel(
+    lags=window,
+    lags_past_covariates=window if cov_vars else None,
+    output_chunk_length=HORIZON,
+    model=ExtraTreesRegressor(
+        n_estimators=500,
+        max_depth=5,
+        max_features='sqrt',
+        random_state=42,
+        n_jobs=-1,
+    ),
+)
+```
+
+**Notes on Extra Trees behavior:**
+- `ExtraTreesRegressor` defaults to `bootstrap=False` (unlike RF which uses `bootstrap=True`)
+- Because of this, `max_samples` parameter is ignored unless you explicitly set `bootstrap=True`
+- The randomization in ET comes from random threshold splits, not from bootstrap sampling
+- This is the philosophical difference between RF (bagging via bootstrap) and ET (bagging via random splits)
+
+**Darts version compatibility:**
+- Darts ≥ 0.30: use `SKLearnModel`
+- Darts < 0.30: use `RegressionModel` (older name, same functionality)
+- Check with: `import darts; print(darts.__version__)`
+
+**Model config dict (placeholder hyperparameters — will be replaced by Optuna results):**
+```python
+MODEL_CONFIGS = {
+    'RandomForest': {
+        'class': RandomForestModel,  # native Darts wrapper
+        'params': {
+            'n_estimators': 500,
+            'max_depth': 5,
+            'max_features': 'sqrt',
+            'max_samples': 0.7,
+            'random_state': 42,
+            'n_jobs': -1,
+        }
+    },
+    'ExtraTrees': {
+        'class': SKLearnModel,
+        'sklearn_model': ExtraTreesRegressor,  # passed to SKLearnModel(model=...)
+        'params': {
+            'n_estimators': 500,
+            'max_depth': 5,
+            'max_features': 'sqrt',
+            'random_state': 42,
+            'n_jobs': -1,
+            # Note: bootstrap=False by default, so max_samples is ignored
+        }
+    },
+    'XGBoost': {
+        'class': XGBModel,
+        'params': {
+            'n_estimators': 500,
+            'max_depth': 5,
+            'learning_rate': 0.1,
+            'subsample': 0.7,
+            'colsample_bytree': 0.7,
+            'reg_alpha': 0.01,
+            'reg_lambda': 1.0,
+            'random_state': 42,
+            'n_jobs': -1,
+        }
+    },
+    'LightGBM': {
+        'class': LightGBMModel,
+        'params': {
+            'n_estimators': 500,
+            'max_depth': 5,
+            'learning_rate': 0.1,
+            'num_leaves': 31,
+            'subsample': 0.7,
+            'colsample_bytree': 0.7,
+            'reg_alpha': 0.01,
+            'reg_lambda': 1.0,
+            'random_state': 42,
+            'n_jobs': -1,
+            'verbose': -1,  # suppress LightGBM warnings
+        }
+    },
+}
+```
