@@ -1,0 +1,7 @@
+{
+  "permissions": {
+    "allow": [
+      "PowerShell(f:\\\\tesis-hakam\\\\tesis_hakam\\\\Scripts\\\\pip install jupyter ipykernel notebook nbconvert nbformat python-docx 2>&1)"
+    ]
+  }
+}

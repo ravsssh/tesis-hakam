@@ -16,7 +16,12 @@
       "Bash(awk -F',' 'NR==1 || $1==\"RandomForest\"')",
       "Bash(/Users/hakam/anaconda3/envs/ravsss/bin/python -c \"import docx; print\\('python-docx OK'\\)\")",
       "Bash(/Users/hakam/anaconda3/bin/python -c \"import docx; print\\('python-docx in base'\\)\")",
-      "Bash(/Users/hakam/anaconda3/envs/ravsss/bin/pip install *)"
+      "Bash(/Users/hakam/anaconda3/envs/ravsss/bin/pip install *)",
+      "PowerShell(python -m venv f:\\\\tesis-hakam\\\\tesis_hakam)",
+      "PowerShell(f:\\\\tesis-hakam\\\\tesis_hakam\\\\Scripts\\\\pip install \"numpy==1.26.4\")",
+      "PowerShell(f:\\\\tesis-hakam\\\\tesis_hakam\\\\Scripts\\\\pip install numpy pandas scipy scikit-learn statsmodels matplotlib joblib tqdm 2>&1)",
+      "PowerShell(f:\\\\tesis-hakam\\\\tesis_hakam\\\\Scripts\\\\pip install darts 2>&1)",
+      "PowerShell(f:\\\\tesis-hakam\\\\tesis_hakam\\\\Scripts\\\\pip install xgboost lightgbm optuna 2>&1)"
     ]
   }
 }
