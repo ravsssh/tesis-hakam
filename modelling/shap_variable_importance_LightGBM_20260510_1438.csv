@@ -1,0 +1,9 @@
+Variable,Mean_Abs_SHAP,Rank,Category
+NPL_Ratio,0.00014247707286689683,1,Macro/Rate
+Silver,0.00012546457785027763,2,Commodity/Level
+STI,6.446043957316562e-05,3,Commodity/Level
+Gold,6.438247437135193e-05,4,Commodity/Level
+WTI,4.126593166444691e-05,5,Commodity/Level
+Coal,3.9732740783810065e-05,6,Commodity/Level
+Tin,2.9013364939963745e-05,7,Commodity/Level
+IHSG,2.4058439173739563e-05,8,Target (autoregressive)

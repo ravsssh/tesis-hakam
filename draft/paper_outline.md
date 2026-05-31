@@ -1,168 +1,312 @@
-# Paper Brainstorm & Outline — Prediksi IHSG
+# Paper Writing Guide — Claude Project Instruction
+
+**Title:** Multi-Horizon Jakarta Composite Index Forecasting Using Tree-Based Ensemble and Bayesian Hyperparameter Optimization
+
+**Target:** Jurnal ML/Computational Finance (Scopus Q2/Q3)  
+**Length:** ~6.000–8.000 words  
+**Language:** English (Academic)
 
 ---
 
-## Brainstorm Judul
+## FOCUS & SCOPE
 
-Tiga opsi dengan penekanan berbeda:
+**Yang DIANGKAT:**
+- Multi-horizon prediction (H1=next-day, H5=1 week, H20=1 month)
+- 4 tree-based ensemble models: Random Forest, Extra Trees, XGBoost, LightGBM
+- 6 covariate group configurations (Baseline, Screening1, Screening2, All_Commodity_STI, All_Macro_no_UST, All_Covariates)
+- Bayesian hyperparameter optimization (Optuna/TPE) vs default parameters
+- Evaluation: MAPE, DA (Directional Accuracy), MASE
 
-**A — Fokus metodologi (paling kuat untuk paper ML):**
-> *"Multi-Horizon IHSG Forecasting Using Tree-Based Ensemble with Systematic Covariate Screening and Bayesian Hyperparameter Optimization"*
-
-**B — Fokus ekonomi (lebih menarik untuk jurnal ekonomi/keuangan):**
-> *"The Role of Commodity Prices in Predicting Indonesian Stock Market: A Machine Learning Approach with Explainability Analysis"*
-
-**C — Gabungan (balance antara ML dan ekonomi):**
-> *"Predicting Indonesian Composite Stock Index: Covariate Selection, Ensemble Learning, and Hyperparameter Optimization"*
-
-Rekomendasi: **A** kalau target jurnal ML/computational finance, **B** kalau target jurnal ekonomi Indonesia.
-
----
-
-## Result yang Layak Diangkat
-
-### 1. Covariate Screening (kontribusi metodologi)
-- Silver, WTI, Gold paling konsisten membantu prediksi (pass rate >45%) — komoditas ekspor utama Indonesia
-- US_Treasury_10Y, Nickel, M2 tidak signifikan — menarik untuk diskusi ekonomi
-- Screening1 (7 vars) performanya sangat dekat dengan All_Covariates (15 vars) → *parsimony principle*
-
-### 2. Hyperparameter Optimization (kontribusi utama paper)
-- Optuna (Bayesian) vs default: improvement MAPE dari hasil notebook 02b
-- Perbandingan parameter yang berubah dan magnitude perubahannya
-- Ini yang diminta dosen secara eksplisit
-
-### 3. Multi-Horizon Analysis (kontribusi unik)
-- H1 (next-day): MAPE ~0.5%, DA ~52%
-- H5 (1 minggu): MAPE ~0.85%
-- H20 (1 bulan): MAPE ~1.4%
-- Insight: akurasi arah (DA) tidak meningkat meski MAPE membesar → pasar semakin random untuk horizon panjang
-
-### 4. Model Comparison
-- XGBoost/LightGBM cenderung menang setelah optimasi
-- ExtraTrees kompetitif tanpa perlu banyak tuning
-
-### 5. SHAP — Economic Interpretability
-- Nickel dan WTI lag-1 paling berpengaruh → Indonesia sebagai net exporter commodity
-- Menjawab pertanyaan dosen: "bagaimana pengaruh tiap variabel terhadap IHSG"
+**Yang TIDAK DIANGKAT:**
+- Detail proses covariate screening (cukup sebutkan bahwa groups dipilih berdasarkan systematic screening)
+- SHAP analysis
+- Penjelasan teknis Darts library secara mendalam
 
 ---
 
-## Outline Paper
+## KONTEKS EKSPERIMEN (untuk referensi saat menulis)
 
-# [JUDUL PAPER]
+### Data
+- Target: IHSG (Jakarta Composite Index) daily, Januari 2015 – Januari 2025
+- 2.443 business days
+- 15 covariate variables: 7 macro (BI Rate, CPI, M2, NPL Ratio, USD/IDR, GDP), 7 commodity (Coal, Copper, Nickel, Silver, Tin, Gold, WTI), 1 regional (STI)
+- Transformasi: log-difference untuk level variables, first-difference untuk rate variables
+- Split: 80% training (Jan 2015 – ~Jan 2023), 20% test (~Jan 2023 – Jan 2025)
+
+### Models
+| Model | Type | Key Parameters (Optuna) |
+|---|---|---|
+| Random Forest | Bagging | n_est=800, max_depth=3, max_features=0.7, max_samples=0.8 |
+| Extra Trees | Bagging (random splits) | n_est=200, max_depth=5, max_features=sqrt |
+| XGBoost | Gradient Boosting | n_est=600, max_depth=11, lr=0.029, subsample=0.826 |
+| LightGBM | Light Gradient Boosting | n_est=600, max_depth=10, lr=0.012, num_leaves=83 |
+
+### Covariate Groups
+| Group | Variables | N |
+|---|---|---|
+| Baseline | — (IHSG lags only) | 0 |
+| Screening1 | Silver, WTI, Gold, STI, Coal, Tin, NPL_Ratio | 7 |
+| Screening2 | Screening1 + CPI, USDIDR, Nickel | 10 |
+| All_Commodity_STI | All 7 commodities + STI | 8 |
+| All_Macro | BI Rate, CPI, M2, NPL Ratio, USD/IDR, GDP | 6 |
+| All_Covariates | All 14 variables | 14 |
+
+### Optimization
+- Optuna with TPE sampler, 30 trials per model
+- Objective: minimize avg MAPE across all window × horizon combinations
+- Windows: 20 bd (≈1 month), 120 bd (≈6 months)
+- Horizons: H1, H5, H20
+
+### Key Results (Update setelah semua eksperimen selesai)
+- Overall Optuna improvement vs default: **+6.4% MAPE reduction**
+- Best model per algorithm (fill setelah 02b selesai): ...
+- Best covariate group overall: ...
+- MAPE range: H1 ~0.5%, H5 ~0.85%, H20 ~1.4%
 
 ---
 
-## 1. Introduction
-- Background: pentingnya prediksi pasar saham, IHSG sebagai indikator ekonomi Indonesia
-- Gap: kebanyakan studi pakai satu model/satu horizon, belum systematic covariate selection
-- Contribution:
-  1. Systematic single-covariate screening sebelum group experiments
-  2. Bayesian hyperparameter optimization (Optuna) vs default
-  3. Multi-horizon evaluation (H1, H5, H20)
-  4. SHAP untuk economic interpretability
-- Research questions:
-  - Covariate mana yang signifikan untuk prediksi IHSG?
-  - Seberapa besar improvement Optuna vs default?
-  - Model mana yang terbaik di tiap horizon?
+## 1. INTRODUCTION
+
+**Tujuan section:** Establish why this paper matters. 3–4 paragraf.
+
+**Paragraph 1 — Motivasi:**
+- JCI (Jakarta Composite Index) adalah indikator utama ekonomi Indonesia, pasar berkembang terbesar di Asia Tenggara
+- Prediksi harga saham penting untuk investor, fund manager, regulator
+- Tantangan: volatile, non-linear, dipengaruhi banyak faktor makro dan komoditas
+
+**Paragraph 2 — Gap dalam literatur:**
+- Sebagian besar studi hanya fokus pada next-day prediction (single horizon)
+- Studi di pasar Indonesia masih terbatas dibanding AS/Eropa
+- Belum banyak yang membandingkan pengaruh berbagai kelompok covariate secara sistematis
+- Hyperparameter tuning sering diabaikan atau menggunakan grid search yang tidak efisien
+
+**Paragraph 3 — Kontribusi paper:**
+1. Multi-horizon evaluation framework (H1, H5, H20) untuk JCI
+2. Systematic comparison of 6 covariate group configurations across 4 tree-based models
+3. Bayesian hyperparameter optimization (Optuna/TPE) vs default parameters — quantified improvement
+4. Comprehensive evaluation: MAPE, Directional Accuracy, MASE
+
+**Paragraph 4 — Paper structure:**
+Section 2: Literature Review. Section 3: Methodology. Section 4: Results and Discussion. Section 5: Conclusion.
 
 ---
 
-## 2. Literature Review
+## 2. LITERATURE REVIEW
 
-### 2.1 Stock Market Prediction with Machine Learning
-- Kenapa tree-based ensemble (RF, ET, XGB, LGB) populer untuk finansial
-- Referensi studi serupa di pasar Asia/Indonesia
+**Tujuan section:** Posisikan paper ini dalam konteks penelitian yang ada. 3 subsection.
 
-### 2.2 Covariate Selection untuk Time Series
-- Pentingnya variable selection sebelum modeling
-- Metode screening yang umum dipakai
+### 2.1 Machine Learning for Stock Market Prediction
+- Review singkat ML approaches: linear models → SVM → ensemble → deep learning
+- Mengapa tree-based ensemble populer untuk financial time series:
+  - Menangani non-linearity dan interaksi variabel
+  - Robust terhadap outlier
+  - Tidak memerlukan feature scaling yang ketat
+  - Interpretable (feature importance)
+- Referensi studi serupa: RF/XGB/LGBM untuk prediksi saham Asia
+
+### 2.2 Covariate Variables in Stock Market Prediction
+- Macro variables (interest rate, inflation, money supply) → fundamental analysis
+- Commodity prices → khusus relevan untuk Indonesia sebagai commodity exporter
+- Regional index (STI) → spillover effect dari pasar tetangga
+- Pentingnya memilih covariate yang tepat: curse of dimensionality, overfitting risk
 
 ### 2.3 Hyperparameter Optimization
-- Grid search vs Random search vs Bayesian (Optuna/TPE)
-- Keunggulan Bayesian optimization untuk model kompleks
-
-### 2.4 Model Interpretability (XAI) di Finansial
-- SHAP values dan aplikasinya di prediksi finansial
-- Relevansi untuk investor dan regulator
-
----
-
-## 3. Methodology
-
-### 3.1 Data
-- IHSG daily, periode 2015–2025
-- 15 covariate: 7 macro, 7 commodity, 1 regional
-- Transformasi: log-diff (level vars), first-diff (rate vars)
-- Train/test split: 80/20 temporal
-
-### 3.2 Model Architecture
-- 4 tree-based models: RF, ET, XGB, LGB
-- Darts library: lag features (window 20 dan 120 business days)
-- Output: multi-horizon (H1, H5, H20)
-
-### 3.3 Phase 1 — Covariate Screening
-- 384 eksperimen single covariate (4 model × 16 covariate × 2 window × 3 horizon)
-- Screening criteria: MAPE improvement ≥ 0.3% OR DA improvement ≥ 1pp
-- Hasil: Screening1 (7 vars) dan Screening2 (10 vars) groups
-
-### 3.4 Phase 2 — Hyperparameter Optimization
-- Optuna dengan TPE sampler, 30 trials per model
-- Objective: minimize avg MAPE (semua window × horizon)
-- Parameter yang dioptimasi: tabel perbandingan default vs Optuna
-
-### 3.5 Phase 3 — Group Experiments
-- 6 covariate groups × 4 models × 2 windows × 3 horizons = 144 eksperimen
-- Evaluasi: MAPE, DA, MASE, Hit Large
-
-### 3.6 Phase 4 — SHAP Analysis
-- TreeExplainer pada test set (out-of-sample)
-- Agregasi per variabel dan per lag
+- Grid Search: exhaustive, computationally expensive
+- Random Search: lebih efisien, tidak guaranteed optimal
+- Bayesian Optimization (TPE/Optuna): sequential, builds probabilistic model → lebih efisien
+- Review studi yang menggunakan Bayesian optimization untuk financial ML
+- Gap: belum banyak yang quantify improvement Bayesian vs default di multi-horizon setting
 
 ---
 
-## 4. Results and Discussion
+## 3. METHODOLOGY
 
-### 4.1 Covariate Screening Results
-- Tabel: pass rate tiap covariate, Tier 1/2/3
-- Temuan: dominasi komoditas (Silver, WTI, Gold)
-- Diskusi: mengapa variabel makro kurang signifikan?
+**Tujuan section:** Explain the experimental setup clearly dan reproducibly. 5 subsection.
 
-### 4.2 Hyperparameter Optimization: Default vs Optuna
-- Tabel perbandingan parameter (dari notebook 02b)
-- Tabel improvement MAPE per model dan per skenario
-- Diskusi: model mana yang paling terpengaruh oleh tuning?
+### 3.1 Data Description
+- JCI daily price data: period, source (Bloomberg), n observations
+- 15 covariate variables: deskripsi singkat tiap kategori (macro/commodity/regional)
+- Tabel: Variable, Category, Frequency, Transformation
 
-### 4.3 Group Experiment Results
-- Top configurations per horizon
-- Perbandingan Screening1 vs All_Covariates
-- Tradeoff: jumlah variabel vs akurasi (parsimony)
+**Tabel yang dibutuhkan:**
+| Variable | Category | Freq | Transformation |
+|---|---|---|---|
+| IHSG | Target | Daily | log-diff |
+| BI Rate | Macro | Monthly | first-diff |
+| CPI | Macro | Monthly | first-diff |
+| ... | | | |
 
-### 4.4 Multi-Horizon Analysis
-- Tabel MAPE dan DA per H1/H5/H20
-- Insight: degradasi akurasi seiring horizon membesar
+- Stationarity: ADF test results → all variables non-stationary at level, stationary after transformation
+- Train/test split: 80/20 temporal, no random shuffling (preserve time order)
 
-### 4.5 SHAP: Economic Interpretability
-- Bar chart variable importance
-- Dependence plots top 3 variabel
-- Implikasi ekonomi: komoditas ekspor Indonesia paling berpengaruh
+### 3.2 Model Specifications
+- Brief description of each model (1–2 kalimat per model)
+- **Random Forest:** bagging ensemble, parallel training
+- **Extra Trees:** bagging with random threshold splits (bootstrap=False)
+- **XGBoost:** sequential gradient boosting, regularization L1/L2
+- **LightGBM:** leaf-wise gradient boosting, faster than XGBoost
+- Lag features: window W ∈ {20, 120} business days → each model uses W lags of target + W lags of each covariate
+- Forecast horizons: H ∈ {1, 5, 20} business days
+
+### 3.3 Covariate Group Configurations
+- Explain 6 groups (tabel di atas)
+- Sebutkan bahwa groups dipilih berdasarkan preliminary screening analysis (tidak perlu detail)
+- Total experiments: 6 groups × 4 models × 2 windows × 3 horizons = **144 experiments**
+
+### 3.4 Bayesian Hyperparameter Optimization
+- Framework: Optuna dengan TPE (Tree-structured Parzen Estimator) sampler
+- Objective function: minimize average MAPE across all window × horizon combinations
+- 30 trials per model (4 × 30 = 120 total trials)
+- **Tabel search space:**
+
+| Model | Parameter | Search Space |
+|---|---|---|
+| All | n_estimators | [100, 1000] step 100 |
+| RF/ET | max_depth | [3, 20] |
+| RF | max_features | {sqrt, log2, 0.3, 0.5, 0.7} |
+| RF | max_samples | [0.5, 0.9] |
+| RF/ET | min_samples_split | [2, 20] |
+| RF/ET | min_samples_leaf | [1, 10] |
+| XGB/LGB | learning_rate | [0.01, 0.3] log scale |
+| XGB | max_depth | [3, 15] |
+| XGB | subsample | [0.5, 1.0] |
+| XGB | colsample_bytree | [0.3, 1.0] |
+| XGB | reg_alpha, reg_lambda | [1e-8, 10] log scale |
+| LGB | num_leaves | [15, 127] |
+| LGB | min_child_samples | [5, 50] |
+
+- Bandingkan dengan default: tabel default vs Optuna result (dari notebook 02b)
+
+### 3.5 Evaluation Metrics
+- **MAPE** (Mean Absolute Percentage Error): primary metric, dihitung pada level harga JCI
+  - Formula: MAPE = (1/n) Σ |y_t - ŷ_t| / y_t × 100%
+- **DA** (Directional Accuracy): % prediksi yang benar arah naik/turun
+  - Formula: DA = (1/n) Σ 1[sign(ŷ_t - y_{t-1}) = sign(y_t - y_{t-1})] × 100%
+  - Baseline: 50% (random guess)
+- **MASE** (Mean Absolute Scaled Error): scale-free metric vs naive forecast
+  - Formula: MASE = MAE / MAE_naive, dimana MAE_naive = mean(|y_t - y_{t-1}|) on training set
 
 ---
 
-## 5. Conclusion
-- Ringkasan temuan utama (3–4 poin)
-- Jawaban atas research questions
-- Limitation: single market, look-ahead GDP, DA rendah (~52%)
-- Future work: deep learning comparison, macro regime detection
+## 4. RESULTS AND DISCUSSION
+
+**Tujuan section:** Present findings clearly, discuss implications. 4 subsection.
+
+### 4.1 Hyperparameter Optimization Results
+
+**Tabel: Default vs Optuna Parameters per Model** (dari notebook 02b, cell parameter comparison)
+
+**Tabel: MAPE Improvement Optuna vs Default per Model**
+| Model | Default MAPE (%) | Optuna MAPE (%) | Improvement (%) |
+|---|---|---|---|
+| Random Forest | ... | ... | ... |
+| Extra Trees | ... | ... | ... |
+| XGBoost | ... | ... | +9.87% |
+| LightGBM | ... | ... | +13.33% |
+| **Overall** | **0.9739** | **0.9117** | **+6.38%** |
+
+**Discussion points:**
+- XGBoost dan LightGBM mendapat improvement terbesar dari optimization → model ini lebih sensitif terhadap hyperparameter
+- RF dan ET sudah cukup baik dengan default → robust to hyperparameter choice
+- Bayesian optimization efektif: 30 trials menghasilkan significant improvement
+
+**Tabel: Per-Scenario MAPE Comparison** (Default vs Optuna, per W × H)
+
+### 4.2 Impact of Covariate Groups
+
+**Tabel: Avg MAPE per Group (avg semua model × skenario)**
+
+**Tabel: Avg MAPE per Group × Model** (pivot table, dari notebook 02a/02b)
+
+**Discussion points:**
+- Kelompok mana yang terbaik dan mengapa? (commodity-based groups)
+- Apakah lebih banyak covariate selalu lebih baik? (All_Covariates vs Screening1)
+- Implikasi ekonomi: commodity prices (Silver, WTI, Gold) lebih informatif untuk JCI
+  - Indonesia sebagai net commodity exporter → harga komoditas mempengaruhi earnings perusahaan
+- Macro variables: All_Macro_no_UST kurang efektif → macro sudah ter-reflect dalam price?
+
+### 4.3 Multi-Horizon Analysis
+
+**Tabel: MAPE dan DA per Horizon (avg semua model × group)**
+| Horizon | MAPE (%) | DA (%) | MASE |
+|---|---|---|---|
+| H1 (1 day) | ~0.50 | ~52–53 | ~0.97 |
+| H5 (1 week) | ~0.85 | ~48–49 | ~1.58 |
+| H20 (1 month) | ~1.40 | ~49–50 | ~2.60 |
+
+**Discussion points:**
+- MAPE meningkat seiring horizon → wajar, uncertainty akumulasi
+- DA mendekati 50% (random) di semua horizon → pasar JCI mendekati semi-strong efficiency untuk directional prediction
+- DA H1 sedikit di atas 50% → ada predictable pattern jangka sangat pendek
+- Window W20 vs W120: mana yang lebih baik per horizon? (W20 untuk H1, W120 untuk H20?)
+
+**Tabel: Best Configuration per Scenario (Window × Horizon)**
+Top 3 dari tiap skenario (dari notebook 02a bagian bawah)
+
+### 4.4 Model Comparison
+
+**Tabel: Best MAPE per Model (best config)**
+
+**Discussion points:**
+- XGBoost dan LightGBM cenderung unggul setelah optimization
+- Extra Trees competitif meski tuning lebih sedikit parameter
+- Ensemble diversity: kenapa model dengan tipe berbeda (bagging vs boosting) menunjukkan perbedaan?
 
 ---
 
-## References
-[...]
+## 5. CONCLUSION
+
+**Tujuan section:** Summarize, answer research questions, discuss implications. 1 halaman.
+
+**Paragraph 1 — Main findings:**
+1. Bayesian optimization (Optuna) menghasilkan improvement MAPE rata-rata 6.4% dibanding default, terutama signifikan untuk boosting models (XGBoost +9.9%, LightGBM +13.3%)
+2. Covariate groups berbasis komoditas (All_Commodity_STI, Screening1) konsisten mengungguli baseline di semua horizon
+3. Akurasi prediksi menurun seiring horizon (H1 MAPE ~0.5% vs H20 MAPE ~1.4%), mencerminkan sifat random walk pasar jangka panjang
+
+**Paragraph 2 — Practical implications:**
+- Untuk short-term trading (H1): model dengan Screening1/All_Commodity_STI + W20 paling efektif
+- Untuk portfolio rebalancing (H20): model masih memberikan MAPE kompetitif meski DA mendekati random
+- Commodity prices (Silver, WTI, Gold) terbukti sebagai leading indicators untuk JCI
+
+**Paragraph 3 — Limitations:**
+- Single market study: hasil mungkin tidak generalizable ke pasar lain
+- GDP potential look-ahead bias (quarterly release lag tidak di-offset)
+- DA ~50% menunjukkan keterbatasan model untuk directional prediction
+
+**Paragraph 4 — Future work:**
+- Deep learning comparison (LSTM, Transformer)
+- Market regime detection (bull/bear) sebagai additional feature
+- Extend ke saham individual (not just index)
+- Walk-forward validation dengan lebih banyak folds
 
 ---
 
-## Appendix
-- A. Full parameter search space Optuna
-- B. Full screening results table
-- C. Additional SHAP plots
+## FIGURES & TABLES CHECKLIST
+
+### Figures
+- [ ] Figure 1: Research framework flowchart
+- [ ] Figure 2: MAPE per horizon (bar/line chart)
+- [ ] Figure 3: Default vs Optuna MAPE per model (grouped bar chart)
+- [ ] Figure 4: MAPE per covariate group × model (heatmap dari notebook 02a)
+- [ ] Figure 5: Actual vs predicted JCI price — top 3 model (line plot dari notebook 04)
+
+### Tables
+- [ ] Table 1: Variable description (name, category, frequency, transformation)
+- [ ] Table 2: Hyperparameter search space
+- [ ] Table 3: Default vs Optuna parameters + MAPE comparison
+- [ ] Table 4: Avg MAPE per covariate group (avg all models × scenarios)
+- [ ] Table 5: Best MAPE per Window × Horizon scenario
+- [ ] Table 6: Model comparison — best config per algorithm
+
+---
+
+## WRITING NOTES FOR CLAUDE
+
+Saat membantu menulis section tertentu:
+1. **Gunakan data dari tabel di atas** — jangan karang angka
+2. **Tone:** academic, objective, tidak over-claim
+3. **Tenses:** Present untuk methodology, Past untuk results
+4. **Avoid:** "this paper proves", gunakan "the results suggest/indicate"
+5. **Untuk formula:** gunakan LaTeX notation
+6. **Setiap claim harus didukung** angka dari tabel experiment
+7. **JCI atau Jakarta Composite Index** (bukan IHSG dalam text English)

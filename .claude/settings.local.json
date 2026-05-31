@@ -25,7 +25,9 @@
       "Bash(python3 -c ' *)",
       "Bash(/Users/hakam/anaconda3/envs/tesis_hakam/bin/python -)",
       "Bash(python3 -c \"import json, sys; nb = json.load\\(sys.stdin\\); [print\\(f'Cell {i} \\(id={c.get\\(\\\\\"id\\\\\",\\\\\"N/A\\\\\"\\)}\\): {c.get\\(\\\\\"source\\\\\",[\\\\\"\\\\\"]\\)[0][:80] if c.get\\(\\\\\"source\\\\\"\\) else \\\\\"empty\\\\\"}'\\) for i, c in enumerate\\(nb['cells'][:20]\\)]\")",
-      "Bash(python3)"
+      "Bash(python3)",
+      "Bash(python3 -)",
+      "Bash(awk '{print $5, $9}')"
     ]
   }
 }
