@@ -69,6 +69,49 @@ DEFAULT_CONFIGS = {
 
 MODEL_NAMES = ["RandomForest", "ExtraTrees", "XGBoost", "LightGBM"]
 
+# Optuna search spaces, verbatim from the (superseded) legacy_pre_revision/
+# 01_hyperparameter_tuning.ipynb's rf_objective/et_objective/xgb_objective/lgb_objective,
+# factored out so 02d_nested_tuning_cv.ipynb's per-fold inner-CV objective can reuse
+# them without redefining the search space in the notebook.
+SEARCH_SPACES = {
+    "RandomForest": lambda trial: {
+        "n_estimators": trial.suggest_int("n_estimators", 100, 1000, step=100),
+        "max_depth": trial.suggest_int("max_depth", 3, 20),
+        "max_features": trial.suggest_categorical("max_features", ["sqrt", "log2", 0.3, 0.5, 0.7]),
+        "max_samples": trial.suggest_float("max_samples", 0.5, 0.9, step=0.1),
+        "min_samples_split": trial.suggest_int("min_samples_split", 2, 20),
+        "min_samples_leaf": trial.suggest_int("min_samples_leaf", 1, 10),
+    },
+    "ExtraTrees": lambda trial: {
+        "n_estimators": trial.suggest_int("n_estimators", 100, 1000, step=100),
+        "max_depth": trial.suggest_int("max_depth", 3, 20),
+        "max_features": trial.suggest_categorical("max_features", ["sqrt", "log2", 0.3, 0.5, 0.7]),
+        "min_samples_split": trial.suggest_int("min_samples_split", 2, 20),
+        "min_samples_leaf": trial.suggest_int("min_samples_leaf", 1, 10),
+    },
+    "XGBoost": lambda trial: {
+        "n_estimators": trial.suggest_int("n_estimators", 100, 1000, step=100),
+        "max_depth": trial.suggest_int("max_depth", 3, 15),
+        "learning_rate": trial.suggest_float("learning_rate", 0.01, 0.3, log=True),
+        "subsample": trial.suggest_float("subsample", 0.5, 1.0),
+        "colsample_bytree": trial.suggest_float("colsample_bytree", 0.3, 1.0),
+        "reg_alpha": trial.suggest_float("reg_alpha", 1e-8, 10.0, log=True),
+        "reg_lambda": trial.suggest_float("reg_lambda", 1e-8, 10.0, log=True),
+        "min_child_weight": trial.suggest_int("min_child_weight", 1, 10),
+    },
+    "LightGBM": lambda trial: {
+        "n_estimators": trial.suggest_int("n_estimators", 100, 1000, step=100),
+        "max_depth": trial.suggest_int("max_depth", 3, 15),
+        "learning_rate": trial.suggest_float("learning_rate", 0.01, 0.3, log=True),
+        "num_leaves": trial.suggest_int("num_leaves", 15, 127),
+        "subsample": trial.suggest_float("subsample", 0.5, 1.0),
+        "colsample_bytree": trial.suggest_float("colsample_bytree", 0.3, 1.0),
+        "reg_alpha": trial.suggest_float("reg_alpha", 1e-8, 10.0, log=True),
+        "reg_lambda": trial.suggest_float("reg_lambda", 1e-8, 10.0, log=True),
+        "min_child_samples": trial.suggest_int("min_child_samples", 5, 50),
+    },
+}
+
 SINGLE_COVARIATES = {
     # Macro (7)
     "BI_Rate": ["BI_Rate"],
@@ -343,10 +386,10 @@ def compute_metrics(y_true, y_pred, y_train):
 # Single-fold runner
 # --------------------------------------------------------------------------
 
-def run_fold(model_name, params, target_ts, cov_ts, window, horizon, train_end, test_start, test_end):
-    """Fit on target_ts[:train_end] only, evaluate on [test_start:test_end)
-    (test_start = train_end + embargo). Returns a metrics dict plus fold date
-    range and regime flags."""
+def _fit_and_forecast(model_name, params, target_ts, cov_ts, window, horizon, train_end, test_start, test_end):
+    """Shared fit/forecast core for run_fold and predict_fold: fit on
+    target_ts[:train_end] only, forecast [test_start:test_end). Returns
+    (forecast_list, scaler, test_start_time)."""
     assert_embargo_gap(target_ts, train_end, test_start)
 
     train_scaled, eval_scaled, scaler = fit_target_transform(target_ts, train_end, test_end)
@@ -373,15 +416,85 @@ def run_fold(model_name, params, target_ts, cov_ts, window, horizon, train_end, 
     if isinstance(forecast_list, TimeSeries):
         forecast_list = [forecast_list]
 
+    del model
+    return forecast_list, scaler, test_start_time
+
+
+def run_fold(model_name, params, target_ts, cov_ts, window, horizon, train_end, test_start, test_end):
+    """Fit on target_ts[:train_end] only, evaluate on [test_start:test_end)
+    (test_start = train_end + embargo). Returns a metrics dict plus fold date
+    range and regime flags."""
+    forecast_list, scaler, test_start_time = _fit_and_forecast(
+        model_name, params, target_ts, cov_ts, window, horizon, train_end, test_start, test_end)
+
     metrics = inverse_and_metrics(forecast_list, target_ts[:test_end], scaler, train_end)
     test_end_time = target_ts[test_end - 1].end_time()
     metrics["train_end_date"] = str(target_ts[train_end - 1].end_time().date())
     metrics["test_start_date"] = str(test_start_time.date())
     metrics["test_end_date"] = str(test_end_time.date())
     metrics["regime_flags"] = ",".join(flag_regime_overlap(test_start_time, test_end_time)) or None
-
-    del model
     return metrics
+
+
+def predict_fold(model_name, params, target_ts, cov_ts, window, horizon, train_end, test_start, test_end):
+    """Same fit/forecast as run_fold, but returns raw (dates, actual, predicted)
+    price-level arrays for plotting instead of aggregated metrics."""
+    forecast_list, scaler, _ = _fit_and_forecast(
+        model_name, params, target_ts, cov_ts, window, horizon, train_end, test_start, test_end)
+
+    full_ts = target_ts[:test_end]
+    full_log = full_ts.map(np.log)
+    all_dates, all_prices = [], []
+    for chunk_scaled in forecast_list:
+        chunk_diff = scaler.inverse_transform(chunk_scaled)
+        dates = chunk_diff.time_index
+        vals = chunk_diff.values().flatten()
+        idx = full_ts.get_index_at_point(dates[0])
+        if idx == 0:
+            continue
+        anchor = full_log[idx - 1].values()[0][0]
+        log_prices = anchor + np.cumsum(vals)
+        all_dates.extend(dates)
+        all_prices.extend(np.exp(log_prices))
+
+    pred_df = pd.DataFrame({"date": pd.to_datetime(all_dates), "predicted": all_prices})
+    actual_df = full_ts.to_dataframe().reset_index()
+    actual_df.columns = ["date", "actual"]
+    eval_df = pd.merge(actual_df, pred_df, on="date", how="inner").sort_values("date")
+    return eval_df["date"].values, eval_df["actual"].values, eval_df["predicted"].values
+
+
+# --------------------------------------------------------------------------
+# Nested CV: inner-fold Optuna objective, strictly bounded by an outer fold's
+# training range
+# --------------------------------------------------------------------------
+
+def make_inner_cv_objective(model_name, target_ts, cov_ts, window, horizon, outer_train_end,
+                             n_inner_folds=3, embargo=None):
+    """Build an Optuna objective whose search is strictly bounded by
+    target_ts[:outer_train_end] -- i.e. it never touches the outer fold's own
+    test data. Returns (objective_fn, inner_folds); the assertion below is what
+    makes "inner CV never sees the outer test fold" a checked property rather
+    than just an intention.
+    """
+    embargo = horizon if embargo is None else embargo
+    inner_folds = expanding_window_folds(outer_train_end, n_folds=n_inner_folds, embargo=embargo)
+    for f in inner_folds:
+        assert f["test_end"] <= outer_train_end, (
+            f"inner fold test_end={f['test_end']} exceeds outer_train_end={outer_train_end} "
+            "-- nested CV isolation violated"
+        )
+
+    def objective(trial):
+        params = SEARCH_SPACES[model_name](trial)
+        fold_mapes = []
+        for f in inner_folds:
+            m = run_fold(model_name, params, target_ts, cov_ts, window, horizon,
+                         f["train_end"], f["test_start"], f["test_end"])
+            fold_mapes.append(m["mape"])
+        return float(np.mean(fold_mapes)) if fold_mapes else float("inf")
+
+    return objective, inner_folds
 
 
 if __name__ == "__main__":

@@ -1,0 +1,2 @@
+model,covariates,window,horizon,default_mape_mean,default_mape_std,tuned_mape_mean,tuned_mape_std,mean_improvement_pct,n_outer_folds,n_folds_with_regime_flag
+ExtraTrees,Screening1,120,1,0.6359999999999999,0.15013808644044987,0.6353199999999999,0.14872898843197987,0.06785646255680985,5,4
