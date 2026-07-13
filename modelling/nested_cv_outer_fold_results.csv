@@ -1,0 +1,6 @@
+Fold,train_end_date,test_start_date,test_end_date,regime_flags,default_mape,tuned_mape,default_da,tuned_da,default_mase,tuned_mase,best_params
+0,2019-02-13,2019-02-15,2020-08-12,covid_crash,0.8084,0.8077,49.48,53.09,1.343,1.3422,"{'n_estimators': 900, 'max_depth': 7, 'max_features': 0.3, 'min_samples_split': 13, 'min_samples_leaf': 6}"
+1,2020-03-26,2020-03-30,2021-09-23,covid_crash,0.7826,0.7788,50.52,54.9,1.2342,1.2283,"{'n_estimators': 900, 'max_depth': 12, 'max_features': 'log2', 'min_samples_split': 8, 'min_samples_leaf': 8}"
+2,2021-05-07,2021-05-11,2022-11-04,rate_hike_cycle_2022,0.5697,0.5711,52.58,51.8,1.0284,1.0308,"{'n_estimators': 600, 'max_depth': 17, 'max_features': 'log2', 'min_samples_split': 9, 'min_samples_leaf': 10}"
+3,2022-06-20,2022-06-22,2023-12-18,rate_hike_cycle_2022,0.4734,0.4749,55.67,51.8,0.8797,0.8825,"{'n_estimators': 200, 'max_depth': 15, 'max_features': 'log2', 'min_samples_split': 15, 'min_samples_leaf': 5}"
+4,2023-08-01,2023-08-03,2025-01-28,,0.5459,0.5441,53.87,52.58,1.075,1.0712,"{'n_estimators': 900, 'max_depth': 12, 'max_features': 0.7, 'min_samples_split': 3, 'min_samples_leaf': 10}"
