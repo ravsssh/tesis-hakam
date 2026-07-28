@@ -38,3 +38,15 @@ Thumbs.db
 
 # Logs
 *.log
+
+# Office lock files
+~$*
+
+# Generated pipeline artifacts (existing tracked outputs are unaffected --
+# this only stops *new* ones from being added by accident)
+*.png
+saved_models/*.joblib
+
+# Ad-hoc exploratory tuning outputs (scratch, not official Stage A/B artifacts)
+explore_*.csv
+explore_*.joblib
