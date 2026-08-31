@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Architecture review — tesis-hakam</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script type="module">
+      import mermaid from "https://cdn.jsdelivr.net/npm/mermaid@11/dist/mermaid.esm.min.mjs";
+      mermaid.initialize({ startOnLoad: true, theme: "neutral", securityLevel: "loose" });
+    </script>
+    <style>
+      .seam { stroke-dasharray: 4 4; }
+      .leak { stroke: #dc2626; }
+      .deep { background: linear-gradient(135deg, #0f172a, #1e293b); }
+      .hatch { background-image: repeating-linear-gradient(45deg, #fecaca 0 6px, transparent 6px 12px); }
+      .mermaid { font-size: 13px; }
+    </style>
+  </head>
+  <body class="bg-stone-50 text-slate-900 font-sans antialiased">
+    <main class="max-w-5xl mx-auto px-6 py-12 space-y-14">
+
+      <!-- ================= HEADER ================= -->
+      <header class="border-b border-slate-300 pb-6">
+        <div class="flex items-baseline justify-between flex-wrap gap-3">
+          <h1 class="font-serif text-4xl tracking-tight">Architecture review</h1>
+          <p class="font-mono text-sm text-slate-500">tesis-hakam · 31 Aug 2026 · <span class="text-slate-700">fix/walkforward-cv-and-leakage</span></p>
+        </div>
+        <div class="mt-6 flex flex-wrap gap-x-8 gap-y-3 text-xs uppercase tracking-wider text-slate-600">
+          <span class="flex items-center gap-2"><span class="inline-block w-6 h-4 border-2 border-slate-700 bg-white"></span>module</span>
+          <span class="flex items-center gap-2"><svg width="28" height="6"><line x1="0" y1="3" x2="28" y2="3" stroke="#334155" stroke-width="2" class="seam"/></svg>seam</span>
+          <span class="flex items-center gap-2"><svg width="28" height="8"><line x1="0" y1="4" x2="22" y2="4" stroke="#dc2626" stroke-width="2"/><path d="M22 1 L28 4 L22 7Z" fill="#dc2626"/></svg>leakage</span>
+          <span class="flex items-center gap-2"><span class="inline-block w-6 h-4 deep border-2 border-slate-900"></span>deep module</span>
+        </div>
+      </header>
+
+      <section id="candidates" class="space-y-16">
+
+        <!-- ---------- C1 : SHAP ---------- -->
+        <article id="c1" class="space-y-5">
+          <div class="flex items-start justify-between gap-4 flex-wrap">
+            <h2 class="font-serif text-2xl">1 · Deepen SHAP into one explainer module</h2>
+            <div class="flex gap-2 shrink-0">
+              <span class="px-2.5 py-1 rounded text-xs font-semibold uppercase tracking-wide bg-emerald-100 text-emerald-900">Strong</span>
+              <span class="px-2.5 py-1 rounded text-xs font-mono bg-slate-200 text-slate-700">in-process</span>
+            </div>
+          </div>
+
+          <ul class="font-mono text-sm text-slate-600 space-y-0.5">
+            <li>modelling/03_shap_analysis.ipynb <span class="text-slate-400">cell 8, 10</span> — <span class="font-sans text-slate-500">build_lag_matrix, assumes order</span></li>
+            <li>modelling/analyze_shap_direction.py<span class="text-slate-400">:27–42, 74–89</span> — <span class="font-sans text-slate-500">build_lag_matrix, assumes order</span></li>
+            <li>modelling/create_shap_lag_example_docx.py<span class="text-slate-400">:89–109</span> — <span class="font-sans text-slate-500">build_exact_darts_matrix, reads order</span></li>
+          </ul>
+
+          <div class="rounded border-l-4 border-red-500 bg-red-50 px-4 py-3 text-sm text-red-900">
+            <span class="font-semibold">At most one of these three can be right.</span> Two rebuild the feature matrix as <em>all target lags, then each covariate's lags</em>. The third reads <span class="font-mono text-xs">model.lagged_feature_names</span> off the fitted model and carries a comment saying Darts interleaves covariates instead. If that comment is correct, the SHAP contributions behind Tabel 4.9 and the signed-SHAP revision are attributed to the wrong variables.
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-5">
+            <div class="rounded-lg border border-slate-200 bg-white p-4">
+              <p class="text-xs uppercase tracking-wider text-slate-500 mb-3">Before — three implementations, one job</p>
+              <div class="grid grid-cols-3 gap-2">
+                <div class="space-y-1.5">
+                  <p class="text-[9px] uppercase tracking-wider text-slate-500 text-center pb-1 leading-tight">03 notebook</p>
+                  <div class="border border-slate-300 bg-slate-50 text-[10px] px-1.5 py-1 rounded">refit</div>
+                  <div class="border-2 border-red-400 hatch text-[10px] px-1.5 py-1 rounded font-semibold">order <em>assumed</em></div>
+                  <div class="border border-slate-300 bg-slate-50 text-[10px] px-1.5 py-1 rounded">unwrap</div>
+                  <div class="border-2 border-amber-400 bg-amber-50 text-[10px] px-1.5 py-1 rounded">sample 500</div>
+                  <div class="border border-slate-300 bg-slate-50 text-[10px] px-1.5 py-1 rounded">squeeze</div>
+                </div>
+                <div class="space-y-1.5">
+                  <p class="text-[9px] uppercase tracking-wider text-slate-500 text-center pb-1 leading-tight">shap_direction</p>
+                  <div class="border border-slate-300 bg-slate-50 text-[10px] px-1.5 py-1 rounded">refit</div>
+                  <div class="border-2 border-red-400 hatch text-[10px] px-1.5 py-1 rounded font-semibold">order <em>assumed</em></div>
+                  <div class="border border-slate-300 bg-slate-50 text-[10px] px-1.5 py-1 rounded">unwrap</div>
+                  <div class="border-2 border-amber-400 bg-amber-50 text-[10px] px-1.5 py-1 rounded">full 389</div>
+                  <div class="border border-slate-300 bg-slate-50 text-[10px] px-1.5 py-1 rounded">squeeze</div>
+                </div>
+                <div class="space-y-1.5">
+                  <p class="text-[9px] uppercase tracking-wider text-slate-500 text-center pb-1 leading-tight">lag_example</p>
+                  <div class="border border-slate-300 bg-slate-50 text-[10px] px-1.5 py-1 rounded">refit</div>
+                  <div class="border-2 border-emerald-500 bg-emerald-50 text-[10px] px-1.5 py-1 rounded font-semibold">order <em>read</em></div>
+                  <div class="border border-slate-300 bg-slate-50 text-[10px] px-1.5 py-1 rounded">unwrap</div>
+                  <div class="border-2 border-amber-400 bg-amber-50 text-[10px] px-1.5 py-1 rounded">full 389</div>
+                  <div class="border border-slate-300 bg-slate-50 text-[10px] px-1.5 py-1 rounded">squeeze</div>
+                </div>
+              </div>
+              <svg class="w-full mt-3" height="30" viewBox="0 0 300 30">
+                <line x1="40" y1="6" x2="260" y2="6" stroke="#dc2626" stroke-width="2" class="seam"/>
+                <text x="150" y="22" text-anchor="middle" font-size="9.5" fill="#dc2626" font-family="ui-sans-serif">disagree on feature order and on sample size</text>
+              </svg>
+            </div>
+
+            <div class="rounded-lg border-2 border-slate-900 bg-white p-4 flex flex-col">
+              <p class="text-xs uppercase tracking-wider text-slate-500 mb-3">After — one deep module</p>
+              <div class="deep rounded-lg p-4 text-white flex-1">
+                <p class="text-[10px] uppercase tracking-widest text-slate-300">interface</p>
+                <p class="font-mono text-[13px] mt-1 mb-4 leading-snug">explain_winner() →<br/>&nbsp;&nbsp;(date, variable, lag) ↦ φ</p>
+                <p class="text-[10px] uppercase tracking-widest text-slate-400 border-t border-slate-700 pt-3">implementation</p>
+                <div class="grid grid-cols-2 gap-1.5 mt-2 text-[10px] text-slate-400">
+                  <div class="border border-slate-700 rounded px-2 py-1">refit winner</div>
+                  <div class="border border-slate-600 rounded px-2 py-1 text-slate-100">order read once</div>
+                  <div class="border border-slate-700 rounded px-2 py-1">unwrap darts</div>
+                  <div class="border border-slate-700 rounded px-2 py-1">squeeze shap</div>
+                  <div class="border border-slate-700 rounded px-2 py-1 col-span-2">additivity check</div>
+                </div>
+              </div>
+              <p class="mt-3 text-[11px] text-slate-500">Three adapters justify the seam: the importance table, the direction study, and the per-lag example all read the same contributions.</p>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <p class="text-xs uppercase tracking-wider text-slate-500">Problem</p>
+              <p class="mt-1 text-slate-800">Three implementations reconstruct the fitted model's feature order independently and two of them assume an ordering the third says Darts does not use, so SHAP can be attributed to the wrong variable with no test that would notice.</p>
+            </div>
+            <div>
+              <p class="text-xs uppercase tracking-wider text-slate-500">Solution</p>
+              <p class="mt-1 text-slate-800">One module reads the feature order off the fitted model once and returns lag-resolved contributions keyed by date, variable, and lag.</p>
+            </div>
+          </div>
+
+          <div>
+            <p class="text-xs uppercase tracking-wider text-slate-500 mb-2">Wins</p>
+            <ul class="grid sm:grid-cols-2 gap-x-8 gap-y-1 text-sm text-slate-700 list-disc list-inside">
+              <li>feature order read, not assumed</li>
+              <li>locality: misattribution concentrates</li>
+              <li>darts unwrap stops leaking</li>
+              <li>one sample rule, three consumers</li>
+              <li>interface is the test surface</li>
+              <li>delete two divergent implementations</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- ---------- C2 : thesis numbers ---------- -->
+        <article id="c2" class="space-y-5 border-t border-slate-200 pt-14">
+          <div class="flex items-start justify-between gap-4 flex-wrap">
+            <h2 class="font-serif text-2xl">2 · Derive the thesis numbers instead of retyping them</h2>
+            <div class="flex gap-2 shrink-0">
+              <span class="px-2.5 py-1 rounded text-xs font-semibold uppercase tracking-wide bg-emerald-100 text-emerald-900">Strong</span>
+              <span class="px-2.5 py-1 rounded text-xs font-mono bg-slate-200 text-slate-700">in-process</span>
+            </div>
+          </div>
+
+          <ul class="font-mono text-sm text-slate-600 space-y-0.5">
+            <li>draft/build_tesis_docx.py <span class="text-red-600">— 24 literals</span></li>
+            <li>draft/revise_final_no_gdp_benchmark_shap.py <span class="text-red-600">— 17</span></li>
+            <li>draft/buat_final_draft.py <span class="text-red-600">— 9</span></li>
+            <li>draft/create_notulen_response_{docx,pdf}.py <span class="text-red-600">— 6</span></li>
+            <li>draft/revise_v3_mape_benchmark_rf.py <span class="text-red-600">— 2</span></li>
+            <li>README.md <span class="font-sans text-slate-500">— still says 21 scenarios / 2,520 fits</span></li>
+          </ul>
+
+          <div class="grid md:grid-cols-2 gap-5">
+            <div class="rounded-lg border border-slate-200 bg-white p-4">
+              <p class="text-xs uppercase tracking-wider text-slate-500 mb-3">Before — no seam, only retyping</p>
+              <div class="relative" style="height:250px">
+                <div class="absolute left-0 top-4 w-[42%] space-y-2">
+                  <div class="border border-slate-400 bg-slate-50 rounded px-2 py-1.5 text-[11px] font-mono">stage_a_summary.csv</div>
+                  <div class="border border-slate-400 bg-slate-50 rounded px-2 py-1.5 text-[11px] font-mono">nested_cv_*.csv</div>
+                  <div class="border border-slate-400 bg-slate-50 rounded px-2 py-1.5 text-[11px] font-mono">descriptive_stats.csv</div>
+                  <div class="border border-slate-400 bg-slate-50 rounded px-2 py-1.5 text-[11px] font-mono">shap_direction_*.csv</div>
+                </div>
+                <div class="absolute right-0 top-4 w-[42%] space-y-2">
+                  <div class="border-2 border-red-400 hatch rounded px-2 py-1.5 text-[11px] font-mono">"432"</div>
+                  <div class="border-2 border-red-400 hatch rounded px-2 py-1.5 text-[11px] font-mono">"0,6360"</div>
+                  <div class="border-2 border-red-400 hatch rounded px-2 py-1.5 text-[11px] font-mono">"2.408"</div>
+                  <div class="border-2 border-red-400 hatch rounded px-2 py-1.5 text-[11px] font-mono">"14 kovariat"</div>
+                </div>
+                <svg class="absolute inset-0 w-full h-full" viewBox="0 0 400 250" preserveAspectRatio="none">
+                  <line x1="172" y1="20" x2="172" y2="145" stroke="#94a3b8" stroke-width="2" class="seam"/>
+                  <line x1="228" y1="20" x2="228" y2="145" stroke="#94a3b8" stroke-width="2" class="seam"/>
+                  <text x="200" y="90" text-anchor="middle" font-size="26" fill="#cbd5e1">✂</text>
+                </svg>
+                <p class="absolute bottom-1 left-0 right-0 text-center text-[11px] text-red-700">58 result literals · updated by hand, or not at all</p>
+              </div>
+            </div>
+
+            <div class="rounded-lg border-2 border-slate-900 bg-white p-4">
+              <p class="text-xs uppercase tracking-wider text-slate-500 mb-3">After — one facts module bridges it</p>
+              <div class="relative" style="height:250px">
+                <div class="absolute left-0 top-4 w-[34%] space-y-2">
+                  <div class="border border-slate-400 bg-slate-50 rounded px-2 py-1.5 text-[10px] font-mono">stage_a_summary</div>
+                  <div class="border border-slate-400 bg-slate-50 rounded px-2 py-1.5 text-[10px] font-mono">nested_cv_*</div>
+                  <div class="border border-slate-400 bg-slate-50 rounded px-2 py-1.5 text-[10px] font-mono">descriptive_stats</div>
+                  <div class="border border-slate-400 bg-slate-50 rounded px-2 py-1.5 text-[10px] font-mono">shap_direction_*</div>
+                </div>
+                <div class="absolute left-[38%] top-[24%] w-[24%] deep rounded-lg px-2 py-4 text-center">
+                  <p class="text-[9px] uppercase tracking-widest text-slate-400">module</p>
+                  <p class="text-white text-xs font-mono mt-1 leading-tight">thesis_facts</p>
+                  <p class="text-[9px] text-slate-400 mt-2 leading-tight">named facts<br/>id-ID formatting</p>
+                </div>
+                <div class="absolute right-0 top-4 w-[34%] space-y-2">
+                  <div class="border border-slate-400 bg-white rounded px-2 py-1.5 text-[10px] font-mono">build_tesis_docx</div>
+                  <div class="border border-slate-400 bg-white rounded px-2 py-1.5 text-[10px] font-mono">revise_*_docx</div>
+                  <div class="border border-slate-400 bg-white rounded px-2 py-1.5 text-[10px] font-mono">notulen_response</div>
+                  <div class="border border-slate-400 bg-white rounded px-2 py-1.5 text-[10px] font-mono">README</div>
+                </div>
+                <svg class="absolute inset-0 w-full h-full" viewBox="0 0 400 250" preserveAspectRatio="none">
+                  <path d="M138 66 L150 66" stroke="#334155" stroke-width="2"/>
+                  <path d="M250 66 L262 66" stroke="#334155" stroke-width="2"/>
+                  <path d="M256 63 L262 66 L256 69Z" fill="#334155"/>
+                </svg>
+                <p class="absolute bottom-1 left-0 right-0 text-center text-[11px] text-slate-600">numbers change when the pipeline changes</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <p class="text-xs uppercase tracking-wider text-slate-500">Problem</p>
+              <p class="mt-1 text-slate-800">Fifty-eight result literals are retyped into the document-generation scripts, so any rerun of Stage&nbsp;A silently invalidates the thesis and the scope decision survives only as a string replacement — <span class="font-mono text-sm">"15 kovariat" → "14 kovariat"</span>.</p>
+            </div>
+            <div>
+              <p class="text-xs uppercase tracking-wider text-slate-500">Solution</p>
+              <p class="mt-1 text-slate-800">One module reads the Stage&nbsp;A, nested-CV, descriptive-statistics, and SHAP artifacts and exposes the named facts the document scripts interpolate.</p>
+            </div>
+          </div>
+
+          <div>
+            <p class="text-xs uppercase tracking-wider text-slate-500 mb-2">Wins</p>
+            <ul class="grid sm:grid-cols-2 gap-x-8 gap-y-1 text-sm text-slate-700 list-disc list-inside">
+              <li>leverage: one interface, 58 sites</li>
+              <li>scope counts computed, not asserted</li>
+              <li>reconciliation becomes a test</li>
+              <li>locality: stale numbers fail loudly</li>
+              <li>README stops drifting from results</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- ---------- C3 : artifacts ---------- -->
+        <article id="c3" class="space-y-5 border-t border-slate-200 pt-14">
+          <div class="flex items-start justify-between gap-4 flex-wrap">
+            <h2 class="font-serif text-2xl">3 · Collapse artifact loading into one module</h2>
+            <div class="flex gap-2 shrink-0">
+              <span class="px-2.5 py-1 rounded text-xs font-semibold uppercase tracking-wide bg-emerald-100 text-emerald-900">Strong</span>
+              <span class="px-2.5 py-1 rounded text-xs font-mono bg-slate-200 text-slate-700">in-process</span>
+            </div>
+          </div>
+
+          <ul class="font-mono text-sm text-slate-600 space-y-0.5">
+            <li>02c, 02d, 03, 04 notebooks <span class="text-slate-400">cell 1</span></li>
+            <li>modelling/explore_lib.py<span class="text-slate-400">:36</span> · plot_lightgbm_tuned.py<span class="text-slate-400">:21</span></li>
+            <li>modelling/analyze_shap_direction.py<span class="text-slate-400">:46</span> · create_shap_lag_example_docx.py<span class="text-slate-400">:113</span></li>
+            <li>modelling/make_descriptive_stats.py<span class="text-slate-400">:54</span> · draft/figures/make_thesis_diagrams.py<span class="text-slate-400">:167</span></li>
+          </ul>
+
+          <div class="grid md:grid-cols-2 gap-5">
+            <div class="rounded-lg border border-slate-200 bg-white p-4">
+              <p class="text-xs uppercase tracking-wider text-slate-500 mb-3">Before — 9 copies of one line</p>
+              <pre class="mermaid">
+flowchart LR
+  A["02c / 02d"] --> S[("saved_models/")]
+  B["03 / 04"] --> S
+  C["explore_lib"] --> S
+  D["plot_lightgbm_tuned"] --> S
+  E["analyze_shap_direction"] --> S
+  F["create_shap_lag_example"] --> S
+  G["make_descriptive_stats"] --> S
+  H["make_thesis_diagrams"] --> S
+  classDef leak stroke:#dc2626,stroke-width:2px,fill:#fef2f2;
+  class A,B,C,D,E,F,G,H leak
+              </pre>
+              <p class="mt-3 font-mono text-[11px] leading-relaxed text-red-700 bg-red-50 rounded p-2">sorted(glob.glob("saved_models/df_merged_*.joblib"),<br/>&nbsp;&nbsp;reverse=True)[0]<span class="text-red-500"> × 9</span></p>
+            </div>
+            <div class="rounded-lg border-2 border-slate-900 bg-white p-4">
+              <p class="text-xs uppercase tracking-wider text-slate-500 mb-3">After — one interface</p>
+              <pre class="mermaid">
+flowchart LR
+  A["02c / 02d"] --> M
+  B["03 / 04"] --> M
+  C["explore_lib"] --> M
+  D["plot_lightgbm_tuned"] --> M
+  E["analyze_shap_direction"] --> M
+  F["create_shap_lag_example"] --> M
+  G["make_descriptive_stats"] --> M
+  H["make_thesis_diagrams"] --> M
+  M["artifacts"] --> S[("saved_models/")]
+  classDef deep fill:#0f172a,color:#fff,stroke:#0f172a,stroke-width:3px;
+  class M deep
+              </pre>
+              <p class="mt-3 font-mono text-[11px] leading-relaxed text-slate-700 bg-slate-100 rounded p-2">artifacts.current_merged()<br/>artifacts.final_config()<br/>artifacts.tuning()</p>
+            </div>
+          </div>
+
+          <div class="rounded border-l-4 border-amber-400 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+            Already broken once: <span class="font-mono text-xs">plot_lightgbm_tuned.py:22</span> loads <span class="font-mono text-xs">explore_lightgbm_screening1_w20h1_tuning.joblib</span>, which is not in <span class="font-mono text-xs">saved_models/</span>. Three of the nine sites also assume the process runs from <span class="font-mono text-xs">modelling/</span>.
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <p class="text-xs uppercase tracking-wider text-slate-500">Problem</p>
+              <p class="mt-1 text-slate-800">Nine call sites each re-derive which <span class="font-mono text-sm">df_merged</span> is current under a silent latest-wins rule, and no downstream artifact records which run it read.</p>
+            </div>
+            <div>
+              <p class="text-xs uppercase tracking-wider text-slate-500">Solution</p>
+              <p class="mt-1 text-slate-800">One module resolves <span class="font-mono text-sm">saved_models/</span> from its own location and hands back the current merged frame, final configuration, and tuning result.</p>
+            </div>
+          </div>
+
+          <div>
+            <p class="text-xs uppercase tracking-wider text-slate-500 mb-2">Wins</p>
+            <ul class="grid sm:grid-cols-2 gap-x-8 gap-y-1 text-sm text-slate-700 list-disc list-inside">
+              <li>leverage: one interface, 9 sites</li>
+              <li>working-directory coupling disappears</li>
+              <li>provenance recorded once</li>
+              <li>missing artifacts fail at one place</li>
+              <li>deletion test: concentrates</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- ---------- C4 : notebook/script fork ---------- -->
+        <article id="c4" class="space-y-5 border-t border-slate-200 pt-14">
+          <div class="flex items-start justify-between gap-4 flex-wrap">
+            <h2 class="font-serif text-2xl">4 · Reunite the forked Stage B and figure code</h2>
+            <div class="flex gap-2 shrink-0">
+              <span class="px-2.5 py-1 rounded text-xs font-semibold uppercase tracking-wide bg-emerald-100 text-emerald-900">Strong</span>
+              <span class="px-2.5 py-1 rounded text-xs font-mono bg-slate-200 text-slate-700">in-process</span>
+            </div>
+          </div>
+
+          <ul class="font-mono text-sm text-slate-600 space-y-0.5">
+            <li>modelling/02d_nested_tuning_cv.ipynb <span class="text-slate-400">cell 3, 5, 7</span> ↔ explore_lib.py<span class="text-slate-400">:51–152</span></li>
+            <li>modelling/04_visualization.ipynb <span class="text-slate-400">cell 9</span> ↔ plot_lightgbm_tuned.py<span class="text-slate-400">:51–84</span></li>
+            <li>modelling/cv_lib.py<span class="text-slate-400">:344–352, 448–458</span> — <span class="font-sans text-slate-500">reconstruction block, twice</span></li>
+          </ul>
+
+          <!-- call-graph collapse -->
+          <div class="grid md:grid-cols-2 gap-5">
+            <div class="rounded-lg border border-slate-200 bg-white p-4">
+              <p class="text-xs uppercase tracking-wider text-slate-500 mb-3">Before — the copy drifts silently</p>
+              <div class="space-y-3">
+                <div class="border border-slate-300 rounded p-2.5 bg-slate-50">
+                  <p class="text-[10px] uppercase tracking-wider text-slate-500 mb-1.5">02d cell 5</p>
+                  <div class="space-y-1 text-[10px] font-mono text-slate-600">
+                    <div class="border border-slate-300 bg-white rounded px-1.5 py-0.5">fold-boundary assert</div>
+                    <div class="border border-slate-300 bg-white rounded px-1.5 py-0.5">resume from checkpoint</div>
+                    <div class="border border-slate-300 bg-white rounded px-1.5 py-0.5">TPESampler(seed=42)</div>
+                    <div class="border border-slate-300 bg-white rounded px-1.5 py-0.5">outer_results dict · 11 keys</div>
+                  </div>
+                </div>
+                <p class="text-center text-[11px] text-red-600 font-semibold">line-for-line duplicate</p>
+                <div class="border-2 border-red-400 rounded p-2.5 hatch">
+                  <p class="text-[10px] uppercase tracking-wider text-red-700 mb-1.5">explore_lib.py</p>
+                  <div class="space-y-1 text-[10px] font-mono text-slate-700">
+                    <div class="border border-red-300 bg-white rounded px-1.5 py-0.5">fold-boundary assert</div>
+                    <div class="border border-red-300 bg-white rounded px-1.5 py-0.5">resume from checkpoint</div>
+                    <div class="border border-red-300 bg-white rounded px-1.5 py-0.5">TPESampler(seed=42)</div>
+                    <div class="border border-red-300 bg-white rounded px-1.5 py-0.5">outer_results dict · 11 keys</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="rounded-lg border-2 border-slate-900 bg-white p-4 flex flex-col">
+              <p class="text-xs uppercase tracking-wider text-slate-500 mb-3">After — notebook becomes an adapter</p>
+              <div class="deep rounded-lg p-4 text-white">
+                <p class="text-[10px] uppercase tracking-widest text-slate-300">interface</p>
+                <p class="font-mono text-[13px] mt-1 mb-3 leading-snug">run_nested_cv(model, covariates,<br/>&nbsp;&nbsp;window, horizon, out_prefix)</p>
+                <p class="text-[10px] uppercase tracking-widest text-slate-400 border-t border-slate-700 pt-3">implementation</p>
+                <div class="grid grid-cols-2 gap-1.5 mt-2 text-[10px] text-slate-400">
+                  <div class="border border-slate-700 rounded px-2 py-1">fold assert</div>
+                  <div class="border border-slate-700 rounded px-2 py-1">resume</div>
+                  <div class="border border-slate-700 rounded px-2 py-1">optuna study</div>
+                  <div class="border border-slate-700 rounded px-2 py-1">result rows</div>
+                </div>
+              </div>
+              <div class="mt-3 flex gap-2 text-[10px] font-mono">
+                <div class="flex-1 border border-slate-400 rounded px-2 py-1.5 text-center">02d<br/><span class="text-slate-500">Stage B winner</span></div>
+                <div class="flex-1 border border-slate-400 rounded px-2 py-1.5 text-center">explore<br/><span class="text-slate-500">non-winners</span></div>
+              </div>
+              <p class="mt-3 text-[11px] text-slate-500">Two adapters justify the seam: the official Stage B pass and the exploratory pass differ only in which configuration they name.</p>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <p class="text-xs uppercase tracking-wider text-slate-500">Problem</p>
+              <p class="mt-1 text-slate-800">The Stage&nbsp;B nested-CV loop exists twice — once in the notebook, once in <span class="font-mono text-sm">explore_lib</span> — so the official and exploratory results can diverge without anyone editing either on purpose; the figure style and the price-reconstruction block are duplicated the same way.</p>
+            </div>
+            <div>
+              <p class="text-xs uppercase tracking-wider text-slate-500">Solution</p>
+              <p class="mt-1 text-slate-800">Move the loop into <span class="font-mono text-sm">cv_lib</span> and let both the notebook and the exploratory runner call it with a configuration.</p>
+            </div>
+          </div>
+
+          <div>
+            <p class="text-xs uppercase tracking-wider text-slate-500 mb-2">Wins</p>
+            <ul class="grid sm:grid-cols-2 gap-x-8 gap-y-1 text-sm text-slate-700 list-disc list-inside">
+              <li>official and exploratory stay comparable</li>
+              <li>notebook shrinks to a call</li>
+              <li>locality: tuning bugs concentrate</li>
+              <li>one figure style, two figures</li>
+              <li>deletion test: concentrates</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- ---------- C5 : registry ---------- -->
+        <article id="c5" class="space-y-5 border-t border-slate-200 pt-14">
+          <div class="flex items-start justify-between gap-4 flex-wrap">
+            <h2 class="font-serif text-2xl">5 · One variable registry, one transform</h2>
+            <div class="flex gap-2 shrink-0">
+              <span class="px-2.5 py-1 rounded text-xs font-semibold uppercase tracking-wide bg-emerald-100 text-emerald-900">Strong</span>
+              <span class="px-2.5 py-1 rounded text-xs font-mono bg-slate-200 text-slate-700">in-process</span>
+            </div>
+          </div>
+
+          <ul class="font-mono text-sm text-slate-600 space-y-0.5">
+            <li>modelling/cv_lib.py<span class="text-slate-400">:31–32</span></li>
+            <li>modelling/make_descriptive_stats.py<span class="text-slate-400">:26–28, 63–66</span> — <span class="font-sans text-slate-500">duplicate registry + own transform</span></li>
+            <li>modelling/00_data_preprocessing.ipynb <span class="text-slate-400">cell 2</span> — <span class="font-sans text-slate-500">third declaration</span></li>
+          </ul>
+
+          <div class="grid md:grid-cols-2 gap-5">
+            <div class="rounded-lg border border-slate-200 bg-white p-4">
+              <p class="text-xs uppercase tracking-wider text-slate-500 mb-3">Before — two paths from one dataset</p>
+              <pre class="mermaid">
+flowchart TD
+  D[("df_merged")] --> P1["cv_lib\nfit_target_transform\nfit_covariate_transform"]
+  D --> P2["make_descriptive_stats\nnp.diff(np.log(...))"]
+  P1 --> M["model fits\nStage A / B"]
+  P2 --> T["Tabel 4.1"]
+  M -.->|"must agree"| T
+  classDef leak stroke:#dc2626,stroke-width:2px,fill:#fef2f2;
+  class P2 leak
+              </pre>
+            </div>
+            <div class="rounded-lg border-2 border-slate-900 bg-white p-4">
+              <p class="text-xs uppercase tracking-wider text-slate-500 mb-3">After — one transform, two consumers</p>
+              <pre class="mermaid">
+flowchart TD
+  D[("df_merged")] --> P1["cv_lib\nregistry + transform"]
+  P1 --> M["model fits\nStage A / B"]
+  P1 --> T["Tabel 4.1"]
+  classDef deep fill:#0f172a,color:#fff,stroke:#0f172a,stroke-width:3px;
+  class P1 deep
+              </pre>
+            </div>
+          </div>
+
+          <div class="rounded border-l-4 border-amber-400 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+            This drift already fired. Commit <span class="font-mono text-xs">44247c9</span> reconciled <span class="font-mono text-xs">descriptive_stats_transformed.csv</span> by hand after the two paths disagreed on <span class="font-mono text-xs">N</span> and on whether <span class="font-mono text-xs">US_Treasury_10Y</span> existed. The <span class="font-mono text-xs">cv_lib</span> docstring already names the risk — "verbatim from 00_data_preprocessing" — without removing it.
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <p class="text-xs uppercase tracking-wider text-slate-500">Problem</p>
+              <p class="mt-1 text-slate-800">The variable registry is declared three times and the descriptive statistics come from a second implementation of the transform, so Table 4.1 describes data the pipeline never fits on.</p>
+            </div>
+            <div>
+              <p class="text-xs uppercase tracking-wider text-slate-500">Solution</p>
+              <p class="mt-1 text-slate-800">The descriptive-statistics run imports the registry and the transform from <span class="font-mono text-sm">cv_lib</span> instead of restating both.</p>
+            </div>
+          </div>
+
+          <div>
+            <p class="text-xs uppercase tracking-wider text-slate-500 mb-2">Wins</p>
+            <ul class="grid sm:grid-cols-2 gap-x-8 gap-y-1 text-sm text-slate-700 list-disc list-inside">
+              <li>category drift becomes impossible</li>
+              <li>one transform, two consumers</li>
+              <li>locality: Table 4.1 tracks the fit</li>
+              <li>manual reconciliation stops recurring</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- ---------- C6 : tests ---------- -->
+        <article id="c6" class="space-y-5 border-t border-slate-200 pt-14">
+          <div class="flex items-start justify-between gap-4 flex-wrap">
+            <h2 class="font-serif text-2xl">6 · Give the leakage guards a test surface</h2>
+            <div class="flex gap-2 shrink-0">
+              <span class="px-2.5 py-1 rounded text-xs font-semibold uppercase tracking-wide bg-amber-100 text-amber-900">Worth exploring</span>
+              <span class="px-2.5 py-1 rounded text-xs font-mono bg-slate-200 text-slate-700">local-substitutable</span>
+            </div>
+          </div>
+
+          <ul class="font-mono text-sm text-slate-600 space-y-0.5">
+            <li>modelling/cv_lib.py<span class="text-slate-400">:500–518</span> — <span class="font-sans text-slate-500">only self-check in the repo</span></li>
+            <li class="text-slate-500">no test module anywhere in the tree</li>
+          </ul>
+
+          <div class="grid md:grid-cols-2 gap-5">
+            <div class="rounded-lg border border-slate-200 bg-white p-4">
+              <p class="text-xs uppercase tracking-wider text-slate-500 mb-4">Before — one guard checked, five unchecked</p>
+              <div class="space-y-2">
+                <div class="flex items-center gap-3"><div class="w-28 text-[10px] uppercase tracking-wider text-slate-500 text-right">fold math</div><div class="h-7 bg-emerald-500 rounded" style="width:22%"></div><span class="text-[10px] text-emerald-700">checked</span></div>
+                <div class="flex items-center gap-3"><div class="w-28 text-[10px] uppercase tracking-wider text-slate-500 text-right">embargo gap</div><div class="h-7 hatch border border-red-300 rounded" style="width:52%"></div><span class="text-[10px] text-red-700">grid only</span></div>
+                <div class="flex items-center gap-3"><div class="w-28 text-[10px] uppercase tracking-wider text-slate-500 text-right">train-only fit</div><div class="h-7 hatch border border-red-300 rounded" style="width:64%"></div><span class="text-[10px] text-red-700">grid only</span></div>
+                <div class="flex items-center gap-3"><div class="w-28 text-[10px] uppercase tracking-wider text-slate-500 text-right">nested isolation</div><div class="h-7 hatch border border-red-300 rounded" style="width:58%"></div><span class="text-[10px] text-red-700">grid only</span></div>
+                <div class="flex items-center gap-3"><div class="w-28 text-[10px] uppercase tracking-wider text-slate-500 text-right">metrics</div><div class="h-7 hatch border border-red-300 rounded" style="width:70%"></div><span class="text-[10px] text-red-700">never</span></div>
+                <div class="flex items-center gap-3"><div class="w-28 text-[10px] uppercase tracking-wider text-slate-500 text-right">inverse transform</div><div class="h-7 hatch border border-red-300 rounded" style="width:66%"></div><span class="text-[10px] text-red-700">never</span></div>
+              </div>
+              <p class="mt-4 text-[11px] text-slate-500">The guards fire as inline asserts inside a 45-minute grid run — or not at all.</p>
+            </div>
+            <div class="rounded-lg border-2 border-slate-900 bg-white p-4">
+              <p class="text-xs uppercase tracking-wider text-slate-500 mb-4">After — every guard runs in seconds</p>
+              <div class="space-y-2">
+                <div class="flex items-center gap-3"><div class="w-28 text-[10px] uppercase tracking-wider text-slate-500 text-right">fold math</div><div class="h-7 bg-emerald-500 rounded" style="width:22%"></div></div>
+                <div class="flex items-center gap-3"><div class="w-28 text-[10px] uppercase tracking-wider text-slate-500 text-right">embargo gap</div><div class="h-7 bg-emerald-500 rounded" style="width:52%"></div></div>
+                <div class="flex items-center gap-3"><div class="w-28 text-[10px] uppercase tracking-wider text-slate-500 text-right">train-only fit</div><div class="h-7 bg-emerald-500 rounded" style="width:64%"></div></div>
+                <div class="flex items-center gap-3"><div class="w-28 text-[10px] uppercase tracking-wider text-slate-500 text-right">nested isolation</div><div class="h-7 bg-emerald-500 rounded" style="width:58%"></div></div>
+                <div class="flex items-center gap-3"><div class="w-28 text-[10px] uppercase tracking-wider text-slate-500 text-right">metrics</div><div class="h-7 bg-emerald-500 rounded" style="width:70%"></div></div>
+                <div class="flex items-center gap-3"><div class="w-28 text-[10px] uppercase tracking-wider text-slate-500 text-right">inverse transform</div><div class="h-7 bg-emerald-500 rounded" style="width:66%"></div></div>
+              </div>
+              <p class="mt-4 text-[11px] text-slate-500">Synthetic series stand in for <span class="font-mono">df_merged</span> — the seam is already parameterized by index, so no darts fit is needed.</p>
+            </div>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <p class="text-xs uppercase tracking-wider text-slate-500">Problem</p>
+              <p class="mt-1 text-slate-800">The leakage guards that justify the entire methodology revision are asserted inside the grid run, so a regression surfaces 45 minutes in — or after the numbers are already in the document.</p>
+            </div>
+            <div>
+              <p class="text-xs uppercase tracking-wider text-slate-500">Solution</p>
+              <p class="mt-1 text-slate-800">A test module drives <span class="font-mono text-sm">expanding_window_folds</span>, <span class="font-mono text-sm">fit_target_transform</span>, and <span class="font-mono text-sm">make_inner_cv_objective</span> over short synthetic series.</p>
+            </div>
+          </div>
+
+          <div>
+            <p class="text-xs uppercase tracking-wider text-slate-500 mb-2">Wins</p>
+            <ul class="grid sm:grid-cols-2 gap-x-8 gap-y-1 text-sm text-slate-700 list-disc list-inside">
+              <li>leakage guards run in seconds</li>
+              <li>interface is the test surface</li>
+              <li>regressions caught before the grid</li>
+              <li>defensible to the examiners</li>
+            </ul>
+          </div>
+        </article>
+
+        <!-- ---------- C7 : revisions ---------- -->
+        <article id="c7" class="space-y-5 border-t border-slate-200 pt-14">
+          <div class="flex items-start justify-between gap-4 flex-wrap">
+            <h2 class="font-serif text-2xl">7 · Replayable revisions instead of a chain of binaries</h2>
+            <div class="flex gap-2 shrink-0">
+              <span class="px-2.5 py-1 rounded text-xs font-semibold uppercase tracking-wide bg-slate-200 text-slate-700">Speculative</span>
+              <span class="px-2.5 py-1 rounded text-xs font-mono bg-slate-200 text-slate-700">ports &amp; adapters</span>
+            </div>
+          </div>
+
+          <ul class="font-mono text-sm text-slate-600 space-y-0.5">
+            <li>draft/revise_final_no_gdp_benchmark_shap.py · revise_v3_mape_benchmark_rf.py</li>
+            <li>draft/sisipkan_gambar_bab2.py · perbarui_daftar_pustaka.py</li>
+            <li class="text-slate-500">+ 13 <span class="font-mono">final-draft-tesis-*.docx</span> snapshots</li>
+          </ul>
+
+          <div class="rounded-lg border border-slate-200 bg-white p-4">
+            <p class="text-xs uppercase tracking-wider text-slate-500 mb-3">Before / After</p>
+            <pre class="mermaid">
+flowchart LR
+  subgraph BEFORE
+    direction LR
+    A1["final.docx"] -->|"script v2\nstring replace"| A2["v2.docx"]
+    A2 -->|"script v3\nstring replace"| A3["v3.docx"]
+    A3 --> A4[("13 backups")]
+  end
+  subgraph AFTER
+    direction LR
+    B1["base.docx"] --> B2["revisions\nordered edits"]
+    B2 --> B3["current.docx"]
+  end
+  classDef leak stroke:#dc2626,stroke-width:2px,fill:#fef2f2;
+  class A2,A3,A4 leak
+  classDef deep fill:#0f172a,color:#fff,stroke:#0f172a,stroke-width:3px;
+  class B2 deep
+            </pre>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-6">
+            <div>
+              <p class="text-xs uppercase tracking-wider text-slate-500">Problem</p>
+              <p class="mt-1 text-slate-800">Each revision is a one-shot script that string-replaces into the previous <span class="font-mono text-sm">.docx</span>, so the thesis state lives in a chain of binaries no one can diff and no script can safely re-run.</p>
+            </div>
+            <div>
+              <p class="text-xs uppercase tracking-wider text-slate-500">Solution</p>
+              <p class="mt-1 text-slate-800">Express each revision as an ordered list of edits replayed from one base document.</p>
+            </div>
+          </div>
+
+          <div>
+            <p class="text-xs uppercase tracking-wider text-slate-500 mb-2">Wins</p>
+            <ul class="grid sm:grid-cols-2 gap-x-8 gap-y-1 text-sm text-slate-700 list-disc list-inside">
+              <li>revisions become reviewable</li>
+              <li>re-running is idempotent</li>
+              <li>backups stop multiplying</li>
+            </ul>
+          </div>
+
+          <div class="rounded border-l-4 border-slate-300 bg-slate-100 px-4 py-3 text-sm text-slate-700">
+            Speculative because the thesis may be finished before the payoff lands. Worth it only if another revision round is coming.
+          </div>
+        </article>
+
+      </section>
+
+      <!-- ================= TOP RECOMMENDATION ================= -->
+      <section id="top-recommendation" class="border-t-2 border-slate-900 pt-8">
+        <p class="text-xs uppercase tracking-widest text-slate-500">Top recommendation</p>
+        <div class="mt-4 deep rounded-xl p-8 text-white">
+          <h2 class="font-serif text-3xl">Deepen SHAP into one explainer module</h2>
+          <p class="mt-4 text-slate-300 max-w-3xl leading-relaxed">
+            Candidate&nbsp;1 is the only one where the current architecture can make the thesis <em>wrong</em> rather than merely stale. Three implementations rebuild the fitted model's feature order and two of them assume an ordering the third documents as incorrect — and the SHAP chapter is exactly what the committee asked to be strengthened. Settle the feature order behind one interface first, then take candidate&nbsp;2 for the retyped numbers.
+          </p>
+          <a href="#c1" class="inline-block mt-6 px-4 py-2 rounded bg-white text-slate-900 text-sm font-semibold">Go to candidate 1 →</a>
+        </div>
+      </section>
+
+    </main>
+  </body>
+</html>
